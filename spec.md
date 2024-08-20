@@ -194,11 +194,11 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 
 ### DID
 
-[DTS-DID] A DTS MUST be identified by a [[:ref DID]]. The [[:ref DID]] of a DTS MUST resolve to a [[ref: DID Document]].
+[DTS-DID] A [[ref: DTS]] MUST be identified by a [[:ref DID]]. The [[:ref DID]] of a [[ref: DTS]] MUST resolve to a [[ref: DID Document]].
 
 ### DID Document
 
-[DTS-DID-DOC] A DTS DID Document MUST contain a [[ref: linked verifiable presentation]] of a [[ref: DTS credential]]. Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] plus `#ptr-dts`. Service endpoint MUST be an URL that resolve to a DTS credential which subject is the [[ref: DID]] of the DTS. All attributes of the DTS credential MUST be presented.
+[DTS-DID-DOC] A [[ref: DTS]] DID Document MUST contain a [[ref: linked verifiable presentation]] of a [[ref: DTS credential]]. Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] plus `#ptr-dts`. Service endpoint MUST be an URL that resolve to a DTS credential which subject is the [[ref: DID]] of the DTS. All attributes of the DTS credential MUST be presented.
 
 Example:
 
@@ -207,7 +207,7 @@ Example:
     {
       "id": "did:example:123#ptr-dts",
       "type": "LinkedVerifiablePresentation",
-      "serviceEndpoint": ["https://bar.example.com/verifiable-presentation.jsonld"]
+      "serviceEndpoint": ["https://bar.example.com/dts-presentation.json"]
     }
   ]
 ```
@@ -228,9 +228,30 @@ Example:
 Define if logo must be a URL or an embedded picture. I'm more into an embedded picture. Let's discuss it
 :::
 
-[DTS-DTS-CRED-2] The DTS credential [[ref:issuer]] of the [[ref: verifiable credential]] MUST be a [[ref:DID]] that resolves to a [[ref: DTS]]. Issuer can be the same [[ref: DTS]] [[ref:DID]].
+[DTS-DTS-CRED-2] The DTS credential [[ref:issuer]] of the [[ref: verifiable credential]] MUST be a [[ref:DID]] that resolves to a [[ref: DTS]]. Issuer CAN be the same [[ref: DTS]] [[ref:DID]].
 
 [DTS-DTS-CRED-3] DTS Credential MUST include a reference to a DTS Credential Schema and the DTS Credential Schema must be located in a [[ref: trust registry]]. Schema MUST be defined as an official [[ref: essential credential schema] of the [[ref: trust registry]].
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "https://bar.example.com/dts-presentation.json",
+  "type": ["VerifiableCredential"],
+  "issuer": "did:foobar:456",
+  "credentialSubject": {
+    "id": "did:example:123",
+    ...
+  },
+  ...
+  "credentialSchema": [{
+    "id": "https://example.ptr/cs/get/d84c02d5-7013-459a-8d02-09bf8e9a83bd",
+    "type": "JsonSchema"
+  }]
+}
+```
 
 :::note Note
 Browsers or DTSs that connect to DTSs are responsible for defining their whitelist of [[ref:trust registries]] and [[ref: public trust registries]].
@@ -297,7 +318,7 @@ In the future, we could add an avatar credential, so that a social channel DTS p
 
 [DTS-PERSON-CRED-3] DID Document resolved from the [[ref:DID]] of the person credential issuer must include a trust registry service entry that points to a [[ref: public trust registry]] and proves issuer was allowed to issue this credential.
 
-### Pre Connection Trust Resolution
+### DTS Trust Resolution
 
 The trust resolution is a mechanism that verifies a [[ref: DID]] is resolvable, and complies with the Decentralized Trust Service Specification.
 
@@ -342,6 +363,8 @@ To perform a [[ref: trust resolution]] of `did:example:123`, entity MUST perform
 - resolve the [[ref: DID]] of the DTS credential issuer, let's call it `did:dtscred-issuer:456`. In the "service" section look for a service of type `LinkedVerifiablePresentation` entry with id `did:dtscred-issuer456#ptr-org` or `did:dtscred-issuer:456#ptr-person`, and use the service endpoint to get the credential.
 - look for a credential schema entry, and call the endpoint to get the credential schema. Verify it is an essential schema in a trusted public trust registry.
 - resolve the [[ref: DID]] of the the Organization or Person credential issuer, let's call it `did:idcred-issuer:789`. In the "service" section look for a service of type `TrustRegistry` entry with id `did:dtscred-issuer:789#ptr-org` or `did:dtscred-issuer:789#ptr-person`, and use the service endpoint to verify issuer was allowed to issue the credential at the time it was issued.
+
+Trust resolution MUST complete successfully for a service to be referenced as a [[ref: DTS]].
 
 ### Presentation Request Trust Resolution
 

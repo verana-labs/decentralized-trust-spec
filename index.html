@@ -181,15 +181,15 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 </dl>
 <h2 id="specification"><a class="toc-anchor" href="#specification" >§</a> Specification</h2>
 <h3 id="did"><a class="toc-anchor" href="#did" >§</a> DID</h3>
-<p>[DTS-DID] A DTS MUST be identified by a <a class="term-reference" href="#term:did">DID</a>. The <a class="term-reference" href="#term:did">DID</a> of a DTS MUST resolve to a <a class="term-reference" href="#term:did-document">DID Document</a>.</p>
+<p>[DTS-DID] A <a class="term-reference" href="#term:dts">DTS</a> MUST be identified by a <a class="term-reference" href="#term:did">DID</a>. The <a class="term-reference" href="#term:did">DID</a> of a <a class="term-reference" href="#term:dts">DTS</a> MUST resolve to a <a class="term-reference" href="#term:did-document">DID Document</a>.</p>
 <h3 id="did-document"><a class="toc-anchor" href="#did-document" >§</a> DID Document</h3>
-<p>[DTS-DID-DOC] A DTS DID Document MUST contain a <a class="term-reference" href="#term:linked-verifiable-presentation">linked verifiable presentation</a> of a <a class="term-reference" href="#term:dts-credential">DTS credential</a>. Service name MUST be “LinkedVerifiablePresentation”, and service id MUST be the concatenation of the <a class="term-reference" href="#term:did">DID</a> plus <code>#ptr-dts</code>. Service endpoint MUST be an URL that resolve to a DTS credential which subject is the <a class="term-reference" href="#term:did">DID</a> of the DTS. All attributes of the DTS credential MUST be presented.</p>
+<p>[DTS-DID-DOC] A <a class="term-reference" href="#term:dts">DTS</a> DID Document MUST contain a <a class="term-reference" href="#term:linked-verifiable-presentation">linked verifiable presentation</a> of a <a class="term-reference" href="#term:dts-credential">DTS credential</a>. Service name MUST be “LinkedVerifiablePresentation”, and service id MUST be the concatenation of the <a class="term-reference" href="#term:did">DID</a> plus <code>#ptr-dts</code>. Service endpoint MUST be an URL that resolve to a DTS credential which subject is the <a class="term-reference" href="#term:did">DID</a> of the DTS. All attributes of the DTS credential MUST be presented.</p>
 <p>Example:</p>
 <pre class="language-json"><code class="language-json"><span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123#ptr-dts"</span><span class="token punctuation">,</span>
       <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"LinkedVerifiablePresentation"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://bar.example.com/verifiable-presentation.jsonld"</span><span class="token punctuation">]</span>
+      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://bar.example.com/dts-presentation.json"</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span>
 </code></pre>
@@ -206,8 +206,27 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 </ul>
 <div id="todo" class="notice todo"><a class="notice-link" href="#todo">TODO</a><p>Define if logo must be a URL or an embedded picture. I’m more into an embedded picture. Let’s discuss it</p>
 </div>
-<p>[DTS-DTS-CRED-2] The DTS credential <a class="term-reference" href="#term:issuer">issuer</a> of the <a class="term-reference" href="#term:verifiable-credential">verifiable credential</a> MUST be a <a class="term-reference" href="#term:did">DID</a> that resolves to a <a class="term-reference" href="#term:dts">DTS</a>. Issuer can be the same <a class="term-reference" href="#term:dts">DTS</a> <a class="term-reference" href="#term:did">DID</a>.</p>
+<p>[DTS-DTS-CRED-2] The DTS credential <a class="term-reference" href="#term:issuer">issuer</a> of the <a class="term-reference" href="#term:verifiable-credential">verifiable credential</a> MUST be a <a class="term-reference" href="#term:did">DID</a> that resolves to a <a class="term-reference" href="#term:dts">DTS</a>. Issuer CAN be the same <a class="term-reference" href="#term:dts">DTS</a> <a class="term-reference" href="#term:did">DID</a>.</p>
 <p>[DTS-DTS-CRED-3] DTS Credential MUST include a reference to a DTS Credential Schema and the DTS Credential Schema must be located in a <a class="term-reference" href="#term:trust-registry">trust registry</a>. Schema MUST be defined as an official <a class="term-reference" href="#term:essential-credential-schema">essential credential schema</a>.</p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">"https://www.w3.org/ns/credentials/v2"</span><span class="token punctuation">,</span>
+    <span class="token string">"https://www.w3.org/ns/credentials/examples/v2"</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://bar.example.com/dts-presentation.json"</span><span class="token punctuation">,</span>
+  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:foobar:456"</span><span class="token punctuation">,</span>
+  <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123"</span><span class="token punctuation">,</span>
+    ...
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  ...
+  <span class="token property">"credentialSchema"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example.ptr/cs/get/d84c02d5-7013-459a-8d02-09bf8e9a83bd"</span><span class="token punctuation">,</span>
+    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <div id="note" class="notice note"><a class="notice-link" href="#note">NOTE</a><p>Browsers or DTSs that connect to DTSs are responsible for defining their whitelist of <a class="term-reference" href="#term:trust-registries">trust registries</a> and <a class="term-reference" href="#term:public-trust-registries">public trust registries</a>.</p>
 </div>
 <h3 id="dts-credential-issuer"><a class="toc-anchor" href="#dts-credential-issuer" >§</a> DTS Credential Issuer</h3>
@@ -253,7 +272,7 @@ Define if more attributes are needed here</p>
 </div>
 <p>[DTS-PERSON-CRED-2] Person Credential issuer MUST include a reference to an Person Credential Schema and the Person Credential Schema must be located in a <a class="term-reference" href="#term:public-trust-registry">public trust registry</a>. Schema MUST be defined as an official <a class="term-reference" href="#term:essential-credential-schema">essential credential schema</a>.</p>
 <p>[DTS-PERSON-CRED-3] DID Document resolved from the <a class="term-reference" href="#term:did">DID</a> of the person credential issuer must include a trust registry service entry that points to a <a class="term-reference" href="#term:public-trust-registry">public trust registry</a> and proves issuer was allowed to issue this credential.</p>
-<h3 id="pre-connection-trust-resolution"><a class="toc-anchor" href="#pre-connection-trust-resolution" >§</a> Pre Connection Trust Resolution</h3>
+<h3 id="dts-trust-resolution"><a class="toc-anchor" href="#dts-trust-resolution" >§</a> DTS Trust Resolution</h3>
 <p>The trust resolution is a mechanism that verifies a <a class="term-reference" href="#term:did">DID</a> is resolvable, and complies with the Decentralized Trust Service Specification.</p>
 <p>Before attempting to connect to any service endpoint provided present in the DID Document, an entity MUST perform a trust resolution and the trust resolution SHOULD be successful.</p>
 <p>This does not apply for services of type “LinkedVerifiablePresentation” or “TrustRegistry”, as they are precisely needed for trust resolution so they CAN be consumed before establishing trust.</p>
@@ -293,6 +312,7 @@ Define if more attributes are needed here</p>
 <li>look for a credential schema entry, and call the endpoint to get the credential schema. Verify it is an essential schema in a trusted public trust registry.</li>
 <li>resolve the <a class="term-reference" href="#term:did">DID</a> of the the Organization or Person credential issuer, let’s call it <code>did:idcred-issuer:789</code>. In the “service” section look for a service of type <code>TrustRegistry</code> entry with id <code>did:dtscred-issuer:789#ptr-org</code> or <code>did:dtscred-issuer:789#ptr-person</code>, and use the service endpoint to verify issuer was allowed to issue the credential at the time it was issued.</li>
 </ul>
+<p>Trust resolution MUST complete successfully for a service to be referenced as a <a class="term-reference" href="#term:dts">DTS</a>.</p>
 <h3 id="presentation-request-trust-resolution"><a class="toc-anchor" href="#presentation-request-trust-resolution" >§</a> Presentation Request Trust Resolution</h3>
 <p>When a presentation request is received within an established DIDComm connection with a DTS, or when connecting to a received out-of-band presentation request, entity MUST:</p>
 <ul>
@@ -353,7 +373,7 @@ Define if more attributes are needed here</p>
 <li><a href="#dts-credential-issuer" >DTS Credential Issuer</a></li>
 <li><a href="#organization-credential" >Organization Credential</a></li>
 <li><a href="#person-credential" >Person Credential</a></li>
-<li><a href="#pre-connection-trust-resolution" >Pre Connection Trust Resolution</a></li>
+<li><a href="#dts-trust-resolution" >DTS Trust Resolution</a></li>
 <li><a href="#presentation-request-trust-resolution" >Presentation Request Trust Resolution</a></li>
 <li><a href="#crawlers" >Crawlers</a></li>
 <li><a href="#browser-display-of-trust-resolution" >Browser Display of Trust Resolution</a>

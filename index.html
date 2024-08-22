@@ -183,7 +183,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <h3 id="did"><a class="toc-anchor" href="#did" >§</a> DID</h3>
 <p>[DTS-DID] A <a class="term-reference" href="#term:dts">DTS</a> MUST be identified by a <a class="term-reference" href="#term:did">DID</a>. The <a class="term-reference" href="#term:did">DID</a> of a <a class="term-reference" href="#term:dts">DTS</a> MUST resolve to a <a class="term-reference" href="#term:did-document">DID Document</a>.</p>
 <h3 id="did-document"><a class="toc-anchor" href="#did-document" >§</a> DID Document</h3>
-<p>[DTS-DID-DOC] A <a class="term-reference" href="#term:dts">DTS</a> DID Document MUST contain a <a class="term-reference" href="#term:linked-verifiable-presentation">linked verifiable presentation</a> of a <a class="term-reference" href="#term:dts-credential">DTS credential</a>. Service name MUST be “LinkedVerifiablePresentation”, and service id MUST be the concatenation of the <a class="term-reference" href="#term:did">DID</a> plus <code>#ptr-dts</code>. Service endpoint MUST be an URL that resolve to a DTS credential which subject is the <a class="term-reference" href="#term:did">DID</a> of the DTS. All attributes of the DTS credential MUST be presented.</p>
+<p>[DTS-DID-DOC] A <a class="term-reference" href="#term:dts">DTS</a> DID Document MUST contain a <a class="term-reference" href="#term:linked-verifiable-presentation">linked verifiable presentation</a> of a <a class="term-reference" href="#term:dts-credential">DTS credential</a>. Service name MUST be “LinkedVerifiablePresentation”, and service id MUST be the concatenation of the <a class="term-reference" href="#term:did">DID</a> plus <code>#ptr-dts</code>. Service endpoint MUST be an URL that resolve to a DTS credential which subject attribute <code>did</code> is the <a class="term-reference" href="#term:did">DID</a> of the DTS. All attributes of the DTS credential MUST be presented.</p>
 <p>Example:</p>
 <pre class="language-json"><code class="language-json"><span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
@@ -200,14 +200,16 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li><code>service_name</code> (string) (<em>mandatory</em>): DTS name. UTF8 charset, max length: 512 bytes.</li>
 <li><code>service_description</code> (string) (<em>mandatory</em>): DTS description. UTF8 charset, max length: 2048 bytes.</li>
 <li><code>service_logo</code> (image) (<em>mandatory</em>): the logo of the DTS, as it will be shown in browsers and search engines.</li>
-<li><code>minimum_age_required</code> (integer) (<em>mandatory</em>): minimum required age to connect to service. Allowed value: 0 to 255. Used by browsers that provide a simple birthdate based parental control.</li>
-<li><code>terms_and_conditions</code> (string) (<em>mandatory</em>): URL of the terms and conditions of the DTS. It is recommended to store terms and conditions in a file repository that allows file hash verification (IPFS).</li>
+<li><code>minimum_age_required</code> (integer) (<em>mandatory</em>): minimum required age to connect to service. Allowed value: 0 to 255. Used by browsers that provide a simple birth date based parental control.</li>
+<li><code>terms_and_conditions</code> (string) (<em>mandatory</em>): URL of the terms and conditions of the DTS. It is recommended to store terms and conditions in a file, in a repository that allows file hash verification (IPFS).</li>
+<li><code>terms_and_conditions_hash</code> (string) (<em>optional</em>): If terms and conditions of the DTS are stored in a file, optional hash of the file for data integrity verification.</li>
 <li><code>privacy_policy</code> (string) (<em>mandatory</em>): URL of the terms and conditions of the DTS. MAY be the same URL that <code>terms_and_conditions</code> if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).</li>
+<li><code>privacy_policy_hash</code> (string) (<em>optional</em>): If privacy policy of the DTS are stored in a file, optional hash of the file for data integrity verification.</li>
 </ul>
-<div id="todo" class="notice todo"><a class="notice-link" href="#todo">TODO</a><p>Define if logo must be a URL or an embedded picture. I’m more into an embedded picture. Let’s discuss it</p>
+<div id="todo" class="notice todo"><a class="notice-link" href="#todo">TODO</a><p>Define if logo must be a URL or an embedded picture. I’m more into an embedded picture. Let’s discuss it!</p>
 </div>
 <p>[DTS-DTS-CRED-2] The DTS credential <a class="term-reference" href="#term:issuer">issuer</a> of the <a class="term-reference" href="#term:verifiable-credential">verifiable credential</a> MUST be a <a class="term-reference" href="#term:did">DID</a> that resolves to a <a class="term-reference" href="#term:dts">DTS</a>. Issuer CAN be the same <a class="term-reference" href="#term:dts">DTS</a> <a class="term-reference" href="#term:did">DID</a>.</p>
-<p>[DTS-DTS-CRED-3] DTS Credential MUST include a reference to a DTS Credential Schema and the DTS Credential Schema must be located in a <a class="term-reference" href="#term:trust-registry">trust registry</a>. Schema MUST be defined as an official <a class="term-reference" href="#term:essential-credential-schema">essential credential schema</a>.</p>
+<p>[DTS-DTS-CRED-3] DTS Credential MUST include a reference to a DTS Credential Schema and the DTS Credential Schema must be located in a <a class="term-reference" href="#term:verifiable-data-registry">verifiable data registry</a>. Schema MUST be defined as an official <a class="term-reference" href="#term:essential-credential-schema">essential credential schema</a>.</p>
 <pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token string">"https://www.w3.org/ns/credentials/v2"</span><span class="token punctuation">,</span>
@@ -223,7 +225,8 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
   ...
   <span class="token property">"credentialSchema"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example.ptr/cs/get/d84c02d5-7013-459a-8d02-09bf8e9a83bd"</span><span class="token punctuation">,</span>
-    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span>
+    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span><span class="token punctuation">,</span>
+    <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>
   <span class="token punctuation">}</span><span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -231,7 +234,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 </div>
 <h3 id="dts-credential-issuer"><a class="toc-anchor" href="#dts-credential-issuer" >§</a> DTS Credential Issuer</h3>
 <p>[DTS-DTS-CRED-ISSUER-1] The <a class="term-reference" href="#term:dts">DTS</a> of a DTS Credential Issuer MUST contain a <a class="term-reference" href="#term:linked-verifiable-presentation">linked verifiable presentation</a> of an <a class="term-reference" href="#term:organization-credential">organization credential</a> or a <a class="term-reference" href="#term:person-credential">person credential</a>.</p>
-<p>Service name MUST be “LinkedVerifiablePresentation”, and service id MUST be the concatenation of the <a class="term-reference" href="#term:did">DID</a> plus <code>#ptr-org</code> or <code>#ptr-person</code>. Service endpoint MUST be an URL that resolve to an Organization or Person credential which subject is the <a class="term-reference" href="#term:did">DID</a> of the DTS. If the linked presentation is an <a class="term-reference" href="#term:organization-credential">organization credential</a>, all attributes MUST be presented. If it is a <a class="term-reference" href="#term:person-credential">person credential</a>, only the <code>person_name</code> and <code>country_code_of_residence</code> MUST be present.</p>
+<p>Service name MUST be “LinkedVerifiablePresentation”, and service id MUST be the concatenation of the <a class="term-reference" href="#term:did">DID</a> plus <code>#ptr-org</code> or <code>#ptr-person</code>. Service endpoint MUST be an URL that resolve to an Organization or Person credential which subject attribute <code>did</code> is the <a class="term-reference" href="#term:did">DID</a> of the DTS. If the linked presentation is an <a class="term-reference" href="#term:organization-credential">organization credential</a>, all attributes MUST be presented. If it is a <a class="term-reference" href="#term:person-credential">person credential</a>, only the <code>person_name</code> and <code>country_code_of_residence</code> MUST be present.</p>
 <p>Example:</p>
 <pre class="language-json"><code class="language-json"><span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
@@ -299,9 +302,9 @@ Define if more attributes are needed here</p>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123#dts"</span><span class="token punctuation">,</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123#ptr-dts"</span><span class="token punctuation">,</span>
       <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"LinkedVerifiablePresentation"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://bar.example.com/verifiable-presentation.jsonld"</span><span class="token punctuation">]</span>
+      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://bar.example.com/dts-presentation.json"</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span>
 <span class="token punctuation">}</span>

@@ -198,7 +198,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 
 ### DID Document
 
-[DTS-DID-DOC] A [[ref: DTS]] DID Document MUST contain a [[ref: linked verifiable presentation]] of a [[ref: DTS credential]]. Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] plus `#ptr-dts`. Service endpoint MUST be an URL that resolve to a DTS credential which subject is the [[ref: DID]] of the DTS. All attributes of the DTS credential MUST be presented.
+[DTS-DID-DOC] A [[ref: DTS]] DID Document MUST contain a [[ref: linked verifiable presentation]] of a [[ref: DTS credential]]. Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] plus `#ptr-dts`. Service endpoint MUST be an URL that resolve to a DTS credential which subject attribute `did` is the [[ref: DID]] of the DTS. All attributes of the DTS credential MUST be presented.
 
 Example:
 
@@ -220,17 +220,19 @@ Example:
 - `service_name` (string) (*mandatory*): DTS name. UTF8 charset, max length: 512 bytes.
 - `service_description` (string) (*mandatory*): DTS description. UTF8 charset, max length: 2048 bytes.
 - `service_logo` (image) (*mandatory*): the logo of the DTS, as it will be shown in browsers and search engines.
-- `minimum_age_required` (integer) (*mandatory*): minimum required age to connect to service. Allowed value: 0 to 255. Used by browsers that provide a simple birthdate based parental control.
-- `terms_and_conditions` (string) (*mandatory*): URL of the terms and conditions of the DTS. It is recommended to store terms and conditions in a file repository that allows file hash verification (IPFS).
+- `minimum_age_required` (integer) (*mandatory*): minimum required age to connect to service. Allowed value: 0 to 255. Used by browsers that provide a simple birth date based parental control.
+- `terms_and_conditions` (string) (*mandatory*): URL of the terms and conditions of the DTS. It is recommended to store terms and conditions in a file, in a repository that allows file hash verification (IPFS).
+- `terms_and_conditions_hash` (string) (*optional*): If terms and conditions of the DTS are stored in a file, optional hash of the file for data integrity verification.
 - `privacy_policy` (string) (*mandatory*): URL of the terms and conditions of the DTS. MAY be the same URL that `terms_and_conditions` if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).
+- `privacy_policy_hash` (string) (*optional*): If privacy policy of the DTS are stored in a file, optional hash of the file for data integrity verification.
 
 :::todo Todo
-Define if logo must be a URL or an embedded picture. I'm more into an embedded picture. Let's discuss it
+Define if logo must be a URL or an embedded picture. I'm more into an embedded picture. Let's discuss it!
 :::
 
 [DTS-DTS-CRED-2] The DTS credential [[ref:issuer]] of the [[ref: verifiable credential]] MUST be a [[ref:DID]] that resolves to a [[ref: DTS]]. Issuer CAN be the same [[ref: DTS]] [[ref:DID]].
 
-[DTS-DTS-CRED-3] DTS Credential MUST include a reference to a DTS Credential Schema and the DTS Credential Schema must be located in a [[ref: trust registry]]. Schema MUST be defined as an official [[ref: essential credential schema] of the [[ref: trust registry]].
+[DTS-DTS-CRED-3] DTS Credential MUST include a reference to a DTS Credential Schema and the DTS Credential Schema must be located in a [[ref: verifiable data registry]]. Schema MUST be defined as an official [[ref: essential credential schema] of the [[ref: trust registry]].
 
 ```json
 {
@@ -248,7 +250,8 @@ Define if logo must be a URL or an embedded picture. I'm more into an embedded p
   ...
   "credentialSchema": [{
     "id": "https://example.ptr/cs/get/d84c02d5-7013-459a-8d02-09bf8e9a83bd",
-    "type": "JsonSchema"
+    "type": "JsonSchema",
+    "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   }]
 }
 ```
@@ -261,7 +264,7 @@ Browsers or DTSs that connect to DTSs are responsible for defining their whiteli
 
 [DTS-DTS-CRED-ISSUER-1] The [[ref: DTS]] of a DTS Credential Issuer MUST contain a [[ref: linked verifiable presentation]] of an [[ref: organization credential]] or a [[ref: person credential]].
 
-Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] plus `#ptr-org` or `#ptr-person`. Service endpoint MUST be an URL that resolve to an Organization or Person credential which subject is the [[ref: DID]] of the DTS. If the linked presentation is an [[ref: organization credential]], all attributes MUST be presented. If it is a [[ref: person credential]], only the `person_name` and `country_code_of_residence` MUST be present.
+Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] plus `#ptr-org` or `#ptr-person`. Service endpoint MUST be an URL that resolve to an Organization or Person credential which subject attribute `did` is the [[ref: DID]] of the DTS. If the linked presentation is an [[ref: organization credential]], all attributes MUST be presented. If it is a [[ref: person credential]], only the `person_name` and `country_code_of_residence` MUST be present.
 
 Example:
 
@@ -351,9 +354,9 @@ To perform a [[ref: trust resolution]] of `did:example:123`, entity MUST perform
   ],
   "service": [
     {
-      "id": "did:example:123#dts",
+      "id": "did:example:123#ptr-dts",
       "type": "LinkedVerifiablePresentation",
-      "serviceEndpoint": ["https://bar.example.com/verifiable-presentation.jsonld"]
+      "serviceEndpoint": ["https://bar.example.com/dts-presentation.json"]
     }
   ]
 }

@@ -1,4 +1,4 @@
-# Decentralized Trust Service v1.0 Specification
+# Decentralized Trust v1.0 Specification
 
 **Specification Status:** [Pre-Draft](https://github.com/decentralized-identity/org/blob/master/work-item-lifecycle.md)
 
@@ -59,8 +59,6 @@ Communication channel is considered trustable in the following use cases:
 *This section is non-normative.*
 
 A [[ref: decentralized trust service]] is a service that provide a way to identify itself *before* connecting to it. Entities that want to connect to a [[ref: decentralized trust service]] can review its presented [[ref: verifiable credentials]], prove their legitimacy by performing a [[ref: trust resolution]], and based on the result, decide to connect or not.
-
-Additionally, a [[ref: decentralized trust service]] that would like to issue or request verification of credentials must prove it is allowed to do so.
 
 ### Conformance
 
@@ -197,76 +195,34 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 
 ## Specification
 
-
-
-
-
 ### DID
 
 [DTS-DID] A [[ref: DTS]] MUST be identified by a [[:ref DID]]. The [[:ref DID]] of a [[ref: DTS]] MUST resolve to a [[ref: DID Document]].
 
 ### DID Document
 
-The following entries MUST be present.
+[DTS-DID-DOC-1] A [[ref: DTS]] DID Document MUST contain a [[ref: linked verifiable presentation]] of an [[ref: essential credential schema]] DTS credential. Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#ptr-dts-credential`. Service endpoint MUST be an URL that resolve to a [[ref: DTS credential]] as specified in [DTS-DTS-CRED-1].
 
-[DTS-DID-DOC-1] A [[ref: DTS]] DID Document MUST contain a [[ref: linked verifiable presentation]] of an [[ref: essential credential schema]] DTS credential. Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#essential-schemas-dts-credential`. Service endpoint MUST be an URL that resolve to a presentation if a [[ref: DTS credential]] as specified in [DTS-DTS-CRED-1].
-
-[DTS-DID-DOC-2] Additionally, a [[ref: DTS]] DID Document MUST contain a [[ref: trust registry]] service entry. Service name MUST be "TrustRegistry", and service id MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#essential-schemas-trust-registry`. Service endpoint URL MUST be `https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/`, where URL `https://{$chain-rest-api}/` is one of the REST endpoints defined in [[ref: chain rest endpoints]], and `{$essential-schema-issuer}` is the [[ref: DID]] of the [[ref: trust registry]] owner of the [[ref: essential credential schemas]] in the trust registry.
+[DTS-DID-DOC-2] Additionally, a [[ref: DTS]] DID Document MUST contain a [[ref: trust registry]] service entry. Service name MUST be "TrustRegistry", and service id MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#ptr-trust-registry`. Service endpoint MUST start with one of the rest URL defined in [[ref: chain rest endpoints]]. [[ref: DTS credential]] as specified in [DTS-DTS-CRED-1].
 
 Example:
 
 ```json
   "service": [
     {
-      "id": "did:web:user-dts.gaiaid.io#essential-schemas-dts-credential",
+      "id": "did:web:user-dts.gaiaid.io#ptr-dts-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://user-dts.gaiaid.io/dts-credential-presentation.json"]
     },
     {
-      "id": "did:web:user-dts.gaiaid.io#essential-schemas-trust-registry",
+      "id": "did:web:user-dts.gaiaid.io#ptr-trust-registry",
       "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"]
+      "serviceEndpoint": ["https://{$chain-rest-api}/{$essential-schema-issuer.trust-registry-did}/trqp-2.0/"]
     }
   ]
 ```
 
-[DTS-DID-DOC-3] In case the [[ref: DTS]] wants to issue or verify credentials that involve a different trust registries, for schema(s) that the [[ref: DTS]] [[ref: DID]] is authorized to use as [[ref: issuer]] and/or [[ref: verifier]], DID Document MUST include the corresponding additional "TrustRegistry" service entries. Service name(s) MUST be "TrustRegistry", and service id(s) MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#` plus a non-conflicting fragment of their choice. Service endpoint URL MUST be `https://{$chain-rest-api}/{$example-trust-registry-did}/trqp-2.0/`, where URL `https://{$chain-rest-api}/` is one of the REST endpoints defined in [[ref: chain rest endpoints]], and `{$example-trust-registry-did}` is the [[ref: DID]] of the [[ref: trust registry]] owner of the [[ref: credential schemas]] in the trust registry.
-
-Example:
-
-```json
-  "service": [
-    {
-      "id": "did:web:user-dts.gaiaid.io#essential-schemas-dts-credential",
-      "type": "LinkedVerifiablePresentation",
-      "serviceEndpoint": ["https://user-dts.gaiaid.io/dts-credential-presentation.json"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#essential-schemas-trust-registry",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#additional-trust-registry-1",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/did:example:trust-registry-1/trqp-2.0/"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#additional-trust-registry-2",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/did:example:trust-registry-2/trqp-2.0/"]
-    },
-    ...
-  ]
-```
-
-[DTS-DID-DOC-4] If the [[ref: essential credential schema]] DTS credential, presented as specified in [DTS-DID-DOC-1], has been issued by the same [[ref: DID]] that this [[ref: DTS]] [[ref: DID]], the DID Document MUST contain a [[ref: linked verifiable presentation]] of an [[ref: essential credential schema]] Organization credential (resp. an [[ref: essential credential schema]] Person credential). Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#essential-schemas-org-credential` (resp. `#essential-schemas-person-credential`). Service endpoint MUST be an URL that resolve to a presentation of an Organization credential (resp. Person Credential).
-
-
-
-
-
-
+### DTS Credential
 
 [DTS-DTS-CRED-1] A DTS credential MUST contain the following mandatory attributes.
 

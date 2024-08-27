@@ -60,8 +60,6 @@ Communication channel is considered trustable in the following use cases:
 
 A [[ref: decentralized trust service]] is a service that provide a way to identify itself *before* connecting to it. Entities that want to connect to a [[ref: decentralized trust service]] can review its presented [[ref: verifiable credentials]], prove their legitimacy by performing a [[ref: trust resolution]], and based on the result, decide to connect or not.
 
-Additionally, a [[ref: decentralized trust service]] that would like to issue or request verification of credentials must prove it is allowed to do so.
-
 ### Conformance
 
 As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.
@@ -74,9 +72,6 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 
 [[def: applicant, applicants]]:
 ~ A [[ref: controller]] that starts a [[ref: validation process]].
-
-[[def: chain rest endpoint, chain rest endpoints]]:
-~ The chain REST endpoints, as registered in the chain registry, like https://github.com/cosmos/chain-registry/blob/master/verana/chain.json for the Verana mainnet.
 
 [[def: controller, controllers]]:
 ~ An [[ref: account]] which is the controller of a specific resource in an [[ref: PTR]].
@@ -111,7 +106,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 [[def: entity, entities]]:
 ~ An [[ref: account]], a [[ref: group]], or the [[ref: governance authority]].
 
-[[def: essential credential schema, essential credential schemas]]:
+[[def: essential credential schemas]]:
 ~ Default [[ref: credential schema]], created at genesis of an [[ref: PTR]], that provide the basis for a trust layer to exist in the ecosystem so that [[ref: DTS browser]] can generate a [[ref: proof of trust]].
 
 [[def: estimated transaction fees]]:
@@ -197,76 +192,27 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 
 ## Specification
 
-
-
-
-
 ### DID
 
 [DTS-DID] A [[ref: DTS]] MUST be identified by a [[:ref DID]]. The [[:ref DID]] of a [[ref: DTS]] MUST resolve to a [[ref: DID Document]].
 
 ### DID Document
 
-The following entries MUST be present.
-
-[DTS-DID-DOC-1] A [[ref: DTS]] DID Document MUST contain a [[ref: linked verifiable presentation]] of an [[ref: essential credential schema]] DTS credential. Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#essential-schemas-dts-credential`. Service endpoint MUST be an URL that resolve to a presentation if a [[ref: DTS credential]] as specified in [DTS-DTS-CRED-1].
-
-[DTS-DID-DOC-2] Additionally, a [[ref: DTS]] DID Document MUST contain a [[ref: trust registry]] service entry. Service name MUST be "TrustRegistry", and service id MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#essential-schemas-trust-registry`. Service endpoint URL MUST be `https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/`, where URL `https://{$chain-rest-api}/` is one of the REST endpoints defined in [[ref: chain rest endpoints]], and `{$essential-schema-issuer}` is the [[ref: DID]] of the [[ref: trust registry]] owner of the [[ref: essential credential schemas]] in the trust registry.
+[DTS-DID-DOC] A [[ref: DTS]] DID Document MUST contain a [[ref: linked verifiable presentation]] of a [[ref: DTS credential]]. Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] plus `#ptr-dts`. Service endpoint MUST be an URL that resolve to a DTS credential which subject attribute `did` is the [[ref: DID]] of the DTS. All attributes of the DTS credential MUST be presented.
 
 Example:
 
 ```json
-  "service": [
+"service": [
     {
-      "id": "did:web:user-dts.gaiaid.io#essential-schemas-dts-credential",
+      "id": "did:example:123#ptr-dts",
       "type": "LinkedVerifiablePresentation",
-      "serviceEndpoint": ["https://user-dts.gaiaid.io/dts-credential-presentation.json"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#essential-schemas-trust-registry",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"]
+      "serviceEndpoint": ["https://bar.example.com/dts-presentation.json"]
     }
   ]
 ```
 
-[DTS-DID-DOC-3] In case the [[ref: DTS]] wants to issue or verify credentials that involve a different trust registries, for schema(s) that the [[ref: DTS]] [[ref: DID]] is authorized to use as [[ref: issuer]] and/or [[ref: verifier]], DID Document MUST include the corresponding additional "TrustRegistry" service entries. Service name(s) MUST be "TrustRegistry", and service id(s) MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#` plus a non-conflicting fragment of their choice. Service endpoint URL MUST be `https://{$chain-rest-api}/{$example-trust-registry-did}/trqp-2.0/`, where URL `https://{$chain-rest-api}/` is one of the REST endpoints defined in [[ref: chain rest endpoints]], and `{$example-trust-registry-did}` is the [[ref: DID]] of the [[ref: trust registry]] owner of the [[ref: credential schemas]] in the trust registry.
-
-Example:
-
-```json
-  "service": [
-    {
-      "id": "did:web:user-dts.gaiaid.io#essential-schemas-dts-credential",
-      "type": "LinkedVerifiablePresentation",
-      "serviceEndpoint": ["https://user-dts.gaiaid.io/dts-credential-presentation.json"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#essential-schemas-trust-registry",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#additional-trust-registry-1",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/did:example:trust-registry-1/trqp-2.0/"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#additional-trust-registry-2",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/did:example:trust-registry-2/trqp-2.0/"]
-    },
-    ...
-  ]
-```
-
-[DTS-DID-DOC-4] If the [[ref: essential credential schema]] DTS credential, presented as specified in [DTS-DID-DOC-1], has been issued by the same [[ref: DID]] that this [[ref: DTS]] [[ref: DID]], the DID Document MUST contain a [[ref: linked verifiable presentation]] of an [[ref: essential credential schema]] Organization credential (resp. an [[ref: essential credential schema]] Person credential). Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#essential-schemas-org-credential` (resp. `#essential-schemas-person-credential`). Service endpoint MUST be an URL that resolve to a presentation of an Organization credential (resp. Person Credential).
-
-
-
-
-
-
+### DTS Credential
 
 [DTS-DTS-CRED-1] A DTS credential MUST contain the following mandatory attributes.
 
@@ -609,7 +555,7 @@ Method will return authorization if exists, based on CredentialSchema with id d8
     {
       "id": "did:web:user-dts.gaiaid.io#verana-foundation-trust-registry",
       "type": "TrustRegistry",
-      "serviceEndpoint": ["https://api.verana.network/did:web:verana.foundation/trqp-2.0/"]
+      "serviceEndpoint": ["https://verana.network/did:web:verana.foundation/trqp-2.0/"]
     }
   ]
 }
@@ -661,7 +607,7 @@ Method will return authorization if exists, based on CredentialSchema with id d8
 
 ```
 
-Upon dereferencing the value of the id https://verana.foundation/credentials/dts-credential-schema-credential, a process also be referred to as schema resolution, the following verifiable credential, representing a JSON Schema, is returned:
+Upon dereferencing the value of the id https://verana.foundation/schemas/d84c02d5-7013-459a-8d02-09bf8e9a83bd, a process also be referred to as schema resolution, the following verifiable credential, representing a JSON Schema, is returned:
 
 The JsonSchema Credential must have been issued by did:web:verana.foundation.
 
@@ -671,12 +617,12 @@ The JsonSchema Credential must have been issued by did:web:verana.foundation.
   "@context": [
       "https://www.w3.org/ns/credentials/v2"
   ],
-  "id": "https://verana.foundation/credentials/dts-credential-schema-credential",
+  "id": "did:web:verana.foundation#dts-credential-schema-credential",
   "type": ["VerifiableCredential", "JsonSchemaCredential"],
   "issuer": "did:web:verana.foundation",
   "issuanceDate": "2024-01-01T19:23:24Z", 
   "credentialSchema": {
-    "id": "https://verana.network/did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd/jsonschema",
+    "id": "https://verana.network/did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd",
     "type": "JsonSchema",
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },

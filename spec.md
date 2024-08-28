@@ -466,5 +466,3 @@ user <|-- browser : show result
 ### Internationalization
 
 It is the responsibility of browsers and search engines to properly translate credential attributes, as credential schemas are always defined in a single language, that SHOULD be english.
-
-### Browser authentication in DTS

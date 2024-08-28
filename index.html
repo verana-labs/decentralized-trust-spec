@@ -191,7 +191,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>for issuance or acceptance of a PTR Credential, DID of the issuer of the credential MUST be authorized in the trust registry.</li>
 <li>for presentation request, DID of a PTR Credential, the verifier of the credential MUST be authorized in trust registry.</li>
 </ul>
-<div id="note-57" class="notice note"><a class="notice-link" href="#note-57">NOTE</a><p>Browser MUST use the trqp v2.0 API of the PTR /entities/{entityVID}/authorization to query to verify the issuer of this credential is an authorized ISSUER.</p>
+<div id="note-59" class="notice note"><a class="notice-link" href="#note-59">NOTE</a><p>Browser MUST use the trqp v2.0 API of the PTR /entities/{entityVID}/authorization to query to verify the issuer of this credential is an authorized ISSUER.</p>
 </div>
 <p>Example:</p>
 <pre class="language-json"><code class="language-json">  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -240,14 +240,14 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[SERVICE-DTS-3] If the issuer of the PTR DTS Credential of [SERVICE-DTS-2] is the <a class="term-reference" href="#term:did">DID</a> of this service, service MUST conform to [SERVICE-PTREC-ORG] or (exclusive) to [SERVICE-PTREC-PERSON].</li>
 <li>[SERVICE-DTS-4] If the issuer of the PTR DTS Credential of [SERVICE-DTS-2] is not the <a class="term-reference" href="#term:did">DID</a> of this service, issuer service MUST be a [SERVICE-DTS] <a class="term-reference" href="#term:dts">DTS</a> that conforms to [DTS-DID-DOC-3].</li>
 </ul>
-<div id="note-58" class="notice note"><a class="notice-link" href="#note-58">NOTE</a><p>In other words, a DTS MUST identify itself directly by presenting an Organization or a Person credential, or the issuer of its DTS Credential MUST identify itself by presenting an Organization or a Person credential.</p>
+<div id="note-60" class="notice note"><a class="notice-link" href="#note-60">NOTE</a><p>In other words, a DTS MUST identify itself directly by presenting an Organization or a Person credential, or the issuer of its DTS Credential MUST identify itself by presenting an Organization or a Person credential.</p>
 </div>
 <ul>
 <li>[SERVICE-DTS-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional PTR Credential, by conforming to [DTS-PTRC].</li>
 <li>[SERVICE-DTS-6] For establishing a DIDComm connection between 2 <a class="term-reference" href="#term:dts">DTS</a>, it is REQUIRED that both <a class="term-reference" href="#term:dts">DTS</a> be compliant to this spec.</li>
 <li>[SERVICE-DTS-7] When a compliant <a class="term-reference" href="#term:dts">DTS</a> accepts/establishes a DIDComm connection with a <a class="term-reference" href="#term:dts-browser">DTS browser</a>, <a class="term-reference" href="#term:dts-browser">DTS browser</a> MUST be verified.</li>
 </ul>
-<div id="todo-2" class="notice todo"><a class="notice-link" href="#todo-2">TODO</a><p>explain how to verify browser</p>
+<div id="todo-3" class="notice todo"><a class="notice-link" href="#todo-3">TODO</a><p>explain how to verify browser</p>
 </div>
 <h3 id="example"><a class="toc-anchor" href="#example" >§</a> Example</h3>
 <p>DID Document of a DTS that presents a DTS Credential and an Organization credential, and that defines 2 additional trust registries it will use to manipulate credentials linked to schemas of these trust registries.</p>
@@ -408,7 +408,6 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <h4 id="presentation-request"><a class="toc-anchor" href="#presentation-request" >§</a> Presentation Request</h4>
 <h3 id="internationalization"><a class="toc-anchor" href="#internationalization" >§</a> Internationalization</h3>
 <p>It is the responsibility of browsers and search engines to properly translate credential attributes, as credential schemas are always defined in a single language, that SHOULD be english.</p>
-<h3 id="browser-authentication-in-dts"><a class="toc-anchor" href="#browser-authentication-in-dts" >§</a> Browser authentication in DTS</h3>
 
                     </article>    
       
@@ -467,7 +466,6 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 </ul>
 </li>
 <li><a href="#internationalization" >Internationalization</a></li>
-<li><a href="#browser-authentication-in-dts" >Browser authentication in DTS</a></li>
 </ul>
 </li>
 </ul>

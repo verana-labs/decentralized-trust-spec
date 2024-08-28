@@ -46,7 +46,7 @@ In order to fully understand the concepts developed in this document, you should
 
 *This section is non-normative.*
 
-A [[ref: trustable communication channel]] is a persistent communication channel, where participants have been fully authenticated with a [[ref: verifiable credential]] or equivalent.
+A trustable communication channel is a persistent communication channel, where participants have been fully authenticated with a [[ref: verifiable credential]] or equivalent.
 
 Communication channel is considered trustable in the following use cases:
 
@@ -75,17 +75,11 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 [[def: applicant, applicants]]:
 ~ A [[ref: controller]] that starts a [[ref: validation process]].
 
-[[def: chain rest endpoint, chain rest endpoints]]:
-~ The chain REST endpoints, as registered in the chain registry, like https://github.com/cosmos/chain-registry/blob/master/verana/chain.json for the Verana mainnet.
-
 [[def: controller, controllers]]:
 ~ An [[ref: account]] which is the controller of a specific resource in an [[ref: PTR]].
 
 [[def: credential schema, credential schemas]]:
 ~ An [[ref: PTR]] resource which represents a verifiable credential definition and the associated permissions and business rules for issuing, verifying or holding a credential linked to this credential schema.
-
-[[def: credential schema permission, credential schema permissions, CSP]]:
-~ A permission, linked to a [[ref: credential schema]], that represent a grant for being [[ref: issuer]], [[ref: verifier]], [[ref: issuer grantor]], or [[ref: verifier grantor]] of a [[ref: credential schema]].
 
 [[def: decentralized identifier, DID, DIDs]]:
 ~ A decentralized identifier, as specified in [[spec-norm:DID-CORE]].
@@ -102,41 +96,17 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 [[def: decentralized trust service browser, DTS browser, DTS browsers]]:
 ~ A browser for accessing and using [[ref: DTSs]]. To be considered as a [[ref: DTS browser]], a browser must implement an [[ref: PTR]] trust layer and use a trust resolution using use the [[ref: essential credential schemas]] for providing a [[ref: proof of trust]] to users so that user clearly identifies [[ref: DTS]] provider and decides to connect or not.
 
-[[def: denom]]:
-~ Native token of an [[ref: PTR]], example: ts.
-
 [[def: DID Directory, DID directory]]:
 ~ A repository of DIDs in an PTR.
 
-[[def: entity, entities]]:
-~ An [[ref: account]], a [[ref: group]], or the [[ref: governance authority]].
-
 [[def: essential credential schema, essential credential schemas]]:
 ~ Default [[ref: credential schema]], created at genesis of an [[ref: PTR]], that provide the basis for a trust layer to exist in the ecosystem so that [[ref: DTS browser]] can generate a [[ref: proof of trust]].
-
-[[def: estimated transaction fees]]:
-~ Estimated fees required, in [[ref: denom]], that is passed when execute a [[ref: transaction]] in an [[ref: PTR]]. Usually, a estimated transaction fees are always slightly greater than [[ref: transaction fees]], to make sure the execution of the transaction will not be aborted for an out-of-gas situation. Unused gas is refunded to account.
-
-[[def: governance framework, GF]]:
-~ The governance framework (GF) of an [[ref: PTR]].
-
-[[def: governance authority, GA]]:
-~ The governance authority (GA) of an [[ref: PTR]].
-
-[[def: group]]:
-~ A group.
 
 [[def: holder, holders]]:
 ~ A role an entity might perform by possessing one or more verifiable credentials and generating verifiable presentations from them. A holder is often, but not always, a [[ref: subject]] of the verifiable credentials they are holding. Holders store their credentials in credential repositories. Example holders include organizations, persons, things.
 
 [[def: issuer, issuers]]:
 ~ A role an entity can perform by asserting claims about one or more [[ref: subjects]], creating a verifiable credential from these claims, and transmitting the verifiable credential to a [[ref: holder]]. Example issuers include corporations, non-profit organizations, trade associations, governments, and individuals.
-
-[[def: issuer grantor, issuer grantors]]:
-~ A role an entity can perform in a credential schema by adding or revoking issuers.
-
-[[def: keeper]]:
-~ A storage map(key, value) in the ledger of an [[ref: PTR]].
 
 [[def: linked-vp]]:
 ~ A presentation of a [[ref: verifiable credential]] as specified in [LINKED-VP](https://identity.foundation/linked-vp/).
@@ -148,28 +118,13 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 ~ Visual representation using [[ref: essential credential schemas]] of a [[ref: trust resolution]] process of a [[ref: DTS]], for identifying the [[ref: DTS]], its owner, and the [[ref: issuer]] of the verifiable credential of its owner.
 
 [[def: public trust registry, PTR]]:
-~ a decentralized, ledger-based network, which provides: trust registry features that can be used by all its [[ref: participants]]; and a tokenized business model allows charging [[ref: participants]] for [[ref: trust fees]] that are transferred to other [[ref: participants]], or locked into [[ref: trust deposits]].
-
-[[def: query]]:
-~ A read-only action that perform some reading in an [[ref: PTR]] and returns value.
+~ a decentralized, ledger-based network, which provides: trust registry features that can be used by all its [[ref: participants]]; and a tokenized business model allows charging [[ref: participants]] for trust fees that are transferred to other [[ref: participants]], or locked into [[ref: trust deposits]].
 
 [[def: subject, subjects]]:
 ~ A thing about which claims are made. Example subjects include human beings, animals, things, and organization, a [[ref: DID]]...
 
-[[def: transaction, transactions]]:
-~ An action that modifies the ledger of an [[ref: PTR]] and which execution requires transaction fees.
-
-[[def: transaction fees]]:
-~ Fees required, in [[ref: denom]], to execute a [[ref: transaction]] in an [[ref: PTR]].
-
 [[def: trust deposit, trust deposits]]:
 ~ A financial deposit that is used as a trust guarantee. For a given [[ref: controller]], its trust deposit is increased when running validation process (either as an [[ref: applicant]] or as a [[ref: validator]]), or when registering [[ref: DID]] in the DID directory.
-
-[[def: trust fees]]:
-~ Fees paid by an [[ref: applicant]] when running a validation process and/or when registering [[ref: DID]] in the DID directory.
-
-[[def: trust unit, trust units]]:
-~ Price, in [[ref: denom]], of one unit of trust.
 
 [[def:trust registry, trust registries]]
 ~ An approved list of [[ref: issuers]] and [[ref: verifiers]] that are authorized to issue/verify certain credentials in an ecosystem.
@@ -177,125 +132,40 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 [[def: trust resolution]]:
 ~ Process run by, for example a [[ref: DTS browser]], which purpose is to recursively resolve [[ref: DID]] by digging into [[ref: DID Documents]] and look for [[ref: linked-vp]] entries and their [[ref: issuer]] [[ref: DIDs]], and [trust registry](https://trustoverip.github.io/tswg-trust-registry-protocol/) entries to gather whether the service provided by the [[ref: DID]] is trustable (and legitimate), or not.
 
-[[def: valid permission]]:
-~ For a given country code, a credential schema permission, which (countries attribute is null or contain the given country code), and effective_from datetime is lower than current datetime, and (effective_until datetime is null or revoked datetime is greater than current datetime), and revoked is null.
-
 [[def: validation process]]:
 ~ A process run by [[ref: applicants]] that want to, for a specific [[ref: credential schema]], be a [[ref: issuer]], be a [[ref: verifier]], or simply hold a verifiable credential linked to the [[ref: credential schema]].
 
 [[def: validator]]:
-~ A role an [[ref: entity]] performs by participating in validation processes with [[ref: applicants]] in order to register them as [[ref: issuer]], or [[ref: verifier]] of a [[ref: credential schema]], or to deliver a verifiable credential to them.
+~ A role an entity performs by participating in validation processes with [[ref: applicants]] in order to register them as [[ref: issuer]], or [[ref: verifier]] of a [[ref: credential schema]], or to deliver a verifiable credential to them.
 
 [[def: verifier, verifiers]]:
 ~ A role an entity performs by receiving one or more verifiable credentials, optionally inside a verifiable presentation for processing. Example verifiers include service providers.
-
-[[def: verifier grantor, verifier grantors]]:
-~ A role an [[ref: entity]] can perform in a [[ref: credential schema]] by adding or revoking verifiers.
 
 [[def: verifiable credential, verifiable credentials]]:
 ~ A verifiable credential as defined in [[spec-norm:VC-DATA-MODEL]].
 
 ## Specification
 
+### [SERVICE-PTRC] PTR Credential
 
+[SERVICE-PTRC-1] Definition:
 
+A PTR credential MUST be based on a credential schema created in the PTR (a `CredentialSchema` entry) and refer to the corresponding Json Schema in the PTR, as specified in [CS] and [ECS] in PTR spec. A PTR Credential MUST have a `credentialSchema` property:
 
-
-### DID
-
-[DTS-DID] A [[ref: DTS]] MUST be identified by a [[:ref DID]]. The [[:ref DID]] of a [[ref: DTS]] MUST resolve to a [[ref: DID Document]].
-
-### DID Document
-
-The following entries MUST be present.
-
-[DTS-DID-DOC-1] A [[ref: DTS]] DID Document MUST contain a [[ref: linked verifiable presentation]] of an [[ref: essential credential schema]] DTS credential. Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#essential-schemas-dts-credential`. Service endpoint MUST be an URL that resolve to a presentation if a [[ref: DTS credential]] as specified in [DTS-DTS-CRED-1].
-
-[DTS-DID-DOC-2] Additionally, a [[ref: DTS]] DID Document MUST contain a [[ref: trust registry]] service entry. Service name MUST be "TrustRegistry", and service id MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#essential-schemas-trust-registry`. Service endpoint URL MUST be `https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/`, where URL `https://{$chain-rest-api}/` is one of the REST endpoints defined in [[ref: chain rest endpoints]], and `{$essential-schema-issuer}` is the [[ref: DID]] of the [[ref: trust registry]] owner of the [[ref: essential credential schemas]] in the trust registry.
+- `id` must point to a valid PTR URL of the API method that returns the Json Schema of the corresponding `CredentialSchema` entry of the [[ref: PTR]];
+- `id` URL MAY have a queryParameter `essential` set to `true`, in this case it means we are referencing the schema of an essential credential;
+- `type` MUST be `JsonSchema`;
+- a `digestSRI` attribute MUST be present, and when loading the credential schema from its `id` URL, digestSRI MUST match.
 
 Example:
-
-```json
-  "service": [
-    {
-      "id": "did:web:user-dts.gaiaid.io#essential-schemas-dts-credential",
-      "type": "LinkedVerifiablePresentation",
-      "serviceEndpoint": ["https://user-dts.gaiaid.io/dts-credential-presentation.json"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#essential-schemas-trust-registry",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"]
-    }
-  ]
-```
-
-[DTS-DID-DOC-3] In case the [[ref: DTS]] wants to issue or verify credentials that involve a different trust registries, for schema(s) that the [[ref: DTS]] [[ref: DID]] is authorized to use as [[ref: issuer]] and/or [[ref: verifier]], DID Document MUST include the corresponding additional "TrustRegistry" service entries. Service name(s) MUST be "TrustRegistry", and service id(s) MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#` plus a non-conflicting fragment of their choice. Service endpoint URL MUST be `https://{$chain-rest-api}/{$example-trust-registry-did}/trqp-2.0/`, where URL `https://{$chain-rest-api}/` is one of the REST endpoints defined in [[ref: chain rest endpoints]], and `{$example-trust-registry-did}` is the [[ref: DID]] of the [[ref: trust registry]] owner of the [[ref: credential schemas]] in the trust registry.
-
-Example:
-
-```json
-  "service": [
-    {
-      "id": "did:web:user-dts.gaiaid.io#essential-schemas-dts-credential",
-      "type": "LinkedVerifiablePresentation",
-      "serviceEndpoint": ["https://user-dts.gaiaid.io/dts-credential-presentation.json"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#essential-schemas-trust-registry",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#additional-trust-registry-1",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/did:example:trust-registry-1/trqp-2.0/"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#additional-trust-registry-2",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/did:example:trust-registry-2/trqp-2.0/"]
-    },
-    ...
-  ]
-```
-
-[DTS-DID-DOC-4] If the [[ref: essential credential schema]] DTS credential, presented as specified in [DTS-DID-DOC-1], has been issued by the same [[ref: DID]] that this [[ref: DTS]] [[ref: DID]], the DID Document MUST contain a [[ref: linked verifiable presentation]] of an [[ref: essential credential schema]] Organization credential (resp. an [[ref: essential credential schema]] Person credential). Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] of the [[ref: DTS]] plus `#essential-schemas-org-credential` (resp. `#essential-schemas-person-credential`). Service endpoint MUST be an URL that resolve to a presentation of an Organization credential (resp. Person Credential).
-
-
-
-
-
-
-
-[DTS-DTS-CRED-1] A DTS credential MUST contain the following mandatory attributes.
-
-- `did` (string) (*mandatory*): the [[ref: DID]] of the DTS the credential has been issued to, which is the subject of the [[ref: verifiable credential]].
-- `service_name` (string) (*mandatory*): DTS name. UTF8 charset, max length: 512 bytes.
-- `service_description` (string) (*mandatory*): DTS description. UTF8 charset, max length: 2048 bytes.
-- `service_logo` (image) (*mandatory*): the logo of the DTS, as it will be shown in browsers and search engines.
-- `minimum_age_required` (integer) (*mandatory*): minimum required age to connect to service. Allowed value: 0 to 255. Used by browsers that provide a simple birth date based parental control.
-- `terms_and_conditions` (string) (*mandatory*): URL of the terms and conditions of the DTS. It is recommended to store terms and conditions in a file, in a repository that allows file hash verification (IPFS).
-- `terms_and_conditions_hash` (string) (*optional*): If terms and conditions of the DTS are stored in a file, optional hash of the file for data integrity verification.
-- `privacy_policy` (string) (*mandatory*): URL of the terms and conditions of the DTS. MAY be the same URL that `terms_and_conditions` if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).
-- `privacy_policy_hash` (string) (*optional*): If privacy policy of the DTS are stored in a file, optional hash of the file for data integrity verification.
-
-:::todo Todo
-Define if logo must be a URL or an embedded picture. I'm more into an embedded picture. Let's discuss it!
-:::
-
-[DTS-DTS-CRED-2] The DTS credential [[ref:issuer]] of the [[ref: verifiable credential]] MUST be a [[ref:DID]] that resolves to a [[ref: DTS]]. Issuer CAN be the same [[ref: DTS]] [[ref:DID]].
-
-[DTS-DTS-CRED-3] DTS Credential MUST include a reference to a DTS Credential Schema and the DTS Credential Schema must be located in a [[ref: verifiable data registry]]. Schema MUST be defined as an official [[ref: essential credential schema] of the [[ref: trust registry]].
 
 ```json
 {
   "@context": [
-    "https://www.w3.org/ns/credentials/v2",
-    "https://www.w3.org/ns/credentials/examples/v2"
+    "https://www.w3.org/ns/credentials/v2"
   ],
-  "id": "https://bar.example.com/dts-presentation.json",
-  "type": ["VerifiableCredential"],
+  "id": "did:example:123",
+  "type": ["VerifiableCredential", "DtsCredential],
   "issuer": "did:foobar:456",
   "credentialSubject": {
     "id": "did:example:123",
@@ -303,140 +173,264 @@ Define if logo must be a URL or an embedded picture. I'm more into an embedded p
   },
   ...
   "credentialSchema": [{
-    "id": "https://example.ptr/cs/get/d84c02d5-7013-459a-8d02-09bf8e9a83bd",
+    "id": "https://{$chain-rest-api}/{$tr.did}/cs/js/{$uuid}?essential=true",
     "type": "JsonSchema",
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   }]
 }
 ```
 
-:::note Note
-Browsers or DTSs that connect to DTSs are responsible for defining their whitelist of [[ref:trust registries]] and [[ref: public trust registries]].
+[SERVICE-PTRC-2] Trust Registry:
+
+if queryParameter `essential` was set to `true`:
+
+- a "TrustRegistry" service entry with id `#ptr-essential-schemas-trust-registry` defined in DID Document of the service that wants to issue or request a presentation of a PTR Essential Credential, MUST exist and MUST have the same `$chain-rest-api` and `$tr.did` than the `credentialSchema.id`;
+- for issuance or acceptance of a PTR Credential, DID of the issuer of the credential MUST be authorized in the trust registry.
+- for presentation request, DID of a PTR Credential, the verifier of the credential MUST be authorized in trust registry.
+
+else if queryParameter `essential` was set to `false` or was not present:
+
+- a "TrustRegistry" service entry with id starting with `#ptr-schema` different than `#ptr-essential-schemas-trust-registry` defined in DID Document of the service that wants to issue or request a presentation of a PTR Credential, MUST exist and MUST have the same `$chain-rest-api` and `$tr.did` than the `credentialSchema.id`;
+- for issuance or acceptance of a PTR Credential, DID of the issuer of the credential MUST be authorized in the trust registry.
+- for presentation request, DID of a PTR Credential, the verifier of the credential MUST be authorized in trust registry.
+
+::: note
+Browser MUST use the trqp v2.0 API of the PTR /entities/{entityVID}/authorization to query to verify the issuer of this credential is an authorized ISSUER.
 :::
-
-### DTS Credential Issuer
-
-[DTS-DTS-CRED-ISSUER-1] The [[ref: DTS]] of a DTS Credential Issuer MUST contain a [[ref: linked verifiable presentation]] of an [[ref: organization credential]] or a [[ref: person credential]].
-
-Service name MUST be "LinkedVerifiablePresentation", and service id MUST be the concatenation of the [[ref: DID]] plus `#ptr-org` or `#ptr-person`. Service endpoint MUST be an URL that resolve to an Organization or Person credential which subject attribute `did` is the [[ref: DID]] of the DTS. If the linked presentation is an [[ref: organization credential]], all attributes MUST be presented. If it is a [[ref: person credential]], only the `person_name` and `country_code_of_residence` MUST be present.
 
 Example:
 
 ```json
-"service": [
-    {
-      "id": "did:example:123#ptr-org",
-      "type": "LinkedVerifiablePresentation",
-      "serviceEndpoint": ["https://bar.example.com/organization.jsonld"]
-    }
-  ]
-```
-
-### Organization Credential
-
-[DTS-ORG-CRED-1] An [[ref: organization credential]] MUST contain the following mandatory attributes.
-
-- `did` (string) (*mandatory*): the [[ref: DID]] of the DTS the credential has been issued to, which is the subject of the [[ref: verifiable credential]].
-- `org_name` (string) (*mandatory*): name of the organization.
-- `org_registry_id` (string) (*mandatory*): registry id of the organization.
-- `org_address` (string) (*mandatory*): address of the organization.
-- `org_logo` (image) (*mandatory*): the logo of the organization, as it will be shown in browsers and search engines.
-- `org_type` (enum) (*mandatory*): type of organization. PUBLIC, PRIVATE, FOUNDATION.
-- `country_code` (string) (*mandatory*): country where the company is registered.
-
-:::todo Todo
-Define if logo must be a URL or an embedded picture. I'm more into an embedded picture. Let's discuss it.
-Define if more attributes are needed here
-:::
-
-:::todo Todo
-In the future, we could add a credential for proof-of-brand-registration, to avoid issues with logos.
-:::
-
-[DTS-ORG-CRED-2] Organization Credential issuer MUST include a reference to an Organization Credential Schema and the Organization Credential Schema must be located in a [[ref: public trust registry]]. Schema MUST be defined as an official [[ref: essential credential schema] of the [[ref: public trust registry]].
-
-[DTS-ORG-CRED-3] DID Document resolved from the [[ref:DID]] of the organization credential issuer must include a trust registry service entry that points to a [[ref: trust registry]] and proves issuer was allowed to issue this credential.
-
-### Person Credential
-
-[DTS-PERSON-CRED-1] An [[ref: person credential]] MUST contain the following mandatory attributes.
-
-- `did` (string) (*mandatory*): the [[ref: DID]] of the DTS the credential has been issued to, which is the subject of the [[ref: verifiable credential]].
-- `first_name` (string) (*mandatory*): first name of the person.
-- `last_name` (string) (*mandatory*): last name of the person.
-- `birth_date` (string) (*mandatory*): date of birth.
-- `country_of_birth` (string): the country of residence.
-
-:::todo Todo
-In the future, we could add an avatar credential, so that a social channel DTS provider would be identified by 2 linked-vp credentials: a person credential presentation, AND an avatar credential presentation.
-:::
-
-[DTS-PERSON-CRED-2] Person Credential issuer MUST include a reference to an Person Credential Schema and the Person Credential Schema must be located in a [[ref: public trust registry]]. Schema MUST be defined as an official [[ref: essential credential schema] of the [[ref: public trust registry]].
-
-[DTS-PERSON-CRED-3] DID Document resolved from the [[ref:DID]] of the person credential issuer must include a trust registry service entry that points to a [[ref: public trust registry]] and proves issuer was allowed to issue this credential.
-
-### DTS Trust Resolution
-
-The trust resolution is a mechanism that verifies a [[ref: DID]] is resolvable, and complies with the Decentralized Trust Service Specification.
-
-Before attempting to connect to any service endpoint provided present in the DID Document, an entity MUST perform a trust resolution and the trust resolution SHOULD be successful.
-
-This does not apply for services of type "LinkedVerifiablePresentation" or "TrustRegistry", as they are precisely needed for trust resolution so they CAN be consumed before establishing trust.
-
-It's up to the entity to decide to connect or not to an non trustable service. Nevertheless, [[ref: browsers]] SHOULD give the option of connecting to a service only if it is trustable.
-
-To perform a [[ref: trust resolution]] of `did:example:123`, entity MUST perform the following:
-
-- resolve the [[ref: DID]].
-- parse the DID document and find a service of type `LinkedVerifiablePresentation` entry with id `did:example:123#ptr-dts`
-
-```json
-{
-  "@context": ["https://www.w3.org/ns/did/v1", "https://identity.foundation/linked-vp/contexts/v1"],
-  "id": "did:example:123",
-  "verificationMethod": [
-    {
-      "id": "did:example:123#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
-      "type": "JsonWebKey2020",
-      "controller": "did:example:123",
-      "publicKeyJwk": {
-        "kty": "OKP",
-        "crv": "Ed25519",
-        "x": "VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ"
-      }
-    }
-  ],
   "service": [
     {
-      "id": "did:example:123#ptr-dts",
+      "id": "did:web:user-dts.gaiaid.io#ptr-essential-schemas-dts-credential",
       "type": "LinkedVerifiablePresentation",
-      "serviceEndpoint": ["https://bar.example.com/dts-presentation.json"]
+      "serviceEndpoint": ["https://user-dts.gaiaid.io/dts-credential-presentation.json"]
+    },
+    {
+      "id": "did:web:user-dts.gaiaid.io#ptr-essential-schemas-trust-registry",
+      "type": "TrustRegistry",
+      "serviceEndpoint": ["https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"]
     }
   ]
-}
 ```
 
-- parse the verifiable presentation to get DTS information, and get the [[ref: issuer]] [[ref:DID]]. We will call it **DTS credential issuer**.
-- resolve the [[ref: DID]] of the DTS credential issuer, let's call it `did:dtscred-issuer:456`. In the "service" section look for a service of type `LinkedVerifiablePresentation` entry with id `did:dtscred-issuer456#ptr-org` or `did:dtscred-issuer:456#ptr-person`, and use the service endpoint to get the credential.
-- look for a credential schema entry, and call the endpoint to get the credential schema. Verify it is an essential schema in a trusted public trust registry.
-- resolve the [[ref: DID]] of the the Organization or Person credential issuer, let's call it `did:idcred-issuer:789`. In the "service" section look for a service of type `TrustRegistry` entry with id `did:dtscred-issuer:789#ptr-org` or `did:dtscred-issuer:789#ptr-person`, and use the service endpoint to verify issuer was allowed to issue the credential at the time it was issued.
+### [SERVICE-PTREC] PTR Essential Credentials
 
-Trust resolution MUST complete successfully for a service to be referenced as a [[ref: DTS]].
+#### [SERVICE-PTREC-DTS] PTR DTS Essential Credentials
 
-### Presentation Request Trust Resolution
+a [SERVICE-PTRC] linked to a `CredentialSchema` entry that conforms to [ECS-DTS] in PTR Specs.
 
-When a presentation request is received within an established DIDComm connection with a DTS, or when connecting to a received out-of-band presentation request, entity MUST:
+#### [SERVICE-PTREC-ORG] PTR Organization Essential Credentials
 
-- verify the [[ref:DTS]] is resolvable;
-- verify the [[ref:DTS]] [[ref:DID]] is registered in the trust registry as a verifier for the credential requested in the presentation request.
+a [SERVICE-PTRC]  linked to a `CredentialSchema` entry that conforms to [ECS-ORG] in PTR Specs.
 
-If any of these 2 verifications fail, presentation request should be refused.
+#### [SERVICE-PTREC-PERSON] PTR Person Essential Credentials
+
+a [SERVICE-PTRC]  linked to a `CredentialSchema` entry that conforms to [ECS-PERSON] in PTR Specs.
+
+### [SERVICE-CI] Credential Issuance
+
+- [SERVICE-CI-1] A [[ref: DTS]] CAN issue [SERVICE-PTRC] PTR Credentials
+- [SERVICE-CI-2] A [[ref: DTS]] MUST NOT issue credentials that are not compliant with [SERVICE-PTRC].
+
+### [SERVICE-PR] Presentation Request
+
+- [SERVICE-PR-1] A [[ref: DTS]] CAN request presentation of [SERVICE-PTRC] PTR Credentials
+- [SERVICE-PR-2] A [[ref: DTS]] MUST NOT request presentation of credentials that are not compliant with [SERVICE-PTRC].
+
+### [SERVICE-LVP] Linked Verifiable Presentations
+
+Linked verifiable presentations of credential based on credential schemas of the PTR CAN be present in service DID Document, if present, they MUST conform to the following:
+
+- [SERVICE-LVP-1] Holder of the presentation MUST be the DTS DID.
+- [SERVICE-LVP-2] if linked verifiable presentation id fragment start with `#ptr-schemas`, presented credential and DID Document MUST conform to [SERVICE-PTRC].
+- [SERVICE-LVP-3] if linked verifiable presentation id fragment is `#ptr-essential-schemas-dts-credential`, presented credential MUST be a DTS Credential.
+- [SERVICE-LVP-4] if linked verifiable presentation id fragment is `#ptr-essential-schemas-org-credential`, presented credential MUST be an Organization Credential.
+- [SERVICE-LVP-5] if linked verifiable presentation id fragment is `#ptr-essential-schemas-person-credential`, presented credential MUST be a Person Credential.
+
+### [SERVICE-DTS]
+
+- [SERVICE-DTS-1] A [[ref: DTS]] MUST be identified by a [[:ref DID]]. The [[:ref DID]] of a [[ref: DTS]] MUST resolve to a [[ref: DID Document]].
+- [SERVICE-DTS-2] A [[ref: DTS]] DID Document MUST present a PTR DTS Credential by conforming to [SERVICE-PTREC-DTS].
+- [SERVICE-DTS-3] If the issuer of the PTR DTS Credential of [SERVICE-DTS-2] is the [[ref: DID]] of this service, service MUST conform to [SERVICE-PTREC-ORG] or (exclusive) to [SERVICE-PTREC-PERSON].
+- [SERVICE-DTS-4] If the issuer of the PTR DTS Credential of [SERVICE-DTS-2] is not the [[ref: DID]] of this service, issuer service MUST be a [SERVICE-DTS] [[ref: DTS]] that conforms to [DTS-DID-DOC-3].
+::: note
+In other words, a DTS MUST identify itself directly by presenting an Organization or a Person credential, or the issuer of its DTS Credential MUST identify itself by presenting an Organization or a Person credential.
+:::
+- [SERVICE-DTS-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional PTR Credential, by conforming to [DTS-PTRC].
+- [SERVICE-DTS-6] For establishing a DIDComm connection between 2 [[ref: DTS]], it is REQUIRED that both [[ref: DTS]] be compliant to this spec.
+- [SERVICE-DTS-7] When a compliant [[ref: DTS]] accepts/establishes a DIDComm connection with a [[ref: DTS browser]], [[ref: DTS browser]] MUST be verified. 
+::: todo
+explain how to verify browser
+:::
+
+### Example
+
+DID Document of a DTS that presents a DTS Credential and an Organization credential, and that defines 2 additional trust registries it will use to manipulate credentials linked to schemas of these trust registries.
+
+```json
+  "service": [
+    {
+      "id": "did:web:user-dts.gaiaid.io#ptr-essential-schemas-dts-credential",
+      "type": "LinkedVerifiablePresentation",
+      "serviceEndpoint": ["https://user-dts.gaiaid.io/dts-credential-presentation.json"]
+    },
+    {
+      "id": "did:web:user-dts.gaiaid.io#ptr-essential-schemas-org-credential",
+      "type": "LinkedVerifiablePresentation",
+      "serviceEndpoint": ["https://user-dts.gaiaid.io/org-credential-presentation.json"]
+    },
+    {
+      "id": "did:web:user-dts.gaiaid.io#ptr-schemas-trademark-credential",
+      "type": "LinkedVerifiablePresentation",
+      "serviceEndpoint": ["https://user-dts.gaiaid.io/trademark-credential-presentation.json"]
+    },
+    {
+      "id": "did:web:user-dts.gaiaid.io#ptr-essential-schemas-trust-registry",
+      "type": "TrustRegistry",
+      "serviceEndpoint": ["https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"]
+    },
+    {
+      "id": "did:web:user-dts.gaiaid.io#ptr-schemas-trademark-trust-registry",
+      "type": "TrustRegistry",
+      "serviceEndpoint": ["https://{$chain-rest-api}/did:example:trademark-trust-registry/trqp-2.0/"]
+    }
+    ...
+  ]
+```
+
+dts-credential-presentation.json:
+
+```json
+
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "holder": "did:web:user-dts.gaiaid.io",
+  "type": ["VerifiablePresentation"],
+  "verifiableCredential": [
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2"
+      ],
+      "id": "did:web:user-dts.gaiaid.io",
+      "type": ["VerifiableCredential", "DtsCredential],
+      "issuer": "did:web:user-dts.gaiaid.io",
+      "credentialSubject": {
+        "id": "did:web:user-dts.gaiaid.io",
+        ...
+      },
+      ...
+      "credentialSchema": [{
+        "id": "https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true",
+        "type": "JsonSchema",
+        "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+      }]
+    }
+  ],
+  "id": "https://user-dts.gaiaid.io/dts-credential-presentation.json",
+  "proof": {
+    "type": "Ed25519Signature2018",
+    "created": "2024-02-08T17:38:46Z",
+    "verificationMethod": "did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
+    "proofPurpose": "assertionMethod",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..6_k6Dbgug-XvksZvDVi9UxUTAmQ0J76pjdrQyNaQL7eVMmP_SUPZCqso6EN3aEKFSsJrjDJoPJa9rBK99mXvDw"
+  }
+}
+
+```
+
+org-credential-presentation.json:
+
+```json
+
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "holder": "did:web:user-dts.gaiaid.io",
+  "type": ["VerifiablePresentation"],
+  "verifiableCredential": [
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2"
+      ],
+      "id": "did:web:user-dts.gaiaid.io",
+      "type": ["VerifiableCredential", "OrganizationCredential],
+      "issuer": "did:web:user-dts.gaiaid.io",
+      "credentialSubject": {
+        "id": "did:web:user-dts.gaiaid.io",
+        ...
+      },
+      ...
+      "credentialSchema": [{
+        "id": "https://example-ptr/did:web:trustregistry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b?essential=true",
+        "type": "JsonSchema",
+        "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+      }]
+    }
+  ],
+  "id": "https://user-dts.gaiaid.io/org-credential-presentation.json",
+  "proof": {
+    "type": "Ed25519Signature2018",
+    "created": "2024-02-08T17:38:46Z",
+    "verificationMethod": "did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
+    "proofPurpose": "assertionMethod",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..6_k6Dbgug-XvksZvDVi9UxUTAmQ0J76pjdrQyNaQL7eVMmP_SUPZCqso6EN3aEKFSsJrjDJoPJa9rBK99mXvDw"
+  }
+}
+
+```
+
+trademark-credential-presentation.json:
+
+```json
+
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "holder": "did:web:user-dts.gaiaid.io",
+  "type": ["VerifiablePresentation"],
+  "verifiableCredential": [
+    {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2"
+      ],
+      "id": "did:web:user-dts.gaiaid.io",
+      "type": ["VerifiableCredential", "TrademarkCredential],
+      "issuer": "did:web:trademark.io",
+      "credentialSubject": {
+        "id": "did:web:user-dts.gaiaid.io",
+        ...
+      },
+      ...
+      "credentialSchema": [{
+        "id": "https://example-ptr/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+        "type": "JsonSchema",
+        "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+      }]
+    }
+  ],
+  "id": "https://user-dts.gaiaid.io/trademark-credential-presentation.json",
+  "proof": {
+    "type": "Ed25519Signature2018",
+    "created": "2024-02-08T17:38:46Z",
+    "verificationMethod": "did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
+    "proofPurpose": "assertionMethod",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..6_k6Dbgug-XvksZvDVi9UxUTAmQ0J76pjdrQyNaQL7eVMmP_SUPZCqso6EN3aEKFSsJrjDJoPJa9rBK99mXvDw"
+  }
+}
+
+```
 
 ### Crawlers
 
 *This section is non normative.*
 
-Crawlers will query the `/did-directory/list` method of [[ref: PTRs]] to get the [[ref: DIDs]] of registered [[ref:DTSs]] and resolve them to build an index by recursively resolving all linked data.
+Crawlers will query the [[ref: DID Directory]] `/did-directory/list` method of a [[ref: PTR]] to get the [[ref: DIDs]] of registered [[ref:DTSs]] and resolve them to build an index by recursively resolving all linked data.
 
 For more information, please refer to the [public-trust-registry-specs](https://github.com/2060-io/public-trust-registry-specs).
 
@@ -473,238 +467,4 @@ user <|-- browser : show result
 
 It is the responsibility of browsers and search engines to properly translate credential attributes, as credential schemas are always defined in a single language, that SHOULD be english.
 
-
-### Explain
-
-- DID document of DTS must contain a "LinkedVerifiablePresentation" service entry that point to a DTS Credential.
-- DID document of DTS must contain a "TrustRegistry" service entry that point to Verana URL of TrustRegistry entity in verana that is the owner.
-
-```json
-{
-  "@context": ["https://www.w3.org/ns/did/v1", 
-  "https://identity.foundation/linked-vp/contexts/v1",
-  "https://trustregistry"
-  ],
-  "id": "did:web:user-dts.gaiaid.io",
-  "verificationMethod": [
-    {
-      "id": "did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
-      "type": "JsonWebKey2020",
-      "controller": "did:web:user-dts.gaiaid.io",
-      "publicKeyJwk": {
-        "kty": "OKP",
-        "crv": "Ed25519",
-        "x": "VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ"
-      }
-    }
-  ],
-  "service": [
-    {
-      "id": "did:web:user-dts.gaiaid.io#ptr-dts",
-      "type": "LinkedVerifiablePresentation",
-      "serviceEndpoint": ["https://user-dts.gaiaid.io/dts-presentation.json"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#ptr",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://verana.network/trqp-2.0/did:web:verana.foundation/"]
-    }
-  ]
-}
-```
-
-```json
-
-{
-  "@context": ["https://www.w3.org/2018/credentials/v1"],
-  "holder": "did:web:user-dts.gaiaid.io",
-  "type": ["VerifiablePresentation"],
-  "verifiableCredential": [
-    {
-      "@context": [
-        "https://www.w3.org/2018/credentials/v1",
-        {
-          "schema": "https://schema.org/"
-        }
-      ],
-      "issuer": "did:web:org.gaiaid.io",
-      "issuanceDate": "2024-02-08T18:38:46+01:00",
-      "expirationDate": "2029-02-08T18:38:46+01:00",
-      "type": ["VerifiableCredential", "VeranaOrganization"],
-      "credentialSubject": {
-        "id": "did:web:user-dts.gaiaid.io",
-        "orgName": "GaiaID LLC"
-      },
-      "credentialSchema": {
-        "id": "https://verana.network/cs/get/d84c02d5-7013-459a-8d02-09bf8e9a83bd",
-        "type": "JsonSchemaCredential"
-      }
-      "proof": {
-        "type": "Ed25519Signature2018",
-        "created": "2024-02-08T17:38:46Z",
-        "verificationMethod": "did:web:org.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
-        "proofPurpose": "assertionMethod",
-        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..qD1a-op-GWkvzI5LaAXqJhJv-9WCSTgtEUzUvDeuiaUSDWpVUh14x5TUbGNvmx1xZ0fEf5eWZWoJ-2dogDpmBQ"
-      }
-    }
-  ],
-  "id": "https://user-dts.gaiaid.io/dts-presentation.json",
-  "proof": {
-    "type": "Ed25519Signature2018",
-    "created": "2024-02-08T17:38:46Z",
-    "verificationMethod": "did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
-    "proofPurpose": "assertionMethod",
-    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..6_k6Dbgug-XvksZvDVi9UxUTAmQ0J76pjdrQyNaQL7eVMmP_SUPZCqso6EN3aEKFSsJrjDJoPJa9rBK99mXvDw"
-  }
-}
-
-```
-
-
-### Simple Example
-
-- Let's define a DTS with its DID did:web:user-dts.gaiaid.io.
-- Let's define a Trust registry of the Verana Foundation with TRQP 2.0 URL: https://verana.network/did:web:verana.foundation/trqp-2.0/
-- Let's define a Schema from the Verana foundation, the DTS Credential Schema, with UUID d84c02d5-7013-459a-8d02-09bf8e9a83bd, identified with DID did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd
-
-- To prove did:web:user-dts.gaiaid.io is an authorized issuer of did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd, one need to call the TRQP 2.0 method:
-
-GET https://verana.network/did:web:verana.foundation/trqp-2.0/entities/{entityVID}/authorization?{authorizationVID}
-
-with:
-
-- entityVID: did:web:user-dts.gaiaid.io
-- authorizationVID: did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd
-
-Method will return authorization if exists, based on CredentialSchema with id d84c02d5-7013-459a-8d02-09bf8e9a83bd and CredentialSchemaPerms.
-
-#### DIDDoc of did:web:user-dts.gaiaid.io will be:
-
-
-```json
-{
-  "@context": ["https://www.w3.org/ns/did/v1", 
-  "https://identity.foundation/linked-vp/contexts/v1",
-  "https://trustregistry"
-  ],
-  "id": "did:web:user-dts.gaiaid.io",
-  "verificationMethod": [
-    {
-      "id": "did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
-      "type": "JsonWebKey2020",
-      "controller": "did:web:user-dts.gaiaid.io",
-      "publicKeyJwk": {
-        "kty": "OKP",
-        "crv": "Ed25519",
-        "x": "VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ"
-      }
-    }
-  ],
-  "service": [
-    {
-      "id": "did:web:user-dts.gaiaid.io#verana-foundation-dts-credential",
-      "type": "LinkedVerifiablePresentation",
-      "serviceEndpoint": ["https://user-dts.gaiaid.io/dts-credential-presentation.json"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#verana-foundation-trust-registry",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://api.verana.network/did:web:verana.foundation/trqp-2.0/"]
-    }
-  ]
-}
-```
-
-#### Verifiable presentation of the DTS Credential will be:
-
-```json
-
-{
-  "@context": ["https://www.w3.org/ns/credentials/v2"],
-  "holder": "did:web:user-dts.gaiaid.io",
-  "type": ["VerifiablePresentation"],
-  "verifiableCredential": [
-    {
-      "@context": [
-        "https://www.w3.org/ns/credentials/v2"
-      ],
-      "issuer": "did:web:user-dts.gaiaid.io",
-      "issuanceDate": "2024-02-08T18:38:46+01:00",
-      "expirationDate": "2029-02-08T18:38:46+01:00",
-      "type": ["VerifiableCredential"],
-      "credentialSubject": {
-        "id": "did:web:user-dts.gaiaid.io",
-        "service_name": "GaiaID Service"
-      },
-      "credentialSchema": {
-        "id": "https://verana.foundation/credentials/dts-credential-schema-credential",
-        "type": "JsonSchemaCredential"
-      }
-      "proof": {
-        "type": "Ed25519Signature2018",
-        "created": "2024-02-08T17:38:46Z",
-        "verificationMethod": "did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
-        "proofPurpose": "assertionMethod",
-        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..qD1a-op-GWkvzI5LaAXqJhJv-9WCSTgtEUzUvDeuiaUSDWpVUh14x5TUbGNvmx1xZ0fEf5eWZWoJ-2dogDpmBQ"
-      }
-    }
-  ],
-  "id": "https://user-dts.gaiaid.io/dts-credential-presentation.json",
-  "proof": {
-    "type": "Ed25519Signature2018",
-    "created": "2024-02-08T17:38:46Z",
-    "verificationMethod": "did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
-    "proofPurpose": "assertionMethod",
-    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..6_k6Dbgug-XvksZvDVi9UxUTAmQ0J76pjdrQyNaQL7eVMmP_SUPZCqso6EN3aEKFSsJrjDJoPJa9rBK99mXvDw"
-  }
-}
-
-```
-
-Upon dereferencing the value of the id https://verana.foundation/credentials/dts-credential-schema-credential, a process also be referred to as schema resolution, the following verifiable credential, representing a JSON Schema, is returned:
-
-The JsonSchema Credential must have been issued by did:web:verana.foundation.
-
-```json
-
-{
-  "@context": [
-      "https://www.w3.org/ns/credentials/v2"
-  ],
-  "id": "https://verana.foundation/credentials/dts-credential-schema-credential",
-  "type": ["VerifiableCredential", "JsonSchemaCredential"],
-  "issuer": "did:web:verana.foundation",
-  "issuanceDate": "2024-01-01T19:23:24Z", 
-  "credentialSchema": {
-    "id": "https://verana.network/did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd/jsonschema",
-    "type": "JsonSchema",
-    "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
-  },
-  "credentialSubject": {
-    "id": "did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd",
-    "type": "JsonSchema",
-    "jsonSchema": {
-       "$id": "did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd",
-       "$schema": "https://json-schema.org/draft/2020-12/schema",
-       "title": "VeranaDtsSchemaCredential",
-       "description": "EmailCredential using JsonSchemaCredential",
-       "type": "object",
-       "properties": {
-         "credentialSubject": {
-           "type": "object",
-           "properties": {
-             "id": {
-               "type": "string"
-             },
-            "service_name": {
-              "type": "string"
-            }
-           },
-           "required": ["id", "service_name"]
-         }
-       }
-    }
-  }
-}
-
-```
+### Browser authentication in DTS

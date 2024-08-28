@@ -81,7 +81,7 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <h2 id="introduction"><a class="toc-anchor" href="#introduction" >§</a> Introduction</h2>
 <h3 id="what-is-a-trustable-communication-channel"><a class="toc-anchor" href="#what-is-a-trustable-communication-channel" >§</a> What is a Trustable Communication Channel?</h3>
 <p><em>This section is non-normative.</em></p>
-<p>A <a class="term-reference" href="#term:trustable-communication-channel">trustable communication channel</a> is a persistent communication channel, where participants have been fully authenticated with a <a class="term-reference" href="#term:verifiable-credential">verifiable credential</a> or equivalent.</p>
+<p>A trustable communication channel is a persistent communication channel, where participants have been fully authenticated with a <a class="term-reference" href="#term:verifiable-credential">verifiable credential</a> or equivalent.</p>
 <p>Communication channel is considered trustable in the following use cases:</p>
 <ul>
 <li>immediately when establishing the connection for all participants. In this case, all participants must present a <a class="term-reference" href="#term:verifiable-credential">verifiable credential</a> to establish a connection.</li>
@@ -101,14 +101,10 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <dd>A <a class="term-reference" href="#term:public-trust-registry">public trust registry</a> account.</dd>
 <dt><span id="term:applicants"><span id="term:applicant">applicant</span></span>:</dt>
 <dd>A <a class="term-reference" href="#term:controller">controller</a> that starts a <a class="term-reference" href="#term:validation-process">validation process</a>.</dd>
-<dt><span id="term:chain-rest-endpoints"><span id="term:chain-rest-endpoint">chain rest endpoint</span></span>:</dt>
-<dd>The chain REST endpoints, as registered in the chain registry, like <a path-0="github.com"path-1="cosmos"path-2="chain-registry"path-3="blob"path-4="master"path-5="verana"path-6="chain.json"href="https://github.com/cosmos/chain-registry/blob/master/verana/chain.json" ><span>https://github.com/cosmos/chain-registry/blob/master/verana/chain.json</span></a> for the Verana mainnet.</dd>
 <dt><span id="term:controllers"><span id="term:controller">controller</span></span>:</dt>
 <dd>An <a class="term-reference" href="#term:account">account</a> which is the controller of a specific resource in an <a class="term-reference" href="#term:ptr">PTR</a>.</dd>
 <dt><span id="term:credential-schemas"><span id="term:credential-schema">credential schema</span></span>:</dt>
 <dd>An <a class="term-reference" href="#term:ptr">PTR</a> resource which represents a verifiable credential definition and the associated permissions and business rules for issuing, verifying or holding a credential linked to this credential schema.</dd>
-<dt><span id="term:csp"><span id="term:credential-schema-permissions"><span id="term:credential-schema-permission">credential schema permission</span></span></span>:</dt>
-<dd>A permission, linked to a <a class="term-reference" href="#term:credential-schema">credential schema</a>, that represent a grant for being <a class="term-reference" href="#term:issuer">issuer</a>, <a class="term-reference" href="#term:verifier">verifier</a>, <a class="term-reference" href="#term:issuer-grantor">issuer grantor</a>, or <a class="term-reference" href="#term:verifier-grantor">verifier grantor</a> of a <a class="term-reference" href="#term:credential-schema">credential schema</a>.</dd>
 <dt><span id="term:dids"><span id="term:did"><span id="term:decentralized-identifier">decentralized identifier</span></span></span>:</dt>
 <dd>A decentralized identifier, as specified in [<a class="spec-reference" href="#ref:DID-CORE">DID-CORE</a>].</dd>
 <dt><span id="term:didcomm"><span id="term:decentralized-identifier-communication">decentralized identifier communication</span></span>:</dt>
@@ -119,30 +115,14 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <dd>A service, usually provided using <a class="term-reference" href="#term:didcomm">DIDComm</a>, that can be deployed anywhere by its owner, and that is using the decentralized trust layer provided by an <a class="term-reference" href="#term:ptr">PTR</a>, and has a resolvable <a class="term-reference" href="#term:proof-of-trust">proof of trust</a>.</dd>
 <dt><span id="term:dts-browsers"><span id="term:dts-browser"><span id="term:decentralized-trust-service-browser">decentralized trust service browser</span></span></span>:</dt>
 <dd>A browser for accessing and using <a class="term-reference" href="#term:dtss">DTSs</a>. To be considered as a <a class="term-reference" href="#term:dts-browser">DTS browser</a>, a browser must implement an <a class="term-reference" href="#term:ptr">PTR</a> trust layer and use a trust resolution using use the <a class="term-reference" href="#term:essential-credential-schemas">essential credential schemas</a> for providing a <a class="term-reference" href="#term:proof-of-trust">proof of trust</a> to users so that user clearly identifies <a class="term-reference" href="#term:dts">DTS</a> provider and decides to connect or not.</dd>
-<dt><span id="term:denom">denom</span>:</dt>
-<dd>Native token of an <a class="term-reference" href="#term:ptr">PTR</a>, example: ts.</dd>
 <dt><span id="term:did-directory"><span id="term:did-directory">DID Directory</span></span>:</dt>
 <dd>A repository of DIDs in an PTR.</dd>
-<dt><span id="term:entities"><span id="term:entity">entity</span></span>:</dt>
-<dd>An <a class="term-reference" href="#term:account">account</a>, a <a class="term-reference" href="#term:group">group</a>, or the <a class="term-reference" href="#term:governance-authority">governance authority</a>.</dd>
 <dt><span id="term:essential-credential-schemas"><span id="term:essential-credential-schema">essential credential schema</span></span>:</dt>
 <dd>Default <a class="term-reference" href="#term:credential-schema">credential schema</a>, created at genesis of an <a class="term-reference" href="#term:ptr">PTR</a>, that provide the basis for a trust layer to exist in the ecosystem so that <a class="term-reference" href="#term:dts-browser">DTS browser</a> can generate a <a class="term-reference" href="#term:proof-of-trust">proof of trust</a>.</dd>
-<dt><span id="term:estimated-transaction-fees">estimated transaction fees</span>:</dt>
-<dd>Estimated fees required, in <a class="term-reference" href="#term:denom">denom</a>, that is passed when execute a <a class="term-reference" href="#term:transaction">transaction</a> in an <a class="term-reference" href="#term:ptr">PTR</a>. Usually, a estimated transaction fees are always slightly greater than <a class="term-reference" href="#term:transaction-fees">transaction fees</a>, to make sure the execution of the transaction will not be aborted for an out-of-gas situation. Unused gas is refunded to account.</dd>
-<dt><span id="term:gf"><span id="term:governance-framework">governance framework</span></span>:</dt>
-<dd>The governance framework (GF) of an <a class="term-reference" href="#term:ptr">PTR</a>.</dd>
-<dt><span id="term:ga"><span id="term:governance-authority">governance authority</span></span>:</dt>
-<dd>The governance authority (GA) of an <a class="term-reference" href="#term:ptr">PTR</a>.</dd>
-<dt><span id="term:group">group</span>:</dt>
-<dd>A group.</dd>
 <dt><span id="term:holders"><span id="term:holder">holder</span></span>:</dt>
 <dd>A role an entity might perform by possessing one or more verifiable credentials and generating verifiable presentations from them. A holder is often, but not always, a <a class="term-reference" href="#term:subject">subject</a> of the verifiable credentials they are holding. Holders store their credentials in credential repositories. Example holders include organizations, persons, things.</dd>
 <dt><span id="term:issuers"><span id="term:issuer">issuer</span></span>:</dt>
 <dd>A role an entity can perform by asserting claims about one or more <a class="term-reference" href="#term:subjects">subjects</a>, creating a verifiable credential from these claims, and transmitting the verifiable credential to a <a class="term-reference" href="#term:holder">holder</a>. Example issuers include corporations, non-profit organizations, trade associations, governments, and individuals.</dd>
-<dt><span id="term:issuer-grantors"><span id="term:issuer-grantor">issuer grantor</span></span>:</dt>
-<dd>A role an entity can perform in a credential schema by adding or revoking issuers.</dd>
-<dt><span id="term:keeper">keeper</span>:</dt>
-<dd>A storage map(key, value) in the ledger of an <a class="term-reference" href="#term:ptr">PTR</a>.</dd>
 <dt><span id="term:linked-vp">linked-vp</span>:</dt>
 <dd>A presentation of a <a class="term-reference" href="#term:verifiable-credential">verifiable credential</a> as specified in <a path-0="identity.foundation"path-1="linked-vp"path-2=""href="https://identity.foundation/linked-vp/" >LINKED-VP</a>.</dd>
 <dt><span id="term:participants"><span id="term:participant">participant</span></span>:</dt>
@@ -150,109 +130,41 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <dt><span id="term:proof-of-trust">proof of trust</span>:</dt>
 <dd>Visual representation using <a class="term-reference" href="#term:essential-credential-schemas">essential credential schemas</a> of a <a class="term-reference" href="#term:trust-resolution">trust resolution</a> process of a <a class="term-reference" href="#term:dts">DTS</a>, for identifying the <a class="term-reference" href="#term:dts">DTS</a>, its owner, and the <a class="term-reference" href="#term:issuer">issuer</a> of the verifiable credential of its owner.</dd>
 <dt><span id="term:ptr"><span id="term:public-trust-registry">public trust registry</span></span>:</dt>
-<dd>a decentralized, ledger-based network, which provides: trust registry features that can be used by all its <a class="term-reference" href="#term:participants">participants</a>; and a tokenized business model allows charging <a class="term-reference" href="#term:participants">participants</a> for <a class="term-reference" href="#term:trust-fees">trust fees</a> that are transferred to other <a class="term-reference" href="#term:participants">participants</a>, or locked into <a class="term-reference" href="#term:trust-deposits">trust deposits</a>.</dd>
-<dt><span id="term:query">query</span>:</dt>
-<dd>A read-only action that perform some reading in an <a class="term-reference" href="#term:ptr">PTR</a> and returns value.</dd>
+<dd>a decentralized, ledger-based network, which provides: trust registry features that can be used by all its <a class="term-reference" href="#term:participants">participants</a>; and a tokenized business model allows charging <a class="term-reference" href="#term:participants">participants</a> for trust fees that are transferred to other <a class="term-reference" href="#term:participants">participants</a>, or locked into <a class="term-reference" href="#term:trust-deposits">trust deposits</a>.</dd>
 <dt><span id="term:subjects"><span id="term:subject">subject</span></span>:</dt>
 <dd>A thing about which claims are made. Example subjects include human beings, animals, things, and organization, a <a class="term-reference" href="#term:did">DID</a>…</dd>
-<dt><span id="term:transactions"><span id="term:transaction">transaction</span></span>:</dt>
-<dd>An action that modifies the ledger of an <a class="term-reference" href="#term:ptr">PTR</a> and which execution requires transaction fees.</dd>
-<dt><span id="term:transaction-fees">transaction fees</span>:</dt>
-<dd>Fees required, in <a class="term-reference" href="#term:denom">denom</a>, to execute a <a class="term-reference" href="#term:transaction">transaction</a> in an <a class="term-reference" href="#term:ptr">PTR</a>.</dd>
 <dt><span id="term:trust-deposits"><span id="term:trust-deposit">trust deposit</span></span>:</dt>
 <dd>A financial deposit that is used as a trust guarantee. For a given <a class="term-reference" href="#term:controller">controller</a>, its trust deposit is increased when running validation process (either as an <a class="term-reference" href="#term:applicant">applicant</a> or as a <a class="term-reference" href="#term:validator">validator</a>), or when registering <a class="term-reference" href="#term:did">DID</a> in the DID directory.</dd>
-<dt><span id="term:trust-fees">trust fees</span>:</dt>
-<dd>Fees paid by an <a class="term-reference" href="#term:applicant">applicant</a> when running a validation process and/or when registering <a class="term-reference" href="#term:did">DID</a> in the DID directory.</dd>
-<dt><span id="term:trust-units"><span id="term:trust-unit">trust unit</span></span>:</dt>
-<dd>Price, in <a class="term-reference" href="#term:denom">denom</a>, of one unit of trust.</dd>
 <dt><span id="term:trust-registries"><span id="term:trust-registry">trust registry</span></span></dt>
 <dd>An approved list of <a class="term-reference" href="#term:issuers">issuers</a> and <a class="term-reference" href="#term:verifiers">verifiers</a> that are authorized to issue/verify certain credentials in an ecosystem.</dd>
 <dt><span id="term:trust-resolution">trust resolution</span>:</dt>
 <dd>Process run by, for example a <a class="term-reference" href="#term:dts-browser">DTS browser</a>, which purpose is to recursively resolve <a class="term-reference" href="#term:did">DID</a> by digging into <a class="term-reference" href="#term:did-documents">DID Documents</a> and look for <a class="term-reference" href="#term:linked-vp">linked-vp</a> entries and their <a class="term-reference" href="#term:issuer">issuer</a> <a class="term-reference" href="#term:dids">DIDs</a>, and <a path-0="trustoverip.github.io"path-1="tswg-trust-registry-protocol"path-2=""href="https://trustoverip.github.io/tswg-trust-registry-protocol/" >trust registry</a> entries to gather whether the service provided by the <a class="term-reference" href="#term:did">DID</a> is trustable (and legitimate), or not.</dd>
-<dt><span id="term:valid-permission">valid permission</span>:</dt>
-<dd>For a given country code, a credential schema permission, which (countries attribute is null or contain the given country code), and effective_from datetime is lower than current datetime, and (effective_until datetime is null or revoked datetime is greater than current datetime), and revoked is null.</dd>
 <dt><span id="term:validation-process">validation process</span>:</dt>
 <dd>A process run by <a class="term-reference" href="#term:applicants">applicants</a> that want to, for a specific <a class="term-reference" href="#term:credential-schema">credential schema</a>, be a <a class="term-reference" href="#term:issuer">issuer</a>, be a <a class="term-reference" href="#term:verifier">verifier</a>, or simply hold a verifiable credential linked to the <a class="term-reference" href="#term:credential-schema">credential schema</a>.</dd>
 <dt><span id="term:validator">validator</span>:</dt>
-<dd>A role an <a class="term-reference" href="#term:entity">entity</a> performs by participating in validation processes with <a class="term-reference" href="#term:applicants">applicants</a> in order to register them as <a class="term-reference" href="#term:issuer">issuer</a>, or <a class="term-reference" href="#term:verifier">verifier</a> of a <a class="term-reference" href="#term:credential-schema">credential schema</a>, or to deliver a verifiable credential to them.</dd>
+<dd>A role an entity performs by participating in validation processes with <a class="term-reference" href="#term:applicants">applicants</a> in order to register them as <a class="term-reference" href="#term:issuer">issuer</a>, or <a class="term-reference" href="#term:verifier">verifier</a> of a <a class="term-reference" href="#term:credential-schema">credential schema</a>, or to deliver a verifiable credential to them.</dd>
 <dt><span id="term:verifiers"><span id="term:verifier">verifier</span></span>:</dt>
 <dd>A role an entity performs by receiving one or more verifiable credentials, optionally inside a verifiable presentation for processing. Example verifiers include service providers.</dd>
-<dt><span id="term:verifier-grantors"><span id="term:verifier-grantor">verifier grantor</span></span>:</dt>
-<dd>A role an <a class="term-reference" href="#term:entity">entity</a> can perform in a <a class="term-reference" href="#term:credential-schema">credential schema</a> by adding or revoking verifiers.</dd>
 <dt><span id="term:verifiable-credentials"><span id="term:verifiable-credential">verifiable credential</span></span>:</dt>
 <dd>A verifiable credential as defined in [<a class="spec-reference" href="#ref:VC-DATA-MODEL">VC-DATA-MODEL</a>].</dd>
 </dl>
 <h2 id="specification"><a class="toc-anchor" href="#specification" >§</a> Specification</h2>
-<h3 id="did"><a class="toc-anchor" href="#did" >§</a> DID</h3>
-<p>[DTS-DID] A <a class="term-reference" href="#term:dts">DTS</a> MUST be identified by a <a class="term-reference" href="#term:did">DID</a>. The <a class="term-reference" href="#term:did">DID</a> of a <a class="term-reference" href="#term:dts">DTS</a> MUST resolve to a <a class="term-reference" href="#term:did-document">DID Document</a>.</p>
-<h3 id="did-document"><a class="toc-anchor" href="#did-document" >§</a> DID Document</h3>
-<p>The following entries MUST be present.</p>
-<p>[DTS-DID-DOC-1] A <a class="term-reference" href="#term:dts">DTS</a> DID Document MUST contain a <a class="term-reference" href="#term:linked-verifiable-presentation">linked verifiable presentation</a> of an <a class="term-reference" href="#term:essential-credential-schema">essential credential schema</a> DTS credential. Service name MUST be “LinkedVerifiablePresentation”, and service id MUST be the concatenation of the <a class="term-reference" href="#term:did">DID</a> of the <a class="term-reference" href="#term:dts">DTS</a> plus <code>#essential-schemas-dts-credential</code>. Service endpoint MUST be an URL that resolve to a presentation if a <a class="term-reference" href="#term:dts-credential">DTS credential</a> as specified in [DTS-DTS-CRED-1].</p>
-<p>[DTS-DID-DOC-2] Additionally, a <a class="term-reference" href="#term:dts">DTS</a> DID Document MUST contain a <a class="term-reference" href="#term:trust-registry">trust registry</a> service entry. Service name MUST be “TrustRegistry”, and service id MUST be the concatenation of the <a class="term-reference" href="#term:did">DID</a> of the <a class="term-reference" href="#term:dts">DTS</a> plus <code>#essential-schemas-trust-registry</code>. Service endpoint URL MUST be <code>https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/</code>, where URL <code>https://{$chain-rest-api}/</code> is one of the REST endpoints defined in <a class="term-reference" href="#term:chain-rest-endpoints">chain rest endpoints</a>, and <code>{$essential-schema-issuer}</code> is the <a class="term-reference" href="#term:did">DID</a> of the <a class="term-reference" href="#term:trust-registry">trust registry</a> owner of the <a class="term-reference" href="#term:essential-credential-schemas">essential credential schemas</a> in the trust registry.</p>
-<p>Example:</p>
-<pre class="language-json"><code class="language-json">  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#essential-schemas-dts-credential"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"LinkedVerifiablePresentation"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://user-dts.gaiaid.io/dts-credential-presentation.json"</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#essential-schemas-trust-registry"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"TrustRegistry"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span>
-</code></pre>
-<p>[DTS-DID-DOC-3] In case the <a class="term-reference" href="#term:dts">DTS</a> wants to issue or verify credentials that involve a different trust registries, for schema(s) that the <a class="term-reference" href="#term:dts">DTS</a> <a class="term-reference" href="#term:did">DID</a> is authorized to use as <a class="term-reference" href="#term:issuer">issuer</a> and/or <a class="term-reference" href="#term:verifier">verifier</a>, DID Document MUST include the corresponding additional “TrustRegistry” service entries. Service name(s) MUST be “TrustRegistry”, and service id(s) MUST be the concatenation of the <a class="term-reference" href="#term:did">DID</a> of the <a class="term-reference" href="#term:dts">DTS</a> plus <code>#</code> plus a non-conflicting fragment of their choice. Service endpoint URL MUST be <code>https://{$chain-rest-api}/{$example-trust-registry-did}/trqp-2.0/</code>, where URL <code>https://{$chain-rest-api}/</code> is one of the REST endpoints defined in <a class="term-reference" href="#term:chain-rest-endpoints">chain rest endpoints</a>, and <code>{$example-trust-registry-did}</code> is the <a class="term-reference" href="#term:did">DID</a> of the <a class="term-reference" href="#term:trust-registry">trust registry</a> owner of the <a class="term-reference" href="#term:credential-schemas">credential schemas</a> in the trust registry.</p>
-<p>Example:</p>
-<pre class="language-json"><code class="language-json">  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#essential-schemas-dts-credential"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"LinkedVerifiablePresentation"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://user-dts.gaiaid.io/dts-credential-presentation.json"</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#essential-schemas-trust-registry"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"TrustRegistry"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#additional-trust-registry-1"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"TrustRegistry"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://{$chain-rest-api}/did:example:trust-registry-1/trqp-2.0/"</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#additional-trust-registry-2"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"TrustRegistry"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://{$chain-rest-api}/did:example:trust-registry-2/trqp-2.0/"</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    ...
-  <span class="token punctuation">]</span>
-</code></pre>
-<p>[DTS-DID-DOC-4] If the <a class="term-reference" href="#term:essential-credential-schema">essential credential schema</a> DTS credential, presented as specified in [DTS-DID-DOC-1], has been issued by the same <a class="term-reference" href="#term:did">DID</a> that this <a class="term-reference" href="#term:dts">DTS</a> <a class="term-reference" href="#term:did">DID</a>, the DID Document MUST contain a <a class="term-reference" href="#term:linked-verifiable-presentation">linked verifiable presentation</a> of an <a class="term-reference" href="#term:essential-credential-schema">essential credential schema</a> Organization credential (resp. an <a class="term-reference" href="#term:essential-credential-schema">essential credential schema</a> Person credential). Service name MUST be “LinkedVerifiablePresentation”, and service id MUST be the concatenation of the <a class="term-reference" href="#term:did">DID</a> of the <a class="term-reference" href="#term:dts">DTS</a> plus <code>#essential-schemas-org-credential</code> (resp. <code>#essential-schemas-person-credential</code>). Service endpoint MUST be an URL that resolve to a presentation of an Organization credential (resp. Person Credential).</p>
-<p>[DTS-DTS-CRED-1] A DTS credential MUST contain the following mandatory attributes.</p>
+<h3 id="service-ptrc-ptr-credential"><a class="toc-anchor" href="#service-ptrc-ptr-credential" >§</a> [SERVICE-PTRC] PTR Credential</h3>
+<p>[SERVICE-PTRC-1] Definition:</p>
+<p>A PTR credential MUST be based on a credential schema created in the PTR (a <code>CredentialSchema</code> entry) and refer to the corresponding Json Schema in the PTR, as specified in [CS] and [ECS] in PTR spec. A PTR Credential MUST have a <code>credentialSchema</code> property:</p>
 <ul>
-<li><code>did</code> (string) (<em>mandatory</em>): the <a class="term-reference" href="#term:did">DID</a> of the DTS the credential has been issued to, which is the subject of the <a class="term-reference" href="#term:verifiable-credential">verifiable credential</a>.</li>
-<li><code>service_name</code> (string) (<em>mandatory</em>): DTS name. UTF8 charset, max length: 512 bytes.</li>
-<li><code>service_description</code> (string) (<em>mandatory</em>): DTS description. UTF8 charset, max length: 2048 bytes.</li>
-<li><code>service_logo</code> (image) (<em>mandatory</em>): the logo of the DTS, as it will be shown in browsers and search engines.</li>
-<li><code>minimum_age_required</code> (integer) (<em>mandatory</em>): minimum required age to connect to service. Allowed value: 0 to 255. Used by browsers that provide a simple birth date based parental control.</li>
-<li><code>terms_and_conditions</code> (string) (<em>mandatory</em>): URL of the terms and conditions of the DTS. It is recommended to store terms and conditions in a file, in a repository that allows file hash verification (IPFS).</li>
-<li><code>terms_and_conditions_hash</code> (string) (<em>optional</em>): If terms and conditions of the DTS are stored in a file, optional hash of the file for data integrity verification.</li>
-<li><code>privacy_policy</code> (string) (<em>mandatory</em>): URL of the terms and conditions of the DTS. MAY be the same URL that <code>terms_and_conditions</code> if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).</li>
-<li><code>privacy_policy_hash</code> (string) (<em>optional</em>): If privacy policy of the DTS are stored in a file, optional hash of the file for data integrity verification.</li>
+<li><code>id</code> must point to a valid PTR URL of the API method that returns the Json Schema of the corresponding <code>CredentialSchema</code> entry of the <a class="term-reference" href="#term:ptr">PTR</a>;</li>
+<li><code>id</code> URL MAY have a queryParameter <code>essential</code> set to <code>true</code>, in this case it means we are referencing the schema of an essential credential;</li>
+<li><code>type</code> MUST be <code>JsonSchema</code>;</li>
+<li>a <code>digestSRI</code> attribute MUST be present, and when loading the credential schema from its <code>id</code> URL, digestSRI MUST match.</li>
 </ul>
-<div id="todo" class="notice todo"><a class="notice-link" href="#todo">TODO</a><p>Define if logo must be a URL or an embedded picture. I’m more into an embedded picture. Let’s discuss it!</p>
-</div>
-<p>[DTS-DTS-CRED-2] The DTS credential <a class="term-reference" href="#term:issuer">issuer</a> of the <a class="term-reference" href="#term:verifiable-credential">verifiable credential</a> MUST be a <a class="term-reference" href="#term:did">DID</a> that resolves to a <a class="term-reference" href="#term:dts">DTS</a>. Issuer CAN be the same <a class="term-reference" href="#term:dts">DTS</a> <a class="term-reference" href="#term:did">DID</a>.</p>
-<p>[DTS-DTS-CRED-3] DTS Credential MUST include a reference to a DTS Credential Schema and the DTS Credential Schema must be located in a <a class="term-reference" href="#term:verifiable-data-registry">verifiable data registry</a>. Schema MUST be defined as an official <a class="term-reference" href="#term:essential-credential-schema">essential credential schema</a>.</p>
+<p>Example:</p>
 <pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token string">"https://www.w3.org/ns/credentials/v2"</span><span class="token punctuation">,</span>
-    <span class="token string">"https://www.w3.org/ns/credentials/examples/v2"</span>
+    <span class="token string">"https://www.w3.org/ns/credentials/v2"</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://bar.example.com/dts-presentation.json"</span><span class="token punctuation">,</span>
-  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123"</span><span class="token punctuation">,</span>
+  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">,</span> "DtsCredential<span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:foobar:456"</span><span class="token punctuation">,</span>
   <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123"</span><span class="token punctuation">,</span>
@@ -260,257 +172,120 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   ...
   <span class="token property">"credentialSchema"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example.ptr/cs/get/d84c02d5-7013-459a-8d02-09bf8e9a83bd"</span><span class="token punctuation">,</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://{$chain-rest-api}/{$tr.did}/cs/js/{$uuid}?essential=true"</span><span class="token punctuation">,</span>
     <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span><span class="token punctuation">,</span>
     <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>
   <span class="token punctuation">}</span><span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<div id="note" class="notice note"><a class="notice-link" href="#note">NOTE</a><p>Browsers or DTSs that connect to DTSs are responsible for defining their whitelist of <a class="term-reference" href="#term:trust-registries">trust registries</a> and <a class="term-reference" href="#term:public-trust-registries">public trust registries</a>.</p>
+<p>[SERVICE-PTRC-2] Trust Registry:</p>
+<p>if queryParameter <code>essential</code> was set to <code>true</code>:</p>
+<ul>
+<li>a “TrustRegistry” service entry with id <code>#ptr-essential-schemas-trust-registry</code> defined in DID Document of the service that wants to issue or request a presentation of a PTR Essential Credential, MUST exist and MUST have the same <code>$chain-rest-api</code> and <code>$tr.did</code> than the <code>credentialSchema.id</code>;</li>
+<li>for issuance or acceptance of a PTR Credential, DID of the issuer of the credential MUST be authorized in the trust registry.</li>
+<li>for presentation request, DID of a PTR Credential, the verifier of the credential MUST be authorized in trust registry.</li>
+</ul>
+<p>else if queryParameter <code>essential</code> was set to <code>false</code> or was not present:</p>
+<ul>
+<li>a “TrustRegistry” service entry with id starting with <code>#ptr-schema</code> different than <code>#ptr-essential-schemas-trust-registry</code> defined in DID Document of the service that wants to issue or request a presentation of a PTR Credential, MUST exist and MUST have the same <code>$chain-rest-api</code> and <code>$tr.did</code> than the <code>credentialSchema.id</code>;</li>
+<li>for issuance or acceptance of a PTR Credential, DID of the issuer of the credential MUST be authorized in the trust registry.</li>
+<li>for presentation request, DID of a PTR Credential, the verifier of the credential MUST be authorized in trust registry.</li>
+</ul>
+<div id="note-57" class="notice note"><a class="notice-link" href="#note-57">NOTE</a><p>Browser MUST use the trqp v2.0 API of the PTR /entities/{entityVID}/authorization to query to verify the issuer of this credential is an authorized ISSUER.</p>
 </div>
-<h3 id="dts-credential-issuer"><a class="toc-anchor" href="#dts-credential-issuer" >§</a> DTS Credential Issuer</h3>
-<p>[DTS-DTS-CRED-ISSUER-1] The <a class="term-reference" href="#term:dts">DTS</a> of a DTS Credential Issuer MUST contain a <a class="term-reference" href="#term:linked-verifiable-presentation">linked verifiable presentation</a> of an <a class="term-reference" href="#term:organization-credential">organization credential</a> or a <a class="term-reference" href="#term:person-credential">person credential</a>.</p>
-<p>Service name MUST be “LinkedVerifiablePresentation”, and service id MUST be the concatenation of the <a class="term-reference" href="#term:did">DID</a> plus <code>#ptr-org</code> or <code>#ptr-person</code>. Service endpoint MUST be an URL that resolve to an Organization or Person credential which subject attribute <code>did</code> is the <a class="term-reference" href="#term:did">DID</a> of the DTS. If the linked presentation is an <a class="term-reference" href="#term:organization-credential">organization credential</a>, all attributes MUST be presented. If it is a <a class="term-reference" href="#term:person-credential">person credential</a>, only the <code>person_name</code> and <code>country_code_of_residence</code> MUST be present.</p>
 <p>Example:</p>
-<pre class="language-json"><code class="language-json"><span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+<pre class="language-json"><code class="language-json">  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123#ptr-org"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"LinkedVerifiablePresentation"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://bar.example.com/organization.jsonld"</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span>
-</code></pre>
-<h3 id="organization-credential"><a class="toc-anchor" href="#organization-credential" >§</a> Organization Credential</h3>
-<p>[DTS-ORG-CRED-1] An <a class="term-reference" href="#term:organization-credential">organization credential</a> MUST contain the following mandatory attributes.</p>
-<ul>
-<li><code>did</code> (string) (<em>mandatory</em>): the <a class="term-reference" href="#term:did">DID</a> of the DTS the credential has been issued to, which is the subject of the <a class="term-reference" href="#term:verifiable-credential">verifiable credential</a>.</li>
-<li><code>org_name</code> (string) (<em>mandatory</em>): name of the organization.</li>
-<li><code>org_registry_id</code> (string) (<em>mandatory</em>): registry id of the organization.</li>
-<li><code>org_address</code> (string) (<em>mandatory</em>): address of the organization.</li>
-<li><code>org_logo</code> (image) (<em>mandatory</em>): the logo of the organization, as it will be shown in browsers and search engines.</li>
-<li><code>org_type</code> (enum) (<em>mandatory</em>): type of organization. PUBLIC, PRIVATE, FOUNDATION.</li>
-<li><code>country_code</code> (string) (<em>mandatory</em>): country where the company is registered.</li>
-</ul>
-<div id="todo-1" class="notice todo"><a class="notice-link" href="#todo-1">TODO</a><p>Define if logo must be a URL or an embedded picture. I’m more into an embedded picture. Let’s discuss it.
-Define if more attributes are needed here</p>
-</div>
-<div id="todo-2" class="notice todo"><a class="notice-link" href="#todo-2">TODO</a><p>In the future, we could add a credential for proof-of-brand-registration, to avoid issues with logos.</p>
-</div>
-<p>[DTS-ORG-CRED-2] Organization Credential issuer MUST include a reference to an Organization Credential Schema and the Organization Credential Schema must be located in a <a class="term-reference" href="#term:public-trust-registry">public trust registry</a>. Schema MUST be defined as an official <a class="term-reference" href="#term:essential-credential-schema">essential credential schema</a>.</p>
-<p>[DTS-ORG-CRED-3] DID Document resolved from the <a class="term-reference" href="#term:did">DID</a> of the organization credential issuer must include a trust registry service entry that points to a <a class="term-reference" href="#term:trust-registry">trust registry</a> and proves issuer was allowed to issue this credential.</p>
-<h3 id="person-credential"><a class="toc-anchor" href="#person-credential" >§</a> Person Credential</h3>
-<p>[DTS-PERSON-CRED-1] An <a class="term-reference" href="#term:person-credential">person credential</a> MUST contain the following mandatory attributes.</p>
-<ul>
-<li><code>did</code> (string) (<em>mandatory</em>): the <a class="term-reference" href="#term:did">DID</a> of the DTS the credential has been issued to, which is the subject of the <a class="term-reference" href="#term:verifiable-credential">verifiable credential</a>.</li>
-<li><code>first_name</code> (string) (<em>mandatory</em>): first name of the person.</li>
-<li><code>last_name</code> (string) (<em>mandatory</em>): last name of the person.</li>
-<li><code>birth_date</code> (string) (<em>mandatory</em>): date of birth.</li>
-<li><code>country_of_birth</code> (string): the country of residence.</li>
-</ul>
-<div id="todo-3" class="notice todo"><a class="notice-link" href="#todo-3">TODO</a><p>In the future, we could add an avatar credential, so that a social channel DTS provider would be identified by 2 linked-vp credentials: a person credential presentation, AND an avatar credential presentation.</p>
-</div>
-<p>[DTS-PERSON-CRED-2] Person Credential issuer MUST include a reference to an Person Credential Schema and the Person Credential Schema must be located in a <a class="term-reference" href="#term:public-trust-registry">public trust registry</a>. Schema MUST be defined as an official <a class="term-reference" href="#term:essential-credential-schema">essential credential schema</a>.</p>
-<p>[DTS-PERSON-CRED-3] DID Document resolved from the <a class="term-reference" href="#term:did">DID</a> of the person credential issuer must include a trust registry service entry that points to a <a class="term-reference" href="#term:public-trust-registry">public trust registry</a> and proves issuer was allowed to issue this credential.</p>
-<h3 id="dts-trust-resolution"><a class="toc-anchor" href="#dts-trust-resolution" >§</a> DTS Trust Resolution</h3>
-<p>The trust resolution is a mechanism that verifies a <a class="term-reference" href="#term:did">DID</a> is resolvable, and complies with the Decentralized Trust Service Specification.</p>
-<p>Before attempting to connect to any service endpoint provided present in the DID Document, an entity MUST perform a trust resolution and the trust resolution SHOULD be successful.</p>
-<p>This does not apply for services of type “LinkedVerifiablePresentation” or “TrustRegistry”, as they are precisely needed for trust resolution so they CAN be consumed before establishing trust.</p>
-<p>It’s up to the entity to decide to connect or not to an non trustable service. Nevertheless, <a class="term-reference" href="#term:browsers">browsers</a> SHOULD give the option of connecting to a service only if it is trustable.</p>
-<p>To perform a <a class="term-reference" href="#term:trust-resolution">trust resolution</a> of <code>did:example:123</code>, entity MUST perform the following:</p>
-<ul>
-<li>resolve the <a class="term-reference" href="#term:did">DID</a>.</li>
-<li>parse the DID document and find a service of type <code>LinkedVerifiablePresentation</code> entry with id <code>did:example:123#ptr-dts</code></li>
-</ul>
-<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
-  <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://www.w3.org/ns/did/v1"</span><span class="token punctuation">,</span> <span class="token string">"https://identity.foundation/linked-vp/contexts/v1"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123"</span><span class="token punctuation">,</span>
-  <span class="token property">"verificationMethod"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonWebKey2020"</span><span class="token punctuation">,</span>
-      <span class="token property">"controller"</span><span class="token operator">:</span> <span class="token string">"did:example:123"</span><span class="token punctuation">,</span>
-      <span class="token property">"publicKeyJwk"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"kty"</span><span class="token operator">:</span> <span class="token string">"OKP"</span><span class="token punctuation">,</span>
-        <span class="token property">"crv"</span><span class="token operator">:</span> <span class="token string">"Ed25519"</span><span class="token punctuation">,</span>
-        <span class="token property">"x"</span><span class="token operator">:</span> <span class="token string">"VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ"</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123#ptr-dts"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"LinkedVerifiablePresentation"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://bar.example.com/dts-presentation.json"</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<ul>
-<li>parse the verifiable presentation to get DTS information, and get the <a class="term-reference" href="#term:issuer">issuer</a> <a class="term-reference" href="#term:did">DID</a>. We will call it <strong>DTS credential issuer</strong>.</li>
-<li>resolve the <a class="term-reference" href="#term:did">DID</a> of the DTS credential issuer, let’s call it <code>did:dtscred-issuer:456</code>. In the “service” section look for a service of type <code>LinkedVerifiablePresentation</code> entry with id <code>did:dtscred-issuer456#ptr-org</code> or <code>did:dtscred-issuer:456#ptr-person</code>, and use the service endpoint to get the credential.</li>
-<li>look for a credential schema entry, and call the endpoint to get the credential schema. Verify it is an essential schema in a trusted public trust registry.</li>
-<li>resolve the <a class="term-reference" href="#term:did">DID</a> of the the Organization or Person credential issuer, let’s call it <code>did:idcred-issuer:789</code>. In the “service” section look for a service of type <code>TrustRegistry</code> entry with id <code>did:dtscred-issuer:789#ptr-org</code> or <code>did:dtscred-issuer:789#ptr-person</code>, and use the service endpoint to verify issuer was allowed to issue the credential at the time it was issued.</li>
-</ul>
-<p>Trust resolution MUST complete successfully for a service to be referenced as a <a class="term-reference" href="#term:dts">DTS</a>.</p>
-<h3 id="presentation-request-trust-resolution"><a class="toc-anchor" href="#presentation-request-trust-resolution" >§</a> Presentation Request Trust Resolution</h3>
-<p>When a presentation request is received within an established DIDComm connection with a DTS, or when connecting to a received out-of-band presentation request, entity MUST:</p>
-<ul>
-<li>verify the <a class="term-reference" href="#term:dts">DTS</a> is resolvable;</li>
-<li>verify the <a class="term-reference" href="#term:dts">DTS</a> <a class="term-reference" href="#term:did">DID</a> is registered in the trust registry as a verifier for the credential requested in the presentation request.</li>
-</ul>
-<p>If any of these 2 verifications fail, presentation request should be refused.</p>
-<h3 id="crawlers"><a class="toc-anchor" href="#crawlers" >§</a> Crawlers</h3>
-<p><em>This section is non normative.</em></p>
-<p>Crawlers will query the <code>/did-directory/list</code> method of <a class="term-reference" href="#term:ptrs">PTRs</a> to get the <a class="term-reference" href="#term:dids">DIDs</a> of registered <a class="term-reference" href="#term:dtss">DTSs</a> and resolve them to build an index by recursively resolving all linked data.</p>
-<p>For more information, please refer to the <a path-0="github.com"path-1="2060-io"path-2="public-trust-registry-specs"href="https://github.com/2060-io/public-trust-registry-specs" >public-trust-registry-specs</a>.</p>
-<img src="https://www.plantuml.com/plantuml/svg/bPB1QiCm44Jl-eebliPKSI4kfXJJ-f9psm-GlPj6hMAbacmda8-lPKM6u5DF6cbcXtsWqZfXN7TKh9oLROGYE8epF74EWqHtOBh-fiR1gjfLK4apQcqkAn0MK2BEzfiHWo8p6KtGa3pkQwotSsRN8fsdXFHguLSVxv1iGhUp6qZoRPuJtljPzBE5_shqO6yxr453mddDztpEVCP0Dmhc4U3vcgRppWL8HqOu0jsFLq-DaPh5K9fUNyAA1HYoMlNaaslu8WTAjZ-4QN-ownid2YSMiza_PYFCD3kz5_3RaRc4otttpMyCZHGFtGazJ2XZ7Zhmnie2x44FVfDEELPIYzEN2ESV" alt="uml diagram">
-<h3 id="browser-display-of-trust-resolution"><a class="toc-anchor" href="#browser-display-of-trust-resolution" >§</a> Browser Display of Trust Resolution</h3>
-<h4 id="credential-wallets"><a class="toc-anchor" href="#credential-wallets" >§</a> Credential Wallets</h4>
-<h4 id="connection-invitation"><a class="toc-anchor" href="#connection-invitation" >§</a> Connection Invitation</h4>
-<h4 id="presentation-request"><a class="toc-anchor" href="#presentation-request" >§</a> Presentation Request</h4>
-<h3 id="internationalization"><a class="toc-anchor" href="#internationalization" >§</a> Internationalization</h3>
-<p>It is the responsibility of browsers and search engines to properly translate credential attributes, as credential schemas are always defined in a single language, that SHOULD be english.</p>
-<h3 id="explain"><a class="toc-anchor" href="#explain" >§</a> Explain</h3>
-<ul>
-<li>DID document of DTS must contain a “LinkedVerifiablePresentation” service entry that point to a DTS Credential.</li>
-<li>DID document of DTS must contain a “TrustRegistry” service entry that point to Verana URL of TrustRegistry entity in verana that is the owner.</li>
-</ul>
-<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
-  <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://www.w3.org/ns/did/v1"</span><span class="token punctuation">,</span> 
-  <span class="token string">"https://identity.foundation/linked-vp/contexts/v1"</span><span class="token punctuation">,</span>
-  <span class="token string">"https://trustregistry"</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
-  <span class="token property">"verificationMethod"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonWebKey2020"</span><span class="token punctuation">,</span>
-      <span class="token property">"controller"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
-      <span class="token property">"publicKeyJwk"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"kty"</span><span class="token operator">:</span> <span class="token string">"OKP"</span><span class="token punctuation">,</span>
-        <span class="token property">"crv"</span><span class="token operator">:</span> <span class="token string">"Ed25519"</span><span class="token punctuation">,</span>
-        <span class="token property">"x"</span><span class="token operator">:</span> <span class="token string">"VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ"</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-dts"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"LinkedVerifiablePresentation"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://user-dts.gaiaid.io/dts-presentation.json"</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"TrustRegistry"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://verana.network/trqp-2.0/did:web:verana.foundation/"</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<pre class="language-json"><code class="language-json">
-<span class="token punctuation">{</span>
-  <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://www.w3.org/2018/credentials/v1"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"holder"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
-  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiablePresentation"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"verifiableCredential"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-        <span class="token string">"https://www.w3.org/2018/credentials/v1"</span><span class="token punctuation">,</span>
-        <span class="token punctuation">{</span>
-          <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token string">"https://schema.org/"</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:web:org.gaiaid.io"</span><span class="token punctuation">,</span>
-      <span class="token property">"issuanceDate"</span><span class="token operator">:</span> <span class="token string">"2024-02-08T18:38:46+01:00"</span><span class="token punctuation">,</span>
-      <span class="token property">"expirationDate"</span><span class="token operator">:</span> <span class="token string">"2029-02-08T18:38:46+01:00"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">,</span> <span class="token string">"VeranaOrganization"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
-        <span class="token property">"orgName"</span><span class="token operator">:</span> <span class="token string">"GaiaID LLC"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"credentialSchema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://verana.network/cs/get/d84c02d5-7013-459a-8d02-09bf8e9a83bd"</span><span class="token punctuation">,</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchemaCredential"</span>
-      <span class="token punctuation">}</span>
-      <span class="token property">"proof"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"Ed25519Signature2018"</span><span class="token punctuation">,</span>
-        <span class="token property">"created"</span><span class="token operator">:</span> <span class="token string">"2024-02-08T17:38:46Z"</span><span class="token punctuation">,</span>
-        <span class="token property">"verificationMethod"</span><span class="token operator">:</span> <span class="token string">"did:web:org.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A"</span><span class="token punctuation">,</span>
-        <span class="token property">"proofPurpose"</span><span class="token operator">:</span> <span class="token string">"assertionMethod"</span><span class="token punctuation">,</span>
-        <span class="token property">"jws"</span><span class="token operator">:</span> <span class="token string">"eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..qD1a-op-GWkvzI5LaAXqJhJv-9WCSTgtEUzUvDeuiaUSDWpVUh14x5TUbGNvmx1xZ0fEf5eWZWoJ-2dogDpmBQ"</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://user-dts.gaiaid.io/dts-presentation.json"</span><span class="token punctuation">,</span>
-  <span class="token property">"proof"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"Ed25519Signature2018"</span><span class="token punctuation">,</span>
-    <span class="token property">"created"</span><span class="token operator">:</span> <span class="token string">"2024-02-08T17:38:46Z"</span><span class="token punctuation">,</span>
-    <span class="token property">"verificationMethod"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A"</span><span class="token punctuation">,</span>
-    <span class="token property">"proofPurpose"</span><span class="token operator">:</span> <span class="token string">"assertionMethod"</span><span class="token punctuation">,</span>
-    <span class="token property">"jws"</span><span class="token operator">:</span> <span class="token string">"eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..6_k6Dbgug-XvksZvDVi9UxUTAmQ0J76pjdrQyNaQL7eVMmP_SUPZCqso6EN3aEKFSsJrjDJoPJa9rBK99mXvDw"</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-</code></pre>
-<h3 id="simple-example"><a class="toc-anchor" href="#simple-example" >§</a> Simple Example</h3>
-<ul>
-<li>
-<p>Let’s define a DTS with its DID did:web:user-dts.gaiaid.io.</p>
-</li>
-<li>
-<p>Let’s define a Trust registry of the Verana Foundation with TRQP 2.0 URL: <a path-0="verana.network"path-1="did:web:verana.foundation"path-2="trqp-2.0"path-3=""href="https://verana.network/did:web:verana.foundation/trqp-2.0/" ><span>https://verana.network/did:web:verana.foundation/trqp-2.0/</span></a></p>
-</li>
-<li>
-<p>Let’s define a Schema from the Verana foundation, the DTS Credential Schema, with UUID d84c02d5-7013-459a-8d02-09bf8e9a83bd, identified with DID did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd</p>
-</li>
-<li>
-<p>To prove did:web:user-dts.gaiaid.io is an authorized issuer of did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd, one need to call the TRQP 2.0 method:</p>
-</li>
-</ul>
-<p>GET <a path-0="verana.network"path-1="did:web:verana.foundation"path-2="trqp-2.0"path-3="entities"path-4="%7BentityVID%7D"path-5="authorization"href="https://verana.network/did:web:verana.foundation/trqp-2.0/entities/%7BentityVID%7D/authorization?%7BauthorizationVID%7D" ><span>https://verana.network/did:web:verana.foundation/trqp-2.0/entities/{entityVID}/authorization?{authorizationVID}</span></a></p>
-<p>with:</p>
-<ul>
-<li>entityVID: did:web:user-dts.gaiaid.io</li>
-<li>authorizationVID: did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd</li>
-</ul>
-<p>Method will return authorization if exists, based on CredentialSchema with id d84c02d5-7013-459a-8d02-09bf8e9a83bd and CredentialSchemaPerms.</p>
-<h4 id="diddoc-of-didwebuser-dtsgaiaidio-will-be"><a class="toc-anchor" href="#diddoc-of-didwebuser-dtsgaiaidio-will-be" >§</a> DIDDoc of did:web:user-dts.gaiaid.io will be:</h4>
-<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
-  <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://www.w3.org/ns/did/v1"</span><span class="token punctuation">,</span> 
-  <span class="token string">"https://identity.foundation/linked-vp/contexts/v1"</span><span class="token punctuation">,</span>
-  <span class="token string">"https://trustregistry"</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
-  <span class="token property">"verificationMethod"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonWebKey2020"</span><span class="token punctuation">,</span>
-      <span class="token property">"controller"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
-      <span class="token property">"publicKeyJwk"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"kty"</span><span class="token operator">:</span> <span class="token string">"OKP"</span><span class="token punctuation">,</span>
-        <span class="token property">"crv"</span><span class="token operator">:</span> <span class="token string">"Ed25519"</span><span class="token punctuation">,</span>
-        <span class="token property">"x"</span><span class="token operator">:</span> <span class="token string">"VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ"</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#verana-foundation-dts-credential"</span><span class="token punctuation">,</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-essential-schemas-dts-credential"</span><span class="token punctuation">,</span>
       <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"LinkedVerifiablePresentation"</span><span class="token punctuation">,</span>
       <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://user-dts.gaiaid.io/dts-credential-presentation.json"</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#verana-foundation-trust-registry"</span><span class="token punctuation">,</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-essential-schemas-trust-registry"</span><span class="token punctuation">,</span>
       <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"TrustRegistry"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://api.verana.network/did:web:verana.foundation/trqp-2.0/"</span><span class="token punctuation">]</span>
+      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span>
-<span class="token punctuation">}</span>
 </code></pre>
-<h4 id="verifiable-presentation-of-the-dts-credential-will-be"><a class="toc-anchor" href="#verifiable-presentation-of-the-dts-credential-will-be" >§</a> Verifiable presentation of the DTS Credential will be:</h4>
+<h3 id="service-ptrec-ptr-essential-credentials"><a class="toc-anchor" href="#service-ptrec-ptr-essential-credentials" >§</a> [SERVICE-PTREC] PTR Essential Credentials</h3>
+<h4 id="service-ptrec-dts-ptr-dts-essential-credentials"><a class="toc-anchor" href="#service-ptrec-dts-ptr-dts-essential-credentials" >§</a> [SERVICE-PTREC-DTS] PTR DTS Essential Credentials</h4>
+<p>a [SERVICE-PTRC] linked to a <code>CredentialSchema</code> entry that conforms to [ECS-DTS] in PTR Specs.</p>
+<h4 id="service-ptrec-org-ptr-organization-essential-credentials"><a class="toc-anchor" href="#service-ptrec-org-ptr-organization-essential-credentials" >§</a> [SERVICE-PTREC-ORG] PTR Organization Essential Credentials</h4>
+<p>a [SERVICE-PTRC]  linked to a <code>CredentialSchema</code> entry that conforms to [ECS-ORG] in PTR Specs.</p>
+<h4 id="service-ptrec-person-ptr-person-essential-credentials"><a class="toc-anchor" href="#service-ptrec-person-ptr-person-essential-credentials" >§</a> [SERVICE-PTREC-PERSON] PTR Person Essential Credentials</h4>
+<p>a [SERVICE-PTRC]  linked to a <code>CredentialSchema</code> entry that conforms to [ECS-PERSON] in PTR Specs.</p>
+<h3 id="service-ci-credential-issuance"><a class="toc-anchor" href="#service-ci-credential-issuance" >§</a> [SERVICE-CI] Credential Issuance</h3>
+<ul>
+<li>[SERVICE-CI-1] A <a class="term-reference" href="#term:dts">DTS</a> CAN issue [SERVICE-PTRC] PTR Credentials</li>
+<li>[SERVICE-CI-2] A <a class="term-reference" href="#term:dts">DTS</a> MUST NOT issue credentials that are not compliant with [SERVICE-PTRC].</li>
+</ul>
+<h3 id="service-pr-presentation-request"><a class="toc-anchor" href="#service-pr-presentation-request" >§</a> [SERVICE-PR] Presentation Request</h3>
+<ul>
+<li>[SERVICE-PR-1] A <a class="term-reference" href="#term:dts">DTS</a> CAN request presentation of [SERVICE-PTRC] PTR Credentials</li>
+<li>[SERVICE-PR-2] A <a class="term-reference" href="#term:dts">DTS</a> MUST NOT request presentation of credentials that are not compliant with [SERVICE-PTRC].</li>
+</ul>
+<h3 id="service-lvp-linked-verifiable-presentations"><a class="toc-anchor" href="#service-lvp-linked-verifiable-presentations" >§</a> [SERVICE-LVP] Linked Verifiable Presentations</h3>
+<p>Linked verifiable presentations of credential based on credential schemas of the PTR CAN be present in service DID Document, if present, they MUST conform to the following:</p>
+<ul>
+<li>[SERVICE-LVP-1] Holder of the presentation MUST be the DTS DID.</li>
+<li>[SERVICE-LVP-2] if linked verifiable presentation id fragment start with <code>#ptr-schemas</code>, presented credential and DID Document MUST conform to [SERVICE-PTRC].</li>
+<li>[SERVICE-LVP-3] if linked verifiable presentation id fragment is <code>#ptr-essential-schemas-dts-credential</code>, presented credential MUST be a DTS Credential.</li>
+<li>[SERVICE-LVP-4] if linked verifiable presentation id fragment is <code>#ptr-essential-schemas-org-credential</code>, presented credential MUST be an Organization Credential.</li>
+<li>[SERVICE-LVP-5] if linked verifiable presentation id fragment is <code>#ptr-essential-schemas-person-credential</code>, presented credential MUST be a Person Credential.</li>
+</ul>
+<h3 id="service-dts"><a class="toc-anchor" href="#service-dts" >§</a> [SERVICE-DTS]</h3>
+<ul>
+<li>[SERVICE-DTS-1] A <a class="term-reference" href="#term:dts">DTS</a> MUST be identified by a <a class="term-reference" href="#term:did">DID</a>. The <a class="term-reference" href="#term:did">DID</a> of a <a class="term-reference" href="#term:dts">DTS</a> MUST resolve to a <a class="term-reference" href="#term:did-document">DID Document</a>.</li>
+<li>[SERVICE-DTS-2] A <a class="term-reference" href="#term:dts">DTS</a> DID Document MUST present a PTR DTS Credential by conforming to [SERVICE-PTREC-DTS].</li>
+<li>[SERVICE-DTS-3] If the issuer of the PTR DTS Credential of [SERVICE-DTS-2] is the <a class="term-reference" href="#term:did">DID</a> of this service, service MUST conform to [SERVICE-PTREC-ORG] or (exclusive) to [SERVICE-PTREC-PERSON].</li>
+<li>[SERVICE-DTS-4] If the issuer of the PTR DTS Credential of [SERVICE-DTS-2] is not the <a class="term-reference" href="#term:did">DID</a> of this service, issuer service MUST be a [SERVICE-DTS] <a class="term-reference" href="#term:dts">DTS</a> that conforms to [DTS-DID-DOC-3].</li>
+</ul>
+<div id="note-58" class="notice note"><a class="notice-link" href="#note-58">NOTE</a><p>In other words, a DTS MUST identify itself directly by presenting an Organization or a Person credential, or the issuer of its DTS Credential MUST identify itself by presenting an Organization or a Person credential.</p>
+</div>
+<ul>
+<li>[SERVICE-DTS-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional PTR Credential, by conforming to [DTS-PTRC].</li>
+<li>[SERVICE-DTS-6] For establishing a DIDComm connection between 2 <a class="term-reference" href="#term:dts">DTS</a>, it is REQUIRED that both <a class="term-reference" href="#term:dts">DTS</a> be compliant to this spec.</li>
+<li>[SERVICE-DTS-7] When a compliant <a class="term-reference" href="#term:dts">DTS</a> accepts/establishes a DIDComm connection with a <a class="term-reference" href="#term:dts-browser">DTS browser</a>, <a class="term-reference" href="#term:dts-browser">DTS browser</a> MUST be verified.</li>
+</ul>
+<div id="todo-2" class="notice todo"><a class="notice-link" href="#todo-2">TODO</a><p>explain how to verify browser</p>
+</div>
+<h3 id="example"><a class="toc-anchor" href="#example" >§</a> Example</h3>
+<p>DID Document of a DTS that presents a DTS Credential and an Organization credential, and that defines 2 additional trust registries it will use to manipulate credentials linked to schemas of these trust registries.</p>
+<pre class="language-json"><code class="language-json">  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-essential-schemas-dts-credential"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"LinkedVerifiablePresentation"</span><span class="token punctuation">,</span>
+      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://user-dts.gaiaid.io/dts-credential-presentation.json"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-essential-schemas-org-credential"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"LinkedVerifiablePresentation"</span><span class="token punctuation">,</span>
+      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://user-dts.gaiaid.io/org-credential-presentation.json"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-schemas-trademark-credential"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"LinkedVerifiablePresentation"</span><span class="token punctuation">,</span>
+      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://user-dts.gaiaid.io/trademark-credential-presentation.json"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-essential-schemas-trust-registry"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"TrustRegistry"</span><span class="token punctuation">,</span>
+      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-schemas-trademark-trust-registry"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"TrustRegistry"</span><span class="token punctuation">,</span>
+      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://{$chain-rest-api}/did:example:trademark-trust-registry/trqp-2.0/"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+    ...
+  <span class="token punctuation">]</span>
+</code></pre>
+<p>dts-credential-presentation.json:</p>
 <pre class="language-json"><code class="language-json">
 <span class="token punctuation">{</span>
-  <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://www.w3.org/ns/credentials/v2"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">"https://www.w3.org/ns/credentials/v2"</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"holder"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
   <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiablePresentation"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"verifiableCredential"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -518,25 +293,19 @@ Define if more attributes are needed here</p>
       <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token string">"https://www.w3.org/ns/credentials/v2"</span>
       <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">,</span> "DtsCredential<span class="token punctuation">]</span><span class="token punctuation">,</span>
       <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
-      <span class="token property">"issuanceDate"</span><span class="token operator">:</span> <span class="token string">"2024-02-08T18:38:46+01:00"</span><span class="token punctuation">,</span>
-      <span class="token property">"expirationDate"</span><span class="token operator">:</span> <span class="token string">"2029-02-08T18:38:46+01:00"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
       <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
-        <span class="token property">"service_name"</span><span class="token operator">:</span> <span class="token string">"GaiaID Service"</span>
+        ...
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"credentialSchema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://verana.foundation/credentials/dts-credential-schema-credential"</span><span class="token punctuation">,</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchemaCredential"</span>
-      <span class="token punctuation">}</span>
-      <span class="token property">"proof"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"Ed25519Signature2018"</span><span class="token punctuation">,</span>
-        <span class="token property">"created"</span><span class="token operator">:</span> <span class="token string">"2024-02-08T17:38:46Z"</span><span class="token punctuation">,</span>
-        <span class="token property">"verificationMethod"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A"</span><span class="token punctuation">,</span>
-        <span class="token property">"proofPurpose"</span><span class="token operator">:</span> <span class="token string">"assertionMethod"</span><span class="token punctuation">,</span>
-        <span class="token property">"jws"</span><span class="token operator">:</span> <span class="token string">"eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..qD1a-op-GWkvzI5LaAXqJhJv-9WCSTgtEUzUvDeuiaUSDWpVUh14x5TUbGNvmx1xZ0fEf5eWZWoJ-2dogDpmBQ"</span>
-      <span class="token punctuation">}</span>
+      ...
+      <span class="token property">"credentialSchema"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true"</span><span class="token punctuation">,</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span><span class="token punctuation">,</span>
+        <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://user-dts.gaiaid.io/dts-credential-presentation.json"</span><span class="token punctuation">,</span>
@@ -550,50 +319,96 @@ Define if more attributes are needed here</p>
 <span class="token punctuation">}</span>
 
 </code></pre>
-<p>Upon dereferencing the value of the id <a path-0="verana.foundation"path-1="credentials"path-2="dts-credential-schema-credential"href="https://verana.foundation/credentials/dts-credential-schema-credential" ><span>https://verana.foundation/credentials/dts-credential-schema-credential</span></a>, a process also be referred to as schema resolution, the following verifiable credential, representing a JSON Schema, is returned:</p>
-<p>The JsonSchema Credential must have been issued by did:web:verana.foundation.</p>
+<p>org-credential-presentation.json:</p>
 <pre class="language-json"><code class="language-json">
 <span class="token punctuation">{</span>
   <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token string">"https://www.w3.org/ns/credentials/v2"</span>
+    <span class="token string">"https://www.w3.org/ns/credentials/v2"</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://verana.foundation/credentials/dts-credential-schema-credential"</span><span class="token punctuation">,</span>
-  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">,</span> <span class="token string">"JsonSchemaCredential"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:web:verana.foundation"</span><span class="token punctuation">,</span>
-  <span class="token property">"issuanceDate"</span><span class="token operator">:</span> <span class="token string">"2024-01-01T19:23:24Z"</span><span class="token punctuation">,</span> 
-  <span class="token property">"credentialSchema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://verana.network/did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd/jsonschema"</span><span class="token punctuation">,</span>
-    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span><span class="token punctuation">,</span>
-    <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd"</span><span class="token punctuation">,</span>
-    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span><span class="token punctuation">,</span>
-    <span class="token property">"jsonSchema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-       <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"did:web:verana.foundation/cs/d84c02d5-7013-459a-8d02-09bf8e9a83bd"</span><span class="token punctuation">,</span>
-       <span class="token property">"$schema"</span><span class="token operator">:</span> <span class="token string">"https://json-schema.org/draft/2020-12/schema"</span><span class="token punctuation">,</span>
-       <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"VeranaDtsSchemaCredential"</span><span class="token punctuation">,</span>
-       <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"EmailCredential using JsonSchemaCredential"</span><span class="token punctuation">,</span>
-       <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
-       <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-         <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-           <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
-           <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-             <span class="token property">"id"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-               <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span>
-             <span class="token punctuation">}</span><span class="token punctuation">,</span>
-            <span class="token property">"service_name"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-              <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span>
-            <span class="token punctuation">}</span>
-           <span class="token punctuation">}</span><span class="token punctuation">,</span>
-           <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"id"</span><span class="token punctuation">,</span> <span class="token string">"service_name"</span><span class="token punctuation">]</span>
-         <span class="token punctuation">}</span>
-       <span class="token punctuation">}</span>
+  <span class="token property">"holder"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
+  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiablePresentation"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"verifiableCredential"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"https://www.w3.org/ns/credentials/v2"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">,</span> "OrganizationCredential<span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
+      <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
+        ...
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      ...
+      <span class="token property">"credentialSchema"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example-ptr/did:web:trustregistry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b?essential=true"</span><span class="token punctuation">,</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span><span class="token punctuation">,</span>
+        <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://user-dts.gaiaid.io/org-credential-presentation.json"</span><span class="token punctuation">,</span>
+  <span class="token property">"proof"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"Ed25519Signature2018"</span><span class="token punctuation">,</span>
+    <span class="token property">"created"</span><span class="token operator">:</span> <span class="token string">"2024-02-08T17:38:46Z"</span><span class="token punctuation">,</span>
+    <span class="token property">"verificationMethod"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A"</span><span class="token punctuation">,</span>
+    <span class="token property">"proofPurpose"</span><span class="token operator">:</span> <span class="token string">"assertionMethod"</span><span class="token punctuation">,</span>
+    <span class="token property">"jws"</span><span class="token operator">:</span> <span class="token string">"eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..6_k6Dbgug-XvksZvDVi9UxUTAmQ0J76pjdrQyNaQL7eVMmP_SUPZCqso6EN3aEKFSsJrjDJoPJa9rBK99mXvDw"</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
 </code></pre>
+<p>trademark-credential-presentation.json:</p>
+<pre class="language-json"><code class="language-json">
+<span class="token punctuation">{</span>
+  <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">"https://www.w3.org/ns/credentials/v2"</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"holder"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
+  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiablePresentation"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"verifiableCredential"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"https://www.w3.org/ns/credentials/v2"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">,</span> "TrademarkCredential<span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:web:trademark.io"</span><span class="token punctuation">,</span>
+      <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
+        ...
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      ...
+      <span class="token property">"credentialSchema"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example-ptr/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487"</span><span class="token punctuation">,</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span><span class="token punctuation">,</span>
+        <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://user-dts.gaiaid.io/trademark-credential-presentation.json"</span><span class="token punctuation">,</span>
+  <span class="token property">"proof"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"Ed25519Signature2018"</span><span class="token punctuation">,</span>
+    <span class="token property">"created"</span><span class="token operator">:</span> <span class="token string">"2024-02-08T17:38:46Z"</span><span class="token punctuation">,</span>
+    <span class="token property">"verificationMethod"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A"</span><span class="token punctuation">,</span>
+    <span class="token property">"proofPurpose"</span><span class="token operator">:</span> <span class="token string">"assertionMethod"</span><span class="token punctuation">,</span>
+    <span class="token property">"jws"</span><span class="token operator">:</span> <span class="token string">"eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..6_k6Dbgug-XvksZvDVi9UxUTAmQ0J76pjdrQyNaQL7eVMmP_SUPZCqso6EN3aEKFSsJrjDJoPJa9rBK99mXvDw"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h3 id="crawlers"><a class="toc-anchor" href="#crawlers" >§</a> Crawlers</h3>
+<p><em>This section is non normative.</em></p>
+<p>Crawlers will query the <a class="term-reference" href="#term:did-directory">DID Directory</a> <code>/did-directory/list</code> method of a <a class="term-reference" href="#term:ptr">PTR</a> to get the <a class="term-reference" href="#term:dids">DIDs</a> of registered <a class="term-reference" href="#term:dtss">DTSs</a> and resolve them to build an index by recursively resolving all linked data.</p>
+<p>For more information, please refer to the <a path-0="github.com"path-1="2060-io"path-2="public-trust-registry-specs"href="https://github.com/2060-io/public-trust-registry-specs" >public-trust-registry-specs</a>.</p>
+<img src="https://www.plantuml.com/plantuml/svg/bPB1QiCm44Jl-eebliPKSI4kfXJJ-f9psm-GlPj6hMAbacmda8-lPKM6u5DF6cbcXtsWqZfXN7TKh9oLROGYE8epF74EWqHtOBh-fiR1gjfLK4apQcqkAn0MK2BEzfiHWo8p6KtGa3pkQwotSsRN8fsdXFHguLSVxv1iGhUp6qZoRPuJtljPzBE5_shqO6yxr453mddDztpEVCP0Dmhc4U3vcgRppWL8HqOu0jsFLq-DaPh5K9fUNyAA1HYoMlNaaslu8WTAjZ-4QN-ownid2YSMiza_PYFCD3kz5_3RaRc4otttpMyCZHGFtGazJ2XZ7Zhmnie2x44FVfDEELPIYzEN2ESV" alt="uml diagram">
+<h3 id="browser-display-of-trust-resolution"><a class="toc-anchor" href="#browser-display-of-trust-resolution" >§</a> Browser Display of Trust Resolution</h3>
+<h4 id="credential-wallets"><a class="toc-anchor" href="#credential-wallets" >§</a> Credential Wallets</h4>
+<h4 id="connection-invitation"><a class="toc-anchor" href="#connection-invitation" >§</a> Connection Invitation</h4>
+<h4 id="presentation-request"><a class="toc-anchor" href="#presentation-request" >§</a> Presentation Request</h4>
+<h3 id="internationalization"><a class="toc-anchor" href="#internationalization" >§</a> Internationalization</h3>
+<p>It is the responsibility of browsers and search engines to properly translate credential attributes, as credential schemas are always defined in a single language, that SHOULD be english.</p>
+<h3 id="browser-authentication-in-dts"><a class="toc-anchor" href="#browser-authentication-in-dts" >§</a> Browser authentication in DTS</h3>
 
                     </article>    
       
@@ -630,13 +445,19 @@ Define if more attributes are needed here</p>
 <li><a href="#terminology" >Terminology</a></li>
 <li><a href="#specification" >Specification</a>
 <ul>
-<li><a href="#did" >DID</a></li>
-<li><a href="#did-document" >DID Document</a></li>
-<li><a href="#dts-credential-issuer" >DTS Credential Issuer</a></li>
-<li><a href="#organization-credential" >Organization Credential</a></li>
-<li><a href="#person-credential" >Person Credential</a></li>
-<li><a href="#dts-trust-resolution" >DTS Trust Resolution</a></li>
-<li><a href="#presentation-request-trust-resolution" >Presentation Request Trust Resolution</a></li>
+<li><a href="#service-ptrc-ptr-credential" >[SERVICE-PTRC] PTR Credential</a></li>
+<li><a href="#service-ptrec-ptr-essential-credentials" >[SERVICE-PTREC] PTR Essential Credentials</a>
+<ul>
+<li><a href="#service-ptrec-dts-ptr-dts-essential-credentials" >[SERVICE-PTREC-DTS] PTR DTS Essential Credentials</a></li>
+<li><a href="#service-ptrec-org-ptr-organization-essential-credentials" >[SERVICE-PTREC-ORG] PTR Organization Essential Credentials</a></li>
+<li><a href="#service-ptrec-person-ptr-person-essential-credentials" >[SERVICE-PTREC-PERSON] PTR Person Essential Credentials</a></li>
+</ul>
+</li>
+<li><a href="#service-ci-credential-issuance" >[SERVICE-CI] Credential Issuance</a></li>
+<li><a href="#service-pr-presentation-request" >[SERVICE-PR] Presentation Request</a></li>
+<li><a href="#service-lvp-linked-verifiable-presentations" >[SERVICE-LVP] Linked Verifiable Presentations</a></li>
+<li><a href="#service-dts" >[SERVICE-DTS]</a></li>
+<li><a href="#example" >Example</a></li>
 <li><a href="#crawlers" >Crawlers</a></li>
 <li><a href="#browser-display-of-trust-resolution" >Browser Display of Trust Resolution</a>
 <ul>
@@ -646,13 +467,7 @@ Define if more attributes are needed here</p>
 </ul>
 </li>
 <li><a href="#internationalization" >Internationalization</a></li>
-<li><a href="#explain" >Explain</a></li>
-<li><a href="#simple-example" >Simple Example</a>
-<ul>
-<li><a href="#diddoc-of-didwebuser-dtsgaiaidio-will-be" >DIDDoc of did:web:user-dts.gaiaid.io will be:</a></li>
-<li><a href="#verifiable-presentation-of-the-dts-credential-will-be" >Verifiable presentation of the DTS Credential will be:</a></li>
-</ul>
-</li>
+<li><a href="#browser-authentication-in-dts" >Browser authentication in DTS</a></li>
 </ul>
 </li>
 </ul>

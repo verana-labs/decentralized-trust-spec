@@ -165,18 +165,18 @@ Example:
     "https://www.w3.org/ns/credentials/v2"
   ],
   "id": "did:example:123",
-  "type": ["VerifiableCredential", "DtsCredential],
+  "type": ["VerifiableCredential", "DtsCredential"],
   "issuer": "did:foobar:456",
   "credentialSubject": {
     "id": "did:example:123",
     ...
   },
   ...
-  "credentialSchema": [{
+  "credentialSchema": {
     "id": "https://{$chain-rest-api}/{$tr.did}/cs/js/{$uuid}?essential=true",
     "type": "JsonSchema",
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
-  }]
+  }
 }
 ```
 
@@ -316,18 +316,18 @@ dts-credential-presentation.json:
         "https://www.w3.org/ns/credentials/v2"
       ],
       "id": "did:web:user-dts.gaiaid.io",
-      "type": ["VerifiableCredential", "DtsCredential],
+      "type": ["VerifiableCredential", "DtsCredential"],
       "issuer": "did:web:user-dts.gaiaid.io",
       "credentialSubject": {
         "id": "did:web:user-dts.gaiaid.io",
         ...
       },
       ...
-      "credentialSchema": [{
+      "credentialSchema": {
         "id": "https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true",
         "type": "JsonSchema",
         "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
-      }]
+      }
     }
   ],
   "id": "https://user-dts.gaiaid.io/dts-credential-presentation.json",
@@ -358,18 +358,18 @@ org-credential-presentation.json:
         "https://www.w3.org/ns/credentials/v2"
       ],
       "id": "did:web:user-dts.gaiaid.io",
-      "type": ["VerifiableCredential", "OrganizationCredential],
+      "type": ["VerifiableCredential", "OrganizationCredential"],
       "issuer": "did:web:user-dts.gaiaid.io",
       "credentialSubject": {
         "id": "did:web:user-dts.gaiaid.io",
         ...
       },
       ...
-      "credentialSchema": [{
+      "credentialSchema": {
         "id": "https://example-ptr/did:web:trustregistry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b?essential=true",
         "type": "JsonSchema",
         "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
-      }]
+      }
     }
   ],
   "id": "https://user-dts.gaiaid.io/org-credential-presentation.json",
@@ -400,18 +400,18 @@ trademark-credential-presentation.json:
         "https://www.w3.org/ns/credentials/v2"
       ],
       "id": "did:web:user-dts.gaiaid.io",
-      "type": ["VerifiableCredential", "TrademarkCredential],
+      "type": ["VerifiableCredential", "TrademarkCredential"],
       "issuer": "did:web:trademark.io",
       "credentialSubject": {
         "id": "did:web:user-dts.gaiaid.io",
         ...
       },
       ...
-      "credentialSchema": [{
+      "credentialSchema": {
         "id": "https://example-ptr/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
         "type": "JsonSchema",
         "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
-      }]
+      }
     }
   ],
   "id": "https://user-dts.gaiaid.io/trademark-credential-presentation.json",

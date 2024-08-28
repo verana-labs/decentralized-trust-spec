@@ -182,13 +182,13 @@ Example:
 
 [SERVICE-PTRC-2] Trust Registry:
 
-if queryParameter `essential` was set to `true`:
+if queryParameter `essential` is set to `true`:
 
 - a "TrustRegistry" service entry with id `#ptr-essential-schemas-trust-registry` defined in DID Document of the service that wants to issue or request a presentation of a PTR Essential Credential, MUST exist and MUST have the same `$chain-rest-api` and `$tr.did` than the `credentialSchema.id`;
 - for issuance or acceptance of a PTR Credential, DID of the issuer of the credential MUST be authorized in the trust registry.
 - for presentation request, DID of a PTR Credential, the verifier of the credential MUST be authorized in trust registry.
 
-else if queryParameter `essential` was set to `false` or was not present:
+else if queryParameter `essential` is set to `false` or is not present:
 
 - a "TrustRegistry" service entry with id starting with `#ptr-schema` different than `#ptr-essential-schemas-trust-registry` defined in DID Document of the service that wants to issue or request a presentation of a PTR Credential, MUST exist and MUST have the same `$chain-rest-api` and `$tr.did` than the `credentialSchema.id`;
 - for issuance or acceptance of a PTR Credential, DID of the issuer of the credential MUST be authorized in the trust registry.
@@ -259,15 +259,16 @@ Linked verifiable presentations of credential based on credential schemas of the
 In other words, a DTS MUST identify itself directly by presenting an Organization or a Person credential, or the issuer of its DTS Credential MUST identify itself by presenting an Organization or a Person credential.
 :::
 - [SERVICE-DTS-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional PTR Credential, by conforming to [DTS-PTRC].
-- [SERVICE-DTS-6] For establishing a DIDComm connection between 2 [[ref: DTS]], it is REQUIRED that both [[ref: DTS]] be compliant to this spec.
-- [SERVICE-DTS-7] When a compliant [[ref: DTS]] accepts/establishes a DIDComm connection with a [[ref: DTS browser]], [[ref: DTS browser]] MUST be verified. 
+- [SERVICE-DTS-6] For establishing a DIDComm connection between 2 [[ref: DTS]], it is REQUIRED for both [[ref: DTS]] to be compliant to this spec.
+- [SERVICE-DTS-7] When a compliant [[ref: DTS]] accepts/establishes a DIDComm connection with a [[ref: DTS browser]], [[ref: DTS browser]] MUST be verified.
+
 ::: todo
 explain how to verify browser
 :::
 
 ### Example
 
-DID Document of a DTS that presents a DTS Credential and an Organization credential, and that defines 2 additional trust registries it will use to manipulate credentials linked to schemas of these trust registries.
+DID Document of a DTS that presents a DTS Credential and an Organization credential, and that defines 1 additional trust registries it will use to manipulate credentials linked to schemas of this trust registries.
 
 ```json
   "service": [
@@ -454,6 +455,13 @@ user <|-- browser : show result
 @enduml
 
 ```
+
+### Browser Compliance
+
+A compliant [[ref: DTS browser]] MUST ensure that [SERVICE-DTS] is properly enforced:
+
+- browser user SHOULD only be able to connect to compliant [[ref: DTS]]
+- if a [[ref: DTS]] issue credentials or request credential presentation, browser MUST verify [[ref: DTS]] is allowed to do so by querying the trust registry, and MUST deny the action if DTS is unauthorized.
 
 ### Browser Display of Trust Resolution
 

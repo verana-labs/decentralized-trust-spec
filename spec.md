@@ -193,10 +193,25 @@ dtscred <-- jsc: DTS owner issue its DTS credential based on JsonSchemaCredentia
 
 A PTR Credential MUST have a `credentialSchema` property:
 
-- `id` must point to a valid PTR URL of the API method that returns the Json Schema of the corresponding `CredentialSchema` entry of the [[ref: PTR]];
-- `id` URL MAY have a queryParameter `essential` set to `true`, in this case it means we are referencing the schema of an essential credential;
-- `type` MUST be `JsonSchema`;
-- a `digestSRI` attribute MUST be present, and when loading the credential schema from its `id` URL, digestSRI MUST match.
+- `id` must point to a [[ref: json schema credential]] issued by the trust registry [[ref: DID]] owner of the schema in the PTR;
+- `type` MUST be `JsonSchemaCredential`.
+
+Referred [[ref: json schema credential]] MUST:
+
+- have a `credentialSchema` property that contains exactly the following:
+
+```json
+  "credentialSchema": {
+    "id": "https://www.w3.org/2022/credentials/v2/json-schema-credential-schema.json",
+    "type": "JsonSchema",
+    "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+  }
+```
+
+- have a `credentialSubject` object with:
+  - and `id` properties that is the URL to access the [[ref: json schema]] in the PTR,
+  - `type` MUST be set to "JsonSchema",
+  - an object `jsonSchemaReference` MUST be present with 2 attributes, an `id` properties that is the URL to access the [[ref: json schema]] in the PTR, and a digestSRI property that MUST match the [[ref: json schema]] file content hash.
 
 Example:
 

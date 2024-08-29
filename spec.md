@@ -108,6 +108,12 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 [[def: issuer, issuers]]:
 ~ A role an entity can perform by asserting claims about one or more [[ref: subjects]], creating a verifiable credential from these claims, and transmitting the verifiable credential to a [[ref: holder]]. Example issuers include corporations, non-profit organizations, trade associations, governments, and individuals.
 
+[[def: json schema, json schemas]]:
+~ A json schema as defined in [JSON-SCHEMA](https://json-schema.org).
+
+[[def: json schema credential, json schema credentials]]:
+~ A json schema credential as defined in [[spec-norm:VC-JSON-SCHEMA]].
+
 [[def: linked-vp]]:
 ~ A presentation of a [[ref: verifiable credential]] as specified in [LINKED-VP](https://identity.foundation/linked-vp/).
 
@@ -150,7 +156,42 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 
 [SERVICE-PTRC-1] Definition:
 
-A PTR credential MUST be based on a credential schema created in the PTR (a `CredentialSchema` entry) and refer to the corresponding Json Schema in the PTR, as specified in [CS] and [ECS] in PTR spec. A PTR Credential MUST have a `credentialSchema` property:
+A PTR Credential MUST refer to a [[ref: json schema credential]] that MUST refer to a [[ref: json schema]] created and stored in the PTR (a `CredentialSchema` entry, as specified in [CS] and [ECS] in PTR spec). [[ref: json schema credential]] MUST have been issued by the did of the `TrustRegistry`, owner of `CredentialSchema` entry in the PTR.
+
+PTR Credential MUST conform to the dereferenced [[ref: json schema]].
+
+```plantuml
+
+@startuml
+scale max 800 width
+object "TrustRegistry (in PTR)" as tr {
+  did: did:example:tr
+}
+object "CredentialSchema (in PTR)" as cs {
+  id: f4524751-8617-40de-bbe6-b2e0fef63c7a
+  essential: true
+  json_schema: { "$id": ... "title": "DtsCredential"}
+}
+object "JsonSchemaCredential" as jsc #3fbdb6 {
+  id: https://example.tr/credentials/DtsJsonSchemaCredential
+  issuer: did:example:tr
+  jsonSchema: https://.../did:example:tr/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true
+}
+
+object "DtsCredential" as dtscred #3fbdb6 {
+  issuer: did:example:dts-owner
+  jsonSchemaCredential: https://did:example:tr/credentials/DtsJsonSchemaCredential
+}
+
+cs <-- tr : create a CredentialSchema (in PTR)
+jsc <-- cs : trust registry did issue a JsonSchemaCredential based on json_schema located in CredentialSchema in the PTR
+dtscred <-- jsc: DTS owner issue its DTS credential based on JsonSchemaCredential issued by trust registry did
+
+@enduml
+
+```
+
+A PTR Credential MUST have a `credentialSchema` property:
 
 - `id` must point to a valid PTR URL of the API method that returns the Json Schema of the corresponding `CredentialSchema` entry of the [[ref: PTR]];
 - `id` URL MAY have a queryParameter `essential` set to `true`, in this case it means we are referencing the schema of an essential credential;
@@ -158,6 +199,8 @@ A PTR credential MUST be based on a credential schema created in the PTR (a `Cre
 - a `digestSRI` attribute MUST be present, and when loading the credential schema from its `id` URL, digestSRI MUST match.
 
 Example:
+
+DtsCredential.json:
 
 ```json
 {
@@ -173,11 +216,39 @@ Example:
   },
   ...
   "credentialSchema": {
-    "id": "https://{$chain-rest-api}/{$tr.did}/cs/js/{$uuid}?essential=true",
-    "type": "JsonSchema",
-    "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+    "id": "https://example.tr/credentials/DtsJsonSchemaCredential",
+    "type": "JsonSchemaCredential"
   }
 }
+```
+
+JsonSchemaCredential.json:
+
+```json
+
+{
+  "@context": [
+      "https://www.w3.org/ns/credentials/v2"
+  ],
+  "id": "https://example.tr/credentials/DtsJsonSchemaCredential",
+  "type": ["VerifiableCredential", "JsonSchemaCredential"],
+  "issuer": "did:example:tr",
+  "issuanceDate": "2024-01-01T19:23:24Z",
+  "credentialSchema": {
+    "id": "https://www.w3.org/2022/credentials/v2/json-schema-credential-schema.json",
+    "type": "JsonSchema",
+    "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+  },
+  "credentialSubject": {
+    "id": "https://.../did:example:tr/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true",
+    "type": "JsonSchema",
+    "jsonSchemaReference": {
+       "id": "https://.../did:example:tr/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true",
+       "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+    }    
+  }
+}
+
 ```
 
 [SERVICE-PTRC-2] Trust Registry:
@@ -325,9 +396,8 @@ dts-credential-presentation.json:
       },
       ...
       "credentialSchema": {
-        "id": "https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true",
-        "type": "JsonSchema",
-        "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+        "id": "https://example.tr/credentials/DtsJsonSchemaCredential",
+        "type": "JsonSchemaCredential"
       }
     }
   ],
@@ -342,6 +412,37 @@ dts-credential-presentation.json:
 }
 
 ```
+
+DtsJsonSchemaCredential.json:
+
+```json
+
+{
+  "@context": [
+      "https://www.w3.org/ns/credentials/v2"
+  ],
+  "id": "https://example.tr/credentials/DtsJsonSchemaCredential",
+  "type": ["VerifiableCredential", "JsonSchemaCredential"],
+  "issuer": "did:example:tr",
+  "issuanceDate": "2024-01-01T19:23:24Z",
+  "credentialSchema": {
+    "id": "https://www.w3.org/2022/credentials/v2/json-schema-credential-schema.json",
+    "type": "JsonSchema",
+    "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+  },
+  "credentialSubject": {
+    "id": "https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true",
+    "type": "JsonSchema",
+    "jsonSchemaReference": {
+       "id": "https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true",
+       "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+    }    
+  }
+}
+
+```
+
+
 
 org-credential-presentation.json:
 
@@ -367,9 +468,8 @@ org-credential-presentation.json:
       },
       ...
       "credentialSchema": {
-        "id": "https://example-ptr/did:web:trustregistry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b?essential=true",
-        "type": "JsonSchema",
-        "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+        "id": "https://example.tr/credentials/OrganizationJsonSchemaCredential",
+        "type": "JsonSchemaCredential"
       }
     }
   ],
@@ -384,6 +484,36 @@ org-credential-presentation.json:
 }
 
 ```
+
+OrganizationJsonSchemaCredential.json:
+
+```json
+
+{
+  "@context": [
+      "https://www.w3.org/ns/credentials/v2"
+  ],
+  "id": "https://example.tr/credentials/OrganizationJsonSchemaCredential",
+  "type": ["VerifiableCredential", "JsonSchemaCredential"],
+  "issuer": "did:example:tr",
+  "issuanceDate": "2024-01-01T19:23:24Z",
+  "credentialSchema": {
+    "id": "https://www.w3.org/2022/credentials/v2/json-schema-credential-schema.json",
+    "type": "JsonSchema",
+    "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+  },
+  "credentialSubject": {
+    "id": "https://example-ptr/did:web:trustregistry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b?essential=true",
+    "type": "JsonSchema",
+    "jsonSchemaReference": {
+       "id": "https://example-ptr/did:web:trustregistry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b?essential=true",
+       "digestSRI": "sha384-DEFSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+    }    
+  }
+}
+
+```
+
 
 trademark-credential-presentation.json:
 
@@ -409,6 +539,10 @@ trademark-credential-presentation.json:
       },
       ...
       "credentialSchema": {
+        "id": "https://trademark.abc/credentials/TrademarkJsonSchemaCredential",
+        "type": "JsonSchemaCredential"
+      }
+      "credentialSchema": {
         "id": "https://example-ptr/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
         "type": "JsonSchema",
         "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
@@ -422,6 +556,35 @@ trademark-credential-presentation.json:
     "verificationMethod": "did:web:user-dts.gaiaid.io#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
     "proofPurpose": "assertionMethod",
     "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..6_k6Dbgug-XvksZvDVi9UxUTAmQ0J76pjdrQyNaQL7eVMmP_SUPZCqso6EN3aEKFSsJrjDJoPJa9rBK99mXvDw"
+  }
+}
+
+```
+
+TrademarkJsonSchemaCredential.json:
+
+```json
+
+{
+  "@context": [
+      "https://www.w3.org/ns/credentials/v2"
+  ],
+  "id": "https://trademark.abc/credentials/TrademarkJsonSchemaCredential",
+  "type": ["VerifiableCredential", "JsonSchemaCredential"],
+  "issuer": "did:example:trademark-trust-registry",
+  "issuanceDate": "2024-01-01T19:23:24Z",
+  "credentialSchema": {
+    "id": "https://www.w3.org/2022/credentials/v2/json-schema-credential-schema.json",
+    "type": "JsonSchema",
+    "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+  },
+  "credentialSubject": {
+    "id": "https://example-ptr/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+    "type": "JsonSchema",
+    "jsonSchemaReference": {
+       "id": "https://example-ptr/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+       "digestSRI": "sha384-GHJSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
+    }    
   }
 }
 

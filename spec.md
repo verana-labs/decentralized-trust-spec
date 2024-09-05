@@ -186,8 +186,8 @@ the resulting `json_schema` attribute will be the following Json Schema. Replace
 {
   "$id": "https://{$chain-rest-api}/{$tr.did}/cs/js/{$uuid}",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "DtsCredential",
-  "description": "DtsCredential using JsonSchema",
+  "title": "ServiceCredential",
+  "description": "ServiceCredential using JsonSchema",
   "type": "object",
   "properties": {
     "credentialSubject": {
@@ -415,7 +415,7 @@ Additionally, it MUST have a `credentialSubject` object with:
 
 Example of a DT Json Schema Credential:
 
-DtsJsonSchemaCredential.json:
+DtJsonSchemaCredential.json:
 
 ```json
 
@@ -423,7 +423,7 @@ DtsJsonSchemaCredential.json:
   "@context": [
       "https://www.w3.org/ns/credentials/v2"
   ],
-  "id": "https://ecs-trust-registry/dts-credential-schema-credential.json",
+  "id": "https://ecs-trust-registry/dt-credential-schema-credential.json",
   "type": ["VerifiableCredential", "JsonSchemaCredential"],
   "issuer": "did:abc:ecs-trust-registry",
   "issuanceDate": "2024-01-01T19:23:24Z",
@@ -520,7 +520,7 @@ object "TrustRegistry (in PTR)" as tr {
 }
 object "CredentialSchema (in PTR)" as cs {
   id: f4524751-8617-40de-bbe6-b2e0fef63c7a
-  json_schema: { "$id": ... "title": "DtsCredential"}
+  json_schema: { "$id": ... "title": "ServiceCredential"}
 }
 object "DT Json Schema Credential" as jsc #3fbdb6 {
   id: https://ecs-trust-registry/dts-credential-schema-credential.json
@@ -557,7 +557,7 @@ Example DTCredential.json:
     "https://www.w3.org/ns/credentials/v2"
   ],
   "id": "did:web:user-dts.gaiaid.io",
-  "type": ["VerifiableCredential", "DtsCredential"],
+  "type": ["VerifiableCredential", "ServiceCredential"],
   "issuer": "did:web:user-dts.gaiaid.io",
   "credentialSubject": {
      "id": "did:web:user-dts.gaiaid.io",
@@ -677,14 +677,14 @@ Example:
 
 ### Example
 
-DID Document of a DTS that presents a DTS Credential and an Organization credential, and that defines 1 additional trust registries it will use to manipulate credentials linked to schemas of this trust registries.
+DID Document of a DTS that required ECS DT Credentials and another DT Credential.
 
 ```json
   "service": [
     {
-      "id": "did:web:user-dts.gaiaid.io#ptr-essential-schemas-dts-credential",
+      "id": "did:web:user-dts.gaiaid.io#ptr-essential-schemas-service-credential",
       "type": "LinkedVerifiablePresentation",
-      "serviceEndpoint": ["https://user-dts.gaiaid.io/dts-credential-presentation.json"]
+      "serviceEndpoint": ["https://user-dts.gaiaid.io/service-credential-presentation.json"]
     },
     {
       "id": "did:web:user-dts.gaiaid.io#ptr-essential-schemas-org-credential",
@@ -695,22 +695,12 @@ DID Document of a DTS that presents a DTS Credential and an Organization credent
       "id": "did:web:user-dts.gaiaid.io#ptr-schemas-trademark-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://user-dts.gaiaid.io/trademark-credential-presentation.json"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#ptr-essential-schemas-trust-registry",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"]
-    },
-    {
-      "id": "did:web:user-dts.gaiaid.io#ptr-schemas-trademark-trust-registry",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/did:example:trademark-trust-registry/trqp-2.0/"]
     }
     ...
   ]
 ```
 
-dts-credential-presentation.json:
+service-credential-presentation.json:
 
 ```json
 
@@ -726,7 +716,7 @@ dts-credential-presentation.json:
         "https://www.w3.org/ns/credentials/v2"
       ],
       "id": "did:web:user-dts.gaiaid.io",
-      "type": ["VerifiableCredential", "DtsCredential"],
+      "type": ["VerifiableCredential", "ServiceCredential"],
       "issuer": "did:web:user-dts.gaiaid.io",
       "credentialSubject": {
         "id": "did:web:user-dts.gaiaid.io",
@@ -734,12 +724,12 @@ dts-credential-presentation.json:
       },
       ...
       "credentialSchema": {
-        "id": "https://example.tr/credentials/DtsJsonSchemaCredential",
+        "id": "https://example.tr/credentials/ServiceJsonSchemaCredential",
         "type": "JsonSchemaCredential"
       }
     }
   ],
-  "id": "https://user-dts.gaiaid.io/dts-credential-presentation.json",
+  "id": "https://user-dts.gaiaid.io/service-credential-presentation.json",
   "proof": {
     "type": "Ed25519Signature2018",
     "created": "2024-02-08T17:38:46Z",
@@ -751,7 +741,7 @@ dts-credential-presentation.json:
 
 ```
 
-DtsJsonSchemaCredential.json:
+ServiceJsonSchemaCredential.json:
 
 ```json
 
@@ -759,7 +749,7 @@ DtsJsonSchemaCredential.json:
   "@context": [
       "https://www.w3.org/ns/credentials/v2"
   ],
-  "id": "https://example.tr/credentials/DtsJsonSchemaCredential",
+  "id": "https://example.tr/credentials/ServiceJsonSchemaCredential",
   "type": ["VerifiableCredential", "JsonSchemaCredential"],
   "issuer": "did:example:tr",
   "issuanceDate": "2024-01-01T19:23:24Z",
@@ -769,7 +759,7 @@ DtsJsonSchemaCredential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true",
+    "id": "https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
     "type": "JsonSchema",
     "jsonSchema": {
       "$ref": "https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
@@ -779,8 +769,6 @@ DtsJsonSchemaCredential.json:
 }
 
 ```
-
-
 
 org-credential-presentation.json:
 
@@ -957,9 +945,6 @@ user <|-- browser : show result
 
 ```
 
-### Browser Compliance
-
-
 ### Browser Display of Trust Resolution
 
 #### Credential Wallets
@@ -969,5 +954,7 @@ user <|-- browser : show result
 #### Presentation Request
 
 ### Internationalization
+
+*This section is non normative.*
 
 It is the responsibility of browsers and search engines to properly translate credential attributes, as credential schemas are always defined in a single language, that SHOULD be english.

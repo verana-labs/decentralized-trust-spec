@@ -183,8 +183,8 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"https://{$chain-rest-api}/{$tr.did}/cs/js/{$uuid}"</span><span class="token punctuation">,</span>
   <span class="token property">"$schema"</span><span class="token operator">:</span> <span class="token string">"https://json-schema.org/draft/2020-12/schema"</span><span class="token punctuation">,</span>
-  <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"DtsCredential"</span><span class="token punctuation">,</span>
-  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"DtsCredential using JsonSchema"</span><span class="token punctuation">,</span>
+  <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"ServiceCredential"</span><span class="token punctuation">,</span>
+  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"ServiceCredential using JsonSchema"</span><span class="token punctuation">,</span>
   <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
   <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
@@ -398,13 +398,13 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>a digestSRI property that MUST match the <a class="term-reference" href="#term:json-schema">json schema</a> file content hash.</li>
 </ul>
 <p>Example of a DT Json Schema Credential:</p>
-<p>DtsJsonSchemaCredential.json:</p>
+<p>DtJsonSchemaCredential.json:</p>
 <pre class="language-json"><code class="language-json">
 <span class="token punctuation">{</span>
   <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
       <span class="token string">"https://www.w3.org/ns/credentials/v2"</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://ecs-trust-registry/dts-credential-schema-credential.json"</span><span class="token punctuation">,</span>
+  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://ecs-trust-registry/dt-credential-schema-credential.json"</span><span class="token punctuation">,</span>
   <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">,</span> <span class="token string">"JsonSchemaCredential"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:abc:ecs-trust-registry"</span><span class="token punctuation">,</span>
   <span class="token property">"issuanceDate"</span><span class="token operator">:</span> <span class="token string">"2024-01-01T19:23:24Z"</span><span class="token punctuation">,</span>
@@ -481,7 +481,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 </code></pre>
 <h3 id="dt-cred-decentralized-trust-credential"><a class="toc-anchor" href="#dt-cred-decentralized-trust-credential" >§</a> [DT-CRED] Decentralized Trust Credential</h3>
 <p>A simple diagram for a clear understanding:</p>
-<img src="https://www.plantuml.com/plantuml/svg/hPD9Jm9148Nl_IigemSzD8E8O3eUIEJaoG1tqqlX39c5T1LHGlZlTW-BWwBnu6MMdgxtlbTTCoBMdbTb8KR79xAwG2ZrEzntk_2MEyv4RHPe6PAPNn5Fy3KdzckuoYjudask4z04x64Z05pkL7FHnYgq93cMIB-l4TkZrgD7XnNdkfZQ34jzAcUfaOjgy_vThp-ykv7tWvkXx7STIcDm84qFktES3sxjK8Uj2wgh5sga56mWkSnTeg3JwK32EHSONf8nqwTjictHZ6Vm50HWpzBQ5MaMPE7YTcwS6HonCkObgJJz7Z9rJD8U5UGEghNIYQnHXcY5_jT-xN9Dzx4EdalsCgk9ArrY-dDrQYbTKFgd1cv5knTVyeT0aVwq1oruVDVbia0LWzTl5VeJxa-nV-XQu0opyI1bd3W5uRDcXFQ9VHad4GylxWzb2XfFE7X6-5sGeF1q1XYCff0x34PhlA2eRJ0DbTLtsx366KPdSUXQD0yG2iQpAJJjsNlcJ64Dx1cxip1DbGEpFXD3Y15MhlcLT_SF" alt="uml diagram">
+<img src="https://www.plantuml.com/plantuml/svg/hPCvJmCn48Lx_uhHGW65im52WYoAI51H8P8U-PYmZlQ8F1CEeVntxCt11WAYeDd3wtdlU-FPCR4ElAnACTuzaTKbGgLVuQhVXnVlk12DcQDboAPXIVo0JvuulC69h-5--d2QWIRW0Ey2m7cdseisLg4boQb4XasDMEsqRW8whDdhSc8BhFI-dALMBgdD1fVdWz7bcRmQdetaeEzG6eD3QSwnFyFPyCAETDmwfwP-f5PAmJjanzvb2dgz7cJikSJuaaqmF7kBdzRPgaDqEuMxA08RdiwkH3Gd2qSNC-FCS8TMC2z8vVdteBbZadQd8DTWdPLUuaqoH4iCl_PidMsoYRRrN72GHKDSwmhpdwjpI_cSyZyrSIMwlVYIFmPAzFizwC3ZgwuM9QeKl7cfCUnnVuhzGzSYPvoFQodJr2c8dpKZT4_ioqY9T7XfVonJq7h2rZF1huD4XRi3m60qnTnnC3eZ1cLZescihB_RnZKkC3cBRTUIUOHGS3kTGDkUZQTdYcjW3zWTX6ch79Yt0p6466FjsjzvVVy0" alt="uml diagram">
 <p>A DT Credential MUST have a <code>credentialSchema</code> property:</p>
 <ul>
 <li><code>id</code> must point to a <a class="term-reference" href="#term:json-schema-credential">json schema credential</a> issued by the trust registry <a class="term-reference" href="#term:did">DID</a> owner of the schema in the PTR;</li>
@@ -495,7 +495,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
     <span class="token string">"https://www.w3.org/ns/credentials/v2"</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
-  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">,</span> <span class="token string">"DtsCredential"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">,</span> <span class="token string">"ServiceCredential"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
   <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
@@ -522,7 +522,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[DTS-REQ-3] If the issuer of the DTS Service Essential Credential of [DTS-REQ-2] is the <a class="term-reference" href="#term:did">DID</a> of this service, service DID Document MUST present a credential that conforms to [DT-EC-ORG] or (exclusive) a [DT-EC-PERSON].</li>
 <li>[DTS-REQ-4] If the issuer of the PTR DTS Credential of [DTS-REQ-2] is not the <a class="term-reference" href="#term:did">DID</a> of this service, issuer service MUST be a [DTS-REQ] <a class="term-reference" href="#term:dts">DTS</a> that conforms to [DTS-REQ-3].</li>
 </ul>
-<div id="note-3" class="notice note"><a class="notice-link" href="#note-3">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
+<div id="note-5" class="notice note"><a class="notice-link" href="#note-5">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
 </div>
 <ul>
 <li>[DTS-REQ-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional DTS Credential that conforms to [DT-CRED].</li>
@@ -531,7 +531,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <p>For establishing a DIDComm connection between 2 <a class="term-reference" href="#term:dts">DTS</a>, it is REQUIRED for both <a class="term-reference" href="#term:dts">DTS</a> to be compliant with [DTS-REQ].</p>
 <h3 id="service-browser-requirements-for-a-dts-to-accept-a-connection-from-a-browser"><a class="toc-anchor" href="#service-browser-requirements-for-a-dts-to-accept-a-connection-from-a-browser" >§</a> [SERVICE-BROWSER] Requirements for a DTS to accept a connection from a browser</h3>
 <p>When a compliant <a class="term-reference" href="#term:dts">DTS</a> accepts/establishes a DIDComm connection with a <a class="term-reference" href="#term:dts-browser">DTS browser</a>, <a class="term-reference" href="#term:dts-browser">DTS browser</a> MUST be verified, else connection MUST be dropped.</p>
-<div id="todo-3" class="notice todo"><a class="notice-link" href="#todo-3">TODO</a><p>explain how to verify browser</p>
+<div id="todo-5" class="notice todo"><a class="notice-link" href="#todo-5">TODO</a><p>explain how to verify browser</p>
 </div>
 <h3 id="dts-ci-credential-issuance"><a class="toc-anchor" href="#dts-ci-credential-issuance" >§</a> [DTS-CI] Credential Issuance</h3>
 <ul>
@@ -599,12 +599,12 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[BROWSER-1] A compliant <a class="term-reference" href="#term:dts-browser">DTS browser</a> MUST dereference all DTS Credentials, verify DTS Json Schema Credentials, Json Schema hashes, use the Trust Registry Query Protocol v2.0,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
 </ul>
 <h3 id="example"><a class="toc-anchor" href="#example" >§</a> Example</h3>
-<p>DID Document of a DTS that presents a DTS Credential and an Organization credential, and that defines 1 additional trust registries it will use to manipulate credentials linked to schemas of this trust registries.</p>
+<p>DID Document of a DTS that required ECS DT Credentials and another DT Credential.</p>
 <pre class="language-json"><code class="language-json">  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-essential-schemas-dts-credential"</span><span class="token punctuation">,</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-essential-schemas-service-credential"</span><span class="token punctuation">,</span>
       <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"LinkedVerifiablePresentation"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://user-dts.gaiaid.io/dts-credential-presentation.json"</span><span class="token punctuation">]</span>
+      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://user-dts.gaiaid.io/service-credential-presentation.json"</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token punctuation">{</span>
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-essential-schemas-org-credential"</span><span class="token punctuation">,</span>
@@ -615,21 +615,11 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-schemas-trademark-credential"</span><span class="token punctuation">,</span>
       <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"LinkedVerifiablePresentation"</span><span class="token punctuation">,</span>
       <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://user-dts.gaiaid.io/trademark-credential-presentation.json"</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-essential-schemas-trust-registry"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"TrustRegistry"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io#ptr-schemas-trademark-trust-registry"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"TrustRegistry"</span><span class="token punctuation">,</span>
-      <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://{$chain-rest-api}/did:example:trademark-trust-registry/trqp-2.0/"</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
     ...
   <span class="token punctuation">]</span>
 </code></pre>
-<p>dts-credential-presentation.json:</p>
+<p>service-credential-presentation.json:</p>
 <pre class="language-json"><code class="language-json">
 <span class="token punctuation">{</span>
   <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -643,7 +633,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
         <span class="token string">"https://www.w3.org/ns/credentials/v2"</span>
       <span class="token punctuation">]</span><span class="token punctuation">,</span>
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">,</span> <span class="token string">"DtsCredential"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">,</span> <span class="token string">"ServiceCredential"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
       <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
       <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:web:user-dts.gaiaid.io"</span><span class="token punctuation">,</span>
@@ -651,12 +641,12 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
       ...
       <span class="token property">"credentialSchema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example.tr/credentials/DtsJsonSchemaCredential"</span><span class="token punctuation">,</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example.tr/credentials/ServiceJsonSchemaCredential"</span><span class="token punctuation">,</span>
         <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchemaCredential"</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://user-dts.gaiaid.io/dts-credential-presentation.json"</span><span class="token punctuation">,</span>
+  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://user-dts.gaiaid.io/service-credential-presentation.json"</span><span class="token punctuation">,</span>
   <span class="token property">"proof"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"Ed25519Signature2018"</span><span class="token punctuation">,</span>
     <span class="token property">"created"</span><span class="token operator">:</span> <span class="token string">"2024-02-08T17:38:46Z"</span><span class="token punctuation">,</span>
@@ -667,13 +657,13 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <span class="token punctuation">}</span>
 
 </code></pre>
-<p>DtsJsonSchemaCredential.json:</p>
+<p>ServiceJsonSchemaCredential.json:</p>
 <pre class="language-json"><code class="language-json">
 <span class="token punctuation">{</span>
   <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
       <span class="token string">"https://www.w3.org/ns/credentials/v2"</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example.tr/credentials/DtsJsonSchemaCredential"</span><span class="token punctuation">,</span>
+  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example.tr/credentials/ServiceJsonSchemaCredential"</span><span class="token punctuation">,</span>
   <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">,</span> <span class="token string">"JsonSchemaCredential"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:example:tr"</span><span class="token punctuation">,</span>
   <span class="token property">"issuanceDate"</span><span class="token operator">:</span> <span class="token string">"2024-01-01T19:23:24Z"</span><span class="token punctuation">,</span>
@@ -683,7 +673,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
     <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true"</span><span class="token punctuation">,</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"</span><span class="token punctuation">,</span>
     <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span><span class="token punctuation">,</span>
     <span class="token property">"jsonSchema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
       <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"</span>
@@ -831,12 +821,12 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <p>Crawlers will query the <a class="term-reference" href="#term:did-directory">DID Directory</a> <code>/did-directory/list</code> method of a <a class="term-reference" href="#term:ptr">PTR</a> to get the <a class="term-reference" href="#term:dids">DIDs</a> of registered <a class="term-reference" href="#term:dtss">DTSs</a> and resolve them to build an index by recursively resolving all linked data.</p>
 <p>For more information, please refer to the <a path-0="github.com"path-1="2060-io"path-2="public-trust-registry-specs"href="https://github.com/2060-io/public-trust-registry-specs" >public-trust-registry-specs</a>.</p>
 <img src="https://www.plantuml.com/plantuml/svg/bPB1QiCm44Jl-eebliPKSI4kfXJJ-f9psm-GlPj6hMAbacmda8-lPKM6u5DF6cbcXtsWqZfXN7TKh9oLROGYE8epF74EWqHtOBh-fiR1gjfLK4apQcqkAn0MK2BEzfiHWo8p6KtGa3pkQwotSsRN8fsdXFHguLSVxv1iGhUp6qZoRPuJtljPzBE5_shqO6yxr453mddDztpEVCP0Dmhc4U3vcgRppWL8HqOu0jsFLq-DaPh5K9fUNyAA1HYoMlNaaslu8WTAjZ-4QN-ownid2YSMiza_PYFCD3kz5_3RaRc4otttpMyCZHGFtGazJ2XZ7Zhmnie2x44FVfDEELPIYzEN2ESV" alt="uml diagram">
-<h3 id="browser-compliance"><a class="toc-anchor" href="#browser-compliance" >§</a> Browser Compliance</h3>
 <h3 id="browser-display-of-trust-resolution"><a class="toc-anchor" href="#browser-display-of-trust-resolution" >§</a> Browser Display of Trust Resolution</h3>
 <h4 id="credential-wallets"><a class="toc-anchor" href="#credential-wallets" >§</a> Credential Wallets</h4>
 <h4 id="connection-invitation"><a class="toc-anchor" href="#connection-invitation" >§</a> Connection Invitation</h4>
 <h4 id="presentation-request"><a class="toc-anchor" href="#presentation-request" >§</a> Presentation Request</h4>
 <h3 id="internationalization"><a class="toc-anchor" href="#internationalization" >§</a> Internationalization</h3>
+<p><em>This section is non normative.</em></p>
 <p>It is the responsibility of browsers and search engines to properly translate credential attributes, as credential schemas are always defined in a single language, that SHOULD be english.</p>
 
                     </article>    
@@ -895,7 +885,6 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li><a href="#browser-dts-browser-compliance" >[BROWSER] DTS Browser compliance</a></li>
 <li><a href="#example" >Example</a></li>
 <li><a href="#crawlers" >Crawlers</a></li>
-<li><a href="#browser-compliance" >Browser Compliance</a></li>
 <li><a href="#browser-display-of-trust-resolution" >Browser Display of Trust Resolution</a>
 <ul>
 <li><a href="#credential-wallets" >Credential Wallets</a></li>

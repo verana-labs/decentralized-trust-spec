@@ -507,7 +507,7 @@ Example:
   ]
 ```
 
-### [DT-CRED] Decentralized Trust Credential
+### [DT-CRED] Decentralized Trust (DT) Credential
 
 A simple diagram for a clear understanding:
 
@@ -565,7 +565,7 @@ Example DTCredential.json:
   },
   ...
   "credentialSchema": {
-    "id": "https://ecs-trust-registry/dts-credential-schema-credential.json",
+    "id": "https://ecs-trust-registry/service-credential-schema-credential.json",
     "type": "JsonSchemaCredential"
   }
 }
@@ -627,7 +627,7 @@ Linked verifiable presentations of credential CAN be present in service DID Docu
 
 Compliant [[ref: DTSs]] and [[ref: DTS browsers]] MUST maintain a list of trusted PTRs and trusted DT Essential Credential issuers, and ignore PTRs and DT ECS issuers that are not in these list when resolving trust:
 
-- [TR-WL-PTR]: A list of prefix URLs of trusted PTR (registry of registries).
+- [TR-WL-PTR]: A list of prefix URLs of trusted PTRs (registry of registries).
 
 Example:
 
@@ -636,13 +636,13 @@ Example:
 { 
   ptrs: [ 
     { 
-      "name": "ptr1",
-      "url": "https://ecs-trust-registry-mainnet",
+      "name": "ptr-mainnet",
+      "baseurl": "https://ecs-trust-registry-mainnet",
       "production": true
     },
     { 
-      "name": "ptr2",
-      "url": "https://ecs-trust-registry-testnet",
+      "name": "ptr-testnet",
+      "baseurl": "https://ecs-trust-registry-testnet",
       "production": false
     }
   ]
@@ -659,11 +659,11 @@ Example:
   estrs: [ 
     { 
       "tr": "did:abc:ecs-trust-registry",
-      "ptr": "ptr1"
+      "ptr": "ptr-mainnet"
     },
     { 
       "tr": "did:efg:ecs-trust-registry",
-      "ptr": "ptr2"
+      "ptr": "ptr-testnet"
     }
   ]
 }
@@ -673,11 +673,11 @@ Example:
 
 - [BROWSER-1] A compliant [[ref: DTS browser]] MUST connect or accept connection from DTSs that complies with [DTS-REQ].
 - [BROWSER-2] A compliant [[ref: DTS browser]] SHOULD NOT connect or accept connection from DTSs that does not comply with [DTS-REQ].
-- [BROWSER-1] A compliant [[ref: DTS browser]] MUST dereference all DTS Credentials, verify DTS Json Schema Credentials, Json Schema hashes, use the Trust Registry Query Protocol v2.0,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
+- [BROWSER-1] A compliant [[ref: DTS browser]] MUST dereference all DTS Credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Trust Registry Query Protocol v2.0,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
 
 ### Example
 
-DID Document of a DTS that required ECS DT Credentials and another DT Credential.
+Let's see a full example in action. Here is a DID Document of a compliant DTS:
 
 ```json
   "service": [
@@ -699,6 +699,8 @@ DID Document of a DTS that required ECS DT Credentials and another DT Credential
     ...
   ]
 ```
+
+Let's dereference...
 
 service-credential-presentation.json:
 
@@ -724,7 +726,7 @@ service-credential-presentation.json:
       },
       ...
       "credentialSchema": {
-        "id": "https://example.tr/credentials/ServiceJsonSchemaCredential",
+        "id": "https://ecs-trust-registry/service-credential-schema-credential.json",
         "type": "JsonSchemaCredential"
       }
     }
@@ -741,7 +743,7 @@ service-credential-presentation.json:
 
 ```
 
-ServiceJsonSchemaCredential.json:
+service-credential-schema-credential.json:
 
 ```json
 
@@ -749,9 +751,9 @@ ServiceJsonSchemaCredential.json:
   "@context": [
       "https://www.w3.org/ns/credentials/v2"
   ],
-  "id": "https://example.tr/credentials/ServiceJsonSchemaCredential",
+  "id": "https://ecs-trust-registry/service-credential-schema-credential.json",
   "type": ["VerifiableCredential", "JsonSchemaCredential"],
-  "issuer": "did:example:tr",
+  "issuer": "did:abc:ecs-trust-registry",
   "issuanceDate": "2024-01-01T19:23:24Z",
   "credentialSchema": {
     "id": "https://www.w3.org/2022/credentials/v2/json-schema-credential-schema.json",
@@ -759,16 +761,20 @@ ServiceJsonSchemaCredential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
+    "id": "https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
     "type": "JsonSchema",
     "jsonSchema": {
-      "$ref": "https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
+      "$ref": "https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
     },
     "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW" 
   }
 }
 
 ```
+
+:::note
+Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)
+:::
 
 org-credential-presentation.json:
 
@@ -794,7 +800,7 @@ org-credential-presentation.json:
       },
       ...
       "credentialSchema": {
-        "id": "https://example.tr/credentials/OrganizationJsonSchemaCredential",
+        "id": "https://ecs-trust-registry/org-credential-schema-credential.json",
         "type": "JsonSchemaCredential"
       }
     }
@@ -811,7 +817,7 @@ org-credential-presentation.json:
 
 ```
 
-OrganizationJsonSchemaCredential.json:
+org-credential-schema-credential.json:
 
 ```json
 
@@ -821,7 +827,7 @@ OrganizationJsonSchemaCredential.json:
   ],
   "id": "https://example.tr/credentials/OrganizationJsonSchemaCredential",
   "type": ["VerifiableCredential", "JsonSchemaCredential"],
-  "issuer": "did:example:tr",
+  "issuer": "did:abc:ecs-trust-registry",
   "issuanceDate": "2024-01-01T19:23:24Z",
   "credentialSchema": {
     "id": "https://www.w3.org/2022/credentials/v2/json-schema-credential-schema.json",
@@ -829,17 +835,16 @@ OrganizationJsonSchemaCredential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://example-ptr/did:web:trustregistry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b",
+    "id": "https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b",
     "type": "JsonSchema",
     "jsonSchema": {
-      "$ref": "https://example-ptr/did:web:trustregistry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b"
+      "$ref": "https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b"
     },
     "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"  
   }
 }
 
 ```
-
 
 trademark-credential-presentation.json:
 
@@ -858,7 +863,7 @@ trademark-credential-presentation.json:
       ],
       "id": "did:web:user-dts.gaiaid.io",
       "type": ["VerifiableCredential", "TrademarkCredential"],
-      "issuer": "did:web:trademark.io",
+      "issuer": "did:web:trademark.abc",
       "credentialSubject": {
         "id": "did:web:user-dts.gaiaid.io",
         ...
@@ -869,7 +874,7 @@ trademark-credential-presentation.json:
         "type": "JsonSchemaCredential"
       }
       "credentialSchema": {
-        "id": "https://example-ptr/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+        "id": "https://ptr-hostname/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
         "type": "JsonSchema",
         "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
       }
@@ -914,6 +919,57 @@ TrademarkJsonSchemaCredential.json:
   }
 }
 
+```
+
+DID Document of did:abc:ecs-trust-registry:
+
+
+```json
+  "service": [
+    {
+      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-service-credential-schema-credential",
+      "type": "LinkedVerifiablePresentation",
+      "serviceEndpoint": ["https://ecs-trust-registry/service-credential-schema-presentation.json"]
+    },
+    {
+      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-organization-credential-schema-credential",
+      "type": "LinkedVerifiablePresentation",
+      "serviceEndpoint": ["https://ecs-trust-registry/org-credential-schema-presentation.json"]
+    },
+    {
+      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-person-credential-schema-credential",
+      "type": "LinkedVerifiablePresentation",
+      "serviceEndpoint": ["https://ecs-trust-registry/person-credential-schema-presentation.json"]
+    },
+    {
+      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-trust-registry",
+      "type": "TrustRegistry",
+      "serviceEndpoint": ["https://ptr-hostname/did:abc:ecs-trust-registry/trqp-2.0/"]
+    }
+    
+    ...
+  ]
+```
+
+DID Document of did:example:trademark-trust-registry:
+
+```json
+  ...
+  "service": [
+    {
+      "id": "did:example:trademark-trust-registry#ptr-schemas-trademark-credential-schema-credential",
+      "type": "LinkedVerifiablePresentation",
+      "serviceEndpoint": ["https://trademark.abc/credentials/TrademarkJsonSchemaCredential"]
+    },
+    {
+      "id": "did:example:trademark-trust-registry#ptr-schemas-trust-registry",
+      "type": "TrustRegistry",
+      "serviceEndpoint": ["https://ptr-hostname/did:example:trademark-trust-registry/trqp-2.0/"]
+    }
+    
+    ...
+  ]
+  ...
 ```
 
 ### Crawlers

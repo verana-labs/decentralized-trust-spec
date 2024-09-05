@@ -465,7 +465,7 @@ Example:
     {
       "id": "did:abc:dl-trust-registry#ptr-schemas-trust-registry",
       "type": "TrustRegistry",
-      "serviceEndpoint": ["https://ptr-hostname/did:abc:ecs-trust-registry/trqp-2.0/"]
+      "serviceEndpoint": ["https://ptr-hostname/did:abc:dl-trust-registry/trqp-2.0/"]
     }
     ...
   ]

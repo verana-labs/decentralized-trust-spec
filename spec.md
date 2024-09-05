@@ -444,9 +444,9 @@ DtJsonSchemaCredential.json:
 
 ```
 
-### [DT-TR-DIDDOC] Decentralized Trust Trust Registry DIDDocument
+### [DT-TR-DIDDOC] Trust Registry DID Document
 
-For each `CredentialSchema` entry a Trust Registry has created in a [[ref: PTR]], the Trust Registry MUST self-issue the corresponding PTR Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].
+For each `CredentialSchema` entry a Trust Registry has created in a [[ref: PTR]], the Trust Registry MUST self-issue the corresponding DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].
 
 Additionally, in MUST present the DT Json Schema Credential(s) in its DIDDocument, as well as the corresponding trust registry entry for verification. To do so, it MUST define the following entries in its DIDDocument:
 

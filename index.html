@@ -522,7 +522,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[DTS-REQ-3] If the issuer of the DTS Service Essential Credential of [DTS-REQ-2] is the <a class="term-reference" href="#term:did">DID</a> of this service, service DID Document MUST present a credential that conforms to [DT-EC-ORG] or (exclusive) a [DT-EC-PERSON].</li>
 <li>[DTS-REQ-4] If the issuer of the PTR DTS Credential of [DTS-REQ-2] is not the <a class="term-reference" href="#term:did">DID</a> of this service, issuer service MUST be a [DTS-REQ] <a class="term-reference" href="#term:dts">DTS</a> that conforms to [DTS-REQ-3].</li>
 </ul>
-<div id="note-10" class="notice note"><a class="notice-link" href="#note-10">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
+<div id="note-12" class="notice note"><a class="notice-link" href="#note-12">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
 </div>
 <ul>
 <li>[DTS-REQ-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional DTS Credential that conforms to [DT-CRED].</li>
@@ -531,7 +531,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <p>For establishing a DIDComm connection between 2 <a class="term-reference" href="#term:dts">DTS</a>, it is REQUIRED for both <a class="term-reference" href="#term:dts">DTS</a> to be compliant with [DTS-REQ].</p>
 <h3 id="service-browser-requirements-for-a-dts-to-accept-a-connection-from-a-browser"><a class="toc-anchor" href="#service-browser-requirements-for-a-dts-to-accept-a-connection-from-a-browser" >§</a> [SERVICE-BROWSER] Requirements for a DTS to accept a connection from a browser</h3>
 <p>When a compliant <a class="term-reference" href="#term:dts">DTS</a> accepts/establishes a DIDComm connection with a <a class="term-reference" href="#term:dts-browser">DTS browser</a>, <a class="term-reference" href="#term:dts-browser">DTS browser</a> MUST be verified, else connection MUST be dropped.</p>
-<div id="todo-10" class="notice todo"><a class="notice-link" href="#todo-10">TODO</a><p>explain how to verify browser</p>
+<div id="todo-11" class="notice todo"><a class="notice-link" href="#todo-11">TODO</a><p>explain how to verify browser</p>
 </div>
 <h3 id="dts-ci-credential-issuance"><a class="toc-anchor" href="#dts-ci-credential-issuance" >§</a> [DTS-CI] Credential Issuance</h3>
 <ul>
@@ -598,6 +598,23 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[BROWSER-2] A compliant <a class="term-reference" href="#term:dts-browser">DTS browser</a> SHOULD NOT connect or accept connection from DTSs that does not comply with [DTS-REQ].</li>
 <li>[BROWSER-1] A compliant <a class="term-reference" href="#term:dts-browser">DTS browser</a> MUST dereference all DTS Credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Trust Registry Query Protocol v2.0,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
 </ul>
+<h3 id="tr-resol-verification-of-permission-in-trust-registries"><a class="toc-anchor" href="#tr-resol-verification-of-permission-in-trust-registries" >§</a> [TR-RESOL] Verification of permission in Trust Registries</h3>
+<p>The TRQP-2.0 is used for querying trust registry.</p>
+<p>Please refer to [MOD-TRQP-2] /entities/{entityVID}/authorization in <a class="term-reference" href="#term:ptr">PTR</a> specs.</p>
+<p>Example check if issuer <code>did:web:service-credential-issuer</code> is granted issuance of credential schema <code>f4524751-8617-40de-bbe6-b2e0fef63c7a</code> owned by trust registry <code>did:web:service-credential-issuer</code> for country <code>fr</code>:</p>
+<p><code>GET /did:web:trust-registry/trqp-2.0/entities/did:web:service-credential-issuer/authorization?authorizationVID=did:web:trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a#ISSUER-fr</code></p>
+<p>Response:</p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"entityId"</span><span class="token operator">:</span> <span class="token string">"did:web:service-credential-issuer"</span><span class="token punctuation">,</span>
+  <span class="token property">"authorizationID"</span><span class="token operator">:</span> <span class="token string">"did:web:trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a#ISSUER-fr"</span><span class="token punctuation">,</span>
+  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"ISSUER granted permission for fr country on credential schema f4524751-8617-40de-bbe6-b2e0fef63c7a on trust registry did:web:trust-registry"</span><span class="token punctuation">,</span>
+  <span class="token property">"authorizationUniqueString"</span><span class="token operator">:</span><span class="token string">"8611f5fc-b243-4871-8e63-d44279b57c73"</span><span class="token punctuation">,</span>
+  <span class="token property">"authorizationStatus"</span><span class="token operator">:</span><span class="token string">"current"</span><span class="token punctuation">,</span>
+  <span class="token property">"authorizationValidity"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+     <span class="token property">"validFromDT"</span><span class="token operator">:</span> <span class="token string">"2024-08-24T14:15:22Z"</span><span class="token punctuation">,</span>
+     <span class="token property">"validUntilDT"</span><span class="token operator">:</span> <span class="token string">"2025-08-24T14:15:22Z"</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <h3 id="example"><a class="toc-anchor" href="#example" >§</a> Example</h3>
 <p>Let’s see a full example in action. Here is a DID Document of a compliant DTS:</p>
 <pre class="language-json"><code class="language-json">  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -684,7 +701,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <span class="token punctuation">}</span>
 
 </code></pre>
-<div id="note-11" class="notice note"><a class="notice-link" href="#note-11">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
+<div id="note-13" class="notice note"><a class="notice-link" href="#note-13">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
 </div>
 <p>org-credential-presentation.json:</p>
 <pre class="language-json"><code class="language-json">
@@ -930,6 +947,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li><a href="#dts-lvp-linked-verifiable-presentations" >[DTS-LVP] Linked Verifiable Presentations</a></li>
 <li><a href="#tr-wl-ptr-and-trust-registry-whitelists" >[TR-WL] PTR and Trust Registry whitelists</a></li>
 <li><a href="#browser-dts-browser-compliance" >[BROWSER] DTS Browser compliance</a></li>
+<li><a href="#tr-resol-verification-of-permission-in-trust-registries" >[TR-RESOL] Verification of permission in Trust Registries</a></li>
 <li><a href="#example" >Example</a></li>
 <li><a href="#crawlers" >Crawlers</a></li>
 <li><a href="#browser-display-of-trust-resolution" >Browser Display of Trust Resolution</a>

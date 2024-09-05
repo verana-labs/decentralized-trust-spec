@@ -675,6 +675,31 @@ Example:
 - [BROWSER-2] A compliant [[ref: DTS browser]] SHOULD NOT connect or accept connection from DTSs that does not comply with [DTS-REQ].
 - [BROWSER-1] A compliant [[ref: DTS browser]] MUST dereference all DTS Credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Trust Registry Query Protocol v2.0,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
 
+### [TR-RESOL] Verification of permission in Trust Registries
+
+The TRQP-2.0 is used for querying trust registry.
+
+Please refer to [MOD-TRQP-2] /entities/{entityVID}/authorization in [[ref: PTR]] specs.
+
+Example check if issuer `did:web:service-credential-issuer` is granted issuance of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` owned by trust registry `did:web:service-credential-issuer` for country `fr`:
+
+`GET /did:web:trust-registry/trqp-2.0/entities/did:web:service-credential-issuer/authorization?authorizationVID=did:web:trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a#ISSUER-fr`
+
+Response:
+
+```json
+{
+  "entityId": "did:web:service-credential-issuer",
+  "authorizationID": "did:web:trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a#ISSUER-fr",
+  "description": "ISSUER granted permission for fr country on credential schema f4524751-8617-40de-bbe6-b2e0fef63c7a on trust registry did:web:trust-registry",
+  "authorizationUniqueString":"8611f5fc-b243-4871-8e63-d44279b57c73",
+  "authorizationStatus":"current",
+  "authorizationValidity": {
+     "validFromDT": "2024-08-24T14:15:22Z",
+     "validUntilDT": "2025-08-24T14:15:22Z",
+}
+```
+
 ### Example
 
 Let's see a full example in action. Here is a DID Document of a compliant DTS:

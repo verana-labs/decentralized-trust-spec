@@ -94,13 +94,13 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 ~ A service, usually provided using [[ref: DIDComm]], that can be deployed anywhere by its owner, and that is using the decentralized trust layer provided by an [[ref: PTR]], and has a resolvable [[ref: proof of trust]].
 
 [[def: decentralized trust service browser, DTS browser, DTS browsers]]:
-~ A browser for accessing and using [[ref: DTSs]]. To be considered as a [[ref: DTS browser]], a browser must implement an [[ref: PTR]] trust layer and use a trust resolution using use the [[ref: essential credential schemas]] for providing a [[ref: proof of trust]] to users so that user clearly identifies [[ref: DTS]] provider and decides to connect or not.
+~ A browser for accessing and using [[ref: DTSs]]. To be considered as a [[ref: DTS browser]], a browser must implement an [[ref: PTR]] trust layer and use a trust resolution using use the [[ref: essential credential schema]] of a given trust registry for providing a [[ref: proof of trust]] to users so that user clearly identifies [[ref: DTS]] provider and decides to connect or not.
 
 [[def: DID Directory, DID directory]]:
 ~ A repository of DIDs in an PTR.
 
 [[def: essential credential schema, essential credential schemas]]:
-~ Default [[ref: credential schema]], created at genesis of an [[ref: PTR]], that provide the basis for a trust layer to exist in the ecosystem so that [[ref: DTS browser]] can generate a [[ref: proof of trust]].
+~ Default [[ref: credential schema]], owned by a [[ref: trust registry]], that provide the basis for a trust layer to exist in the ecosystem so that [[ref: DTS browser]] can generate a [[ref: proof of trust]].
 
 [[def: holder, holders]]:
 ~ A role an entity might perform by possessing one or more verifiable credentials and generating verifiable presentations from them. A holder is often, but not always, a [[ref: subject]] of the verifiable credentials they are holding. Holders store their credentials in credential repositories. Example holders include organizations, persons, things.
@@ -152,53 +152,251 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 
 ## Specification
 
-### [SERVICE-PTRC] PTR Credential
+### [ECS] Essential Credential Schemas
 
-[SERVICE-PTRC-1] Definition:
+Essential Credential Schemas (ECS) are created in a PTR by a Trust Registry. There are 3 kind of ECS:
 
-A PTR Credential MUST refer to a [[ref: json schema credential]] that MUST refer to a [[ref: json schema]] created and stored in the PTR (a `CredentialSchema` entry, as specified in [CS] and [ECS] in PTR spec). [[ref: json schema credential]] MUST have been issued by the did of the `TrustRegistry`, owner of `CredentialSchema` entry in the PTR.
+- Service;
+- Organization;
+- Person.
 
-PTR Credential MUST conform to the dereferenced [[ref: json schema]].
+A Trust Registry creates itself in a [[ref: PTR]] by creating a `TrustRegistry` entry `tr`. For this Trust Registry to qualify for being used for trust resolution in DTS and browsers, it MUST provide, associated to the `TrustRegistry` entry `tr`, all 3 `CredentialSchema` entries, with a respective `json_schema` attribute defined as follows in [ECS-SERVICE], [ECS-ORG], and [ECS-PERSON].
 
-```plantuml
+#### [ECS-SERVICE] Service Credential Json Schema
 
-@startuml
-scale max 800 width
-object "TrustRegistry (in PTR)" as tr {
-  did: did:example:tr
+Credential subject object of schema MUST contain the following attributes:
+
+- `id` (string) (*mandatory*): the [[ref: DID]] of the service the credential will be issued to.
+- `name` (string) (*mandatory*): service name. UTF8 charset, max length: 512 bytes.
+- `description` (string) (*mandatory*): service description. UTF8 charset, max length: 4096 bytes.
+- `logo` (image) (*mandatory*): the logo of the service, as it will be shown in browsers and search engines.
+- `minimumAgeRequired` (integer) (*mandatory*): minimum required age to connect to service. Allowed value: 0 to 255. Used by browsers that provide a simple birth date based parental control.
+- `termsAndConditions` (string) (*mandatory*): URL of the terms and conditions of the service. It is recommended to store terms and conditions in a file, in a repository that allows file hash verification (IPFS).
+- `termsAndConditionsHash` (string) (*optional*): If terms and conditions of the service are stored in a file, optional hash of the file for data integrity verification.
+- `privacyPolicy` (string) (*mandatory*): URL of the terms and conditions of the service. MAY be the same URL that `terms_and_conditions` if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).
+- `privacyPolicyHash` (string) (*optional*): If privacy policy of the service are stored in a file, optional hash of the file for data integrity verification.
+
+the resulting `json_schema` attribute will be the following Json Schema. Replace:
+
+- `{$chain-rest-api}` with [[ref: PTR]] API domain,
+- `{$tr.did}` with `tr.did`,
+- `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
+
+```json
+{
+  "$id": "https://{$chain-rest-api}/{$tr.did}/cs/js/{$uuid}",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DtsCredential",
+  "description": "DtsCredential using JsonSchema",
+  "type": "object",
+  "properties": {
+    "credentialSubject": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 512
+        },
+        "description": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 4096
+        },
+        "logo": {
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
+        },
+        "minimumAgeRequired": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMaximum": 150
+        },
+        "termsAndConditions": {
+          "type": "string",
+          "format": "uri"
+        },
+        "termsAndConditionsHash": {
+          "type": "string"
+        },
+        "policyPrivacy": {
+          "type": "string",
+          "format": "uri"
+        },
+        "policyPrivacyHash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "logo",
+        "minimumAgeRequired",
+        "termsAndConditions",
+        "policyPrivacy"
+      ]
+    }
+  }
 }
-object "CredentialSchema (in PTR)" as cs {
-  id: f4524751-8617-40de-bbe6-b2e0fef63c7a
-  essential: true
-  json_schema: { "$id": ... "title": "DtsCredential"}
-}
-object "JsonSchemaCredential" as jsc #3fbdb6 {
-  id: https://example.tr/credentials/DtsJsonSchemaCredential
-  issuer: did:example:tr
-  jsonSchema: https://.../did:example:tr/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true
-}
-
-object "DtsCredential" as dtscred #3fbdb6 {
-  issuer: did:example:dts-owner
-  jsonSchemaCredential: https://did:example:tr/credentials/DtsJsonSchemaCredential
-}
-
-cs <-- tr : create a CredentialSchema (in PTR)
-jsc <-- cs : trust registry did issue a JsonSchemaCredential based on json_schema located in CredentialSchema in the PTR
-dtscred <-- jsc: DTS owner issue its DTS credential based on JsonSchemaCredential issued by trust registry did
-
-@enduml
-
 ```
 
-A PTR Credential MUST have a `credentialSchema` property:
+#### [ECS-ORG] OrganizationCredential Json Schema
 
-- `id` must point to a [[ref: json schema credential]] issued by the trust registry [[ref: DID]] owner of the schema in the PTR;
-- `type` MUST be `JsonSchemaCredential`.
+Credential subject object of schema MUST contain the following attributes:
 
-Referred [[ref: json schema credential]] MUST:
+- `id` (string) (*mandatory*): the [[ref: DID]] of the service the credential has been issued to, which is the subject of the [[ref: verifiable credential]].
+- `name` (string) (*mandatory*): name of the organization.
+- `logo` (image) (*mandatory*): the logo of the organization, as it will be shown in browsers and search engines.
+- `registryId` (string) (*mandatory*): registry id of the organization.
+- `address` (string) (*mandatory*): address of the organization.
+- `type` (enum) (*mandatory*): type of organization. PUBLIC, PRIVATE, FOUNDATION.
+- `countryCode` (string) (*mandatory*): country where the company is registered.
 
-- have a `credentialSchema` property that contains exactly the following:
+the resulting `json_schema` attribute will be the following Json Schema. Replace:
+
+- `{$chain-rest-api}` with [[ref: PTR]] API domain,
+- `{$tr.did}` with `tr.did`,
+- `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
+
+
+```json
+{
+  "$id": "https://{$chain-rest-api}/{$tr.did}/cs/{$uuid}/jsonschema",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OrganizationCredential",
+  "description": "OrganizationCredential using JsonSchema",
+  "type": "object",
+  "properties": {
+    "credentialSubject": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        },
+        "logo": {
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
+        },
+        "registryId": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        },
+        "address": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 1024
+        },
+        "type": {
+          "type": "enum",
+          "value": ["PUBLIC", "PRIVATE", "FOUNDATION"]
+        },
+        "countryCode": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "logo",
+        "registryId",
+        "address",
+        "type",
+        "countryCode"
+      ]
+    }
+  }
+}
+```
+
+#### [ECS-PERSON] Person Credential Json Schema
+
+Credential subject object of schema MUST contain the following attributes:
+
+- `id` (string) (*mandatory*): the [[ref: DID]] of the service the credential has been issued to.
+- `firstName` (string) (*optional*): first name of the person.
+- `lastName` (string) (*mandatory*): last name of the person.
+- `avatar` (image) (*optional*): the avatar of this person, as it will be shown in browsers and search engines.
+- `birthDate` (date) (*mandatory*): date of birth.
+- `countryOfResidence` (string) (*mandatory*): the country of residence.
+
+the resulting `json_schema` attribute will be the following Json Schema. Replace:
+
+- `{$chain-rest-api}` with [[ref: PTR]] API domain,
+- `{$tr.did}` with `tr.did`,
+- `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
+
+```json
+{
+  "$id": "https://{$chain-rest-api}/{$tr.did}/cs/{$uuid}/jsonschema",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PersonCredential",
+  "description": "PersonCredential using JsonSchema",
+  "type": "object",
+  "properties": {
+    "credentialSubject": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "firstName": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        },
+        "lastName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "avatar": {
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
+        },
+        "birthDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "countryOfResidence": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        }
+      },
+      "required": [
+        "id",
+        "lastName",
+        "birthDate",
+        "countryOfResidence"
+      ]
+    }
+  }
+}
+```
+
+### [DT-JSON-SCHEMA-CRED] Decentralized Trust Json Schema Credential
+
+A DT Json Schema Credential is a [[ref: json schema credential]] self-issued by a Trust Registry DID, that MUST refer to the json schema of a `CredentialSchema` entry created in a `PTR`. Issuer of the DT Json Schema Credential MUST be the same DID that the DID of the `TrustRegistry` entry created in the [[ref: PTR]] than owns the `CredentialSchema` entry in the [[ref: PTR]].
+
+A DT Json Schema Credential MUST have a `credentialSchema` property that contains exactly the following:
 
 ```json
   "credentialSchema": {
@@ -208,36 +406,16 @@ Referred [[ref: json schema credential]] MUST:
   }
 ```
 
-- have a `credentialSubject` object with:
-  - and `id` properties that is the URL to access the [[ref: json schema]] in the PTR,
-  - `type` MUST be set to "JsonSchema",
-  - an object `jsonSchemaReference` MUST be present with 2 attributes, an `id` properties that is the URL to access the [[ref: json schema]] in the PTR, and a digestSRI property that MUST match the [[ref: json schema]] file content hash.
+Additionally, it MUST have a `credentialSubject` object with:
 
-Example:
+- a `id` properties that is the URL to access the [[ref: json schema]] in the PTR,
+- `type` MUST be set to "JsonSchema",
+- an object `jsonSchema` MUST be present with an `$ref` properties that is the URL to access the [[ref: json schema]] in the PTR
+- a digestSRI property that MUST match the [[ref: json schema]] file content hash.
 
-DtsCredential.json:
+Example of a DT Json Schema Credential:
 
-```json
-{
-  "@context": [
-    "https://www.w3.org/ns/credentials/v2"
-  ],
-  "id": "did:example:123",
-  "type": ["VerifiableCredential", "DtsCredential"],
-  "issuer": "did:foobar:456",
-  "credentialSubject": {
-    "id": "did:example:123",
-    ...
-  },
-  ...
-  "credentialSchema": {
-    "id": "https://example.tr/credentials/DtsJsonSchemaCredential",
-    "type": "JsonSchemaCredential"
-  }
-}
-```
-
-JsonSchemaCredential.json:
+DtsJsonSchemaCredential.json:
 
 ```json
 
@@ -245,9 +423,9 @@ JsonSchemaCredential.json:
   "@context": [
       "https://www.w3.org/ns/credentials/v2"
   ],
-  "id": "https://example.tr/credentials/DtsJsonSchemaCredential",
+  "id": "https://ecs-trust-registry/dts-credential-schema-credential.json",
   "type": ["VerifiableCredential", "JsonSchemaCredential"],
-  "issuer": "did:example:tr",
+  "issuer": "did:abc:ecs-trust-registry",
   "issuanceDate": "2024-01-01T19:23:24Z",
   "credentialSchema": {
     "id": "https://www.w3.org/2022/credentials/v2/json-schema-credential-schema.json",
@@ -255,102 +433,247 @@ JsonSchemaCredential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://.../did:example:tr/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true",
+    "id": "https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
     "type": "JsonSchema",
-    "jsonSchemaReference": {
-       "id": "https://.../did:example:tr/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true",
-       "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
-    }    
+    "jsonSchema": {
+      "$ref": "https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
+    },
+    "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCeZ" 
   }
 }
 
 ```
 
-[SERVICE-PTRC-2] Trust Registry:
+### [DT-TR-DIDDOC] Decentralized Trust Trust Registry DIDDocument
 
-if queryParameter `essential` is set to `true`:
+For each `CredentialSchema` entry a Trust Registry has created in a [[ref: PTR]], the Trust Registry MUST self-issue the corresponding PTR Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].
 
-- a "TrustRegistry" service entry with id `#ptr-essential-schemas-trust-registry` defined in DID Document of the service that wants to issue or request a presentation of a PTR Essential Credential, MUST exist and MUST have the same `$chain-rest-api` and `$tr.did` than the `credentialSchema.id`;
-- for issuance or acceptance of a PTR Credential, DID of the issuer of the credential MUST be authorized in the trust registry.
-- for presentation request, DID of a PTR Credential, the verifier of the credential MUST be authorized in trust registry.
+Additionally, in MUST present the DT Json Schema Credential(s) in its DIDDocument, as well as the corresponding trust registry entry for verification. To do so, it MUST define the following entries in its DIDDocument:
 
-else if queryParameter `essential` is set to `false` or is not present:
-
-- a "TrustRegistry" service entry with id starting with `#ptr-schema` different than `#ptr-essential-schemas-trust-registry` defined in DID Document of the service that wants to issue or request a presentation of a PTR Credential, MUST exist and MUST have the same `$chain-rest-api` and `$tr.did` than the `credentialSchema.id`;
-- for issuance or acceptance of a PTR Credential, DID of the issuer of the credential MUST be authorized in the trust registry.
-- for presentation request, DID of a PTR Credential, the verifier of the credential MUST be authorized in trust registry.
-
-::: note
-Browser MUST use the trqp v2.0 API of the PTR /entities/{entityVID}/authorization to query to verify the issuer of this credential is an authorized ISSUER.
-:::
+- for each `CredentialSchema` entry it wants to be resolvable, a "LinkedVerifiablePresentation" service entry with a fragment that MUST start with to `#ptr-schemas`, that MUST point to a self-issued DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].
+- a "TrustRegistry" service entry with fragment name equal to `#ptr-schemas-trust-registry`, that MUST point to the trqp-2.0 URL of this DID's trust registry in the PTR.
 
 Example:
 
 ```json
   "service": [
     {
-      "id": "did:web:user-dts.gaiaid.io#ptr-essential-schemas-dts-credential",
+      "id": "did:abc:dl-trust-registry#ptr-schemas-driving-license-credential-schema-credential",
       "type": "LinkedVerifiablePresentation",
-      "serviceEndpoint": ["https://user-dts.gaiaid.io/dts-credential-presentation.json"]
+      "serviceEndpoint": ["https://dl-trust-registry/driving-license-credential-schema-presentation.json"]
     },
     {
-      "id": "did:web:user-dts.gaiaid.io#ptr-essential-schemas-trust-registry",
+      "id": "did:abc:dl-trust-registry#ptr-schemas-trust-registry",
       "type": "TrustRegistry",
-      "serviceEndpoint": ["https://{$chain-rest-api}/{$essential-schema-issuer}/trqp-2.0/"]
+      "serviceEndpoint": ["https://ptr-hostname/did:abc:ecs-trust-registry/trqp-2.0/"]
     }
+    ...
   ]
 ```
 
-### [SERVICE-PTREC] PTR Essential Credentials
+If the Trust Registry wishes to provide ECS trust resolution, it MUST present 3 DT Json Credential Schemas of the 3 ECSs required for trust resolution, as well as the corresponding trust registry entry for verification. To do that, it MUST define the following entries in its DIDDocument:
 
-#### [SERVICE-PTREC-DTS] PTR DTS Essential Credentials
+- a "LinkedVerifiablePresentation" service entry with fragment name equal to `#ptr-essential-schemas-service-credential-schema-credential`, that MUST point to a self-issued Service DT Json Schema Credential as specified in [SERVICE-JSON-SCHEMA-CRED] of a service json schema as specified in [ECS-SERVICE].
+- a "LinkedVerifiablePresentation" service entry with fragment name equal to `#ptr-essential-schemas-org-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-ORG].
+- a "LinkedVerifiablePresentation" service entry with fragment name equal to `#ptr-essential-schemas-person-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-PERSON].
+- a "TrustRegistry" service entry with fragment name equal to `#ptr-essential-schemas-trust-registry`, that MUST point to the trqp-2.0 URL of this DID's trust registry in the PTR.
 
-a [SERVICE-PTRC] linked to a `CredentialSchema` entry that conforms to [ECS-DTS] in PTR Specs.
+Example:
 
-#### [SERVICE-PTREC-ORG] PTR Organization Essential Credentials
+```json
+  "service": [
+    {
+      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-service-credential-schema-credential",
+      "type": "LinkedVerifiablePresentation",
+      "serviceEndpoint": ["https://ecs-trust-registry/service-credential-schema-presentation.json"]
+    },
+    {
+      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-organization-credential-schema-credential",
+      "type": "LinkedVerifiablePresentation",
+      "serviceEndpoint": ["https://ecs-trust-registry/org-credential-schema-presentation.json"]
+    },
+    {
+      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-person-credential-schema-credential",
+      "type": "LinkedVerifiablePresentation",
+      "serviceEndpoint": ["https://ecs-trust-registry/person-credential-schema-presentation.json"]
+    },
+    {
+      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-trust-registry",
+      "type": "TrustRegistry",
+      "serviceEndpoint": ["https://ptr-hostname/did:abc:ecs-trust-registry/trqp-2.0/"]
+    }
+    
+    ...
+  ]
+```
 
-a [SERVICE-PTRC]  linked to a `CredentialSchema` entry that conforms to [ECS-ORG] in PTR Specs.
+### [DT-CRED] Decentralized Trust Credential
 
-#### [SERVICE-PTREC-PERSON] PTR Person Essential Credentials
+A simple diagram for a clear understanding:
 
-a [SERVICE-PTRC]  linked to a `CredentialSchema` entry that conforms to [ECS-PERSON] in PTR Specs.
+```plantuml
 
-### [SERVICE-CI] Credential Issuance
+@startuml
+scale max 800 width
+object "TrustRegistry (in PTR)" as tr {
+  did: did:abc:ecs-trust-registry
+}
+object "CredentialSchema (in PTR)" as cs {
+  id: f4524751-8617-40de-bbe6-b2e0fef63c7a
+  json_schema: { "$id": ... "title": "DtsCredential"}
+}
+object "DT Json Schema Credential" as jsc #3fbdb6 {
+  id: https://ecs-trust-registry/dts-credential-schema-credential.json
+  issuer: did:abc:ecs-trust-registry
+  jsonSchema: https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a
+}
 
-- [SERVICE-CI-1] A [[ref: DTS]] CAN issue [SERVICE-PTRC] PTR Credentials
-- [SERVICE-CI-2] A [[ref: DTS]] MUST NOT issue credentials that are not compliant with [SERVICE-PTRC].
+object "DT Credential" as dtscred #3fbdb6 {
+  issuer: did:example:dts-owner
+  jsonSchemaCredential: https://ecs-trust-registry/dts-credential-schema-credential.json
+}
 
-### [SERVICE-PR] Presentation Request
+cs <-- tr : create a CredentialSchema (in PTR)
+jsc <-- cs : trust registry did issue a JsonSchemaCredential based on json_schema located in CredentialSchema in the PTR
+dtscred <-- jsc: DTS owner issue its DT credential based on JsonSchemaCredential issued by trust registry did
 
-- [SERVICE-PR-1] A [[ref: DTS]] CAN request presentation of [SERVICE-PTRC] PTR Credentials
-- [SERVICE-PR-2] A [[ref: DTS]] MUST NOT request presentation of credentials that are not compliant with [SERVICE-PTRC].
+@enduml
 
-### [SERVICE-LVP] Linked Verifiable Presentations
+```
 
-Linked verifiable presentations of credential based on credential schemas of the PTR CAN be present in service DID Document, if present, they MUST conform to the following:
+A DT Credential MUST have a `credentialSchema` property:
 
-- [SERVICE-LVP-1] Holder of the presentation MUST be the DTS DID.
-- [SERVICE-LVP-2] if linked verifiable presentation id fragment start with `#ptr-schemas`, presented credential and DID Document MUST conform to [SERVICE-PTRC].
-- [SERVICE-LVP-3] if linked verifiable presentation id fragment is `#ptr-essential-schemas-dts-credential`, presented credential MUST be a DTS Credential.
-- [SERVICE-LVP-4] if linked verifiable presentation id fragment is `#ptr-essential-schemas-org-credential`, presented credential MUST be an Organization Credential.
-- [SERVICE-LVP-5] if linked verifiable presentation id fragment is `#ptr-essential-schemas-person-credential`, presented credential MUST be a Person Credential.
+- `id` must point to a [[ref: json schema credential]] issued by the trust registry [[ref: DID]] owner of the schema in the PTR;
+- `type` MUST be `JsonSchemaCredential`.
 
-### [SERVICE-DTS]
+As a matter of fact, a DT Credential MUST conform to the dereferenced [[ref: json schema]] of the `JsonSchemaCredential`.
 
-- [SERVICE-DTS-1] A [[ref: DTS]] MUST be identified by a [[:ref DID]]. The [[:ref DID]] of a [[ref: DTS]] MUST resolve to a [[ref: DID Document]].
-- [SERVICE-DTS-2] A [[ref: DTS]] DID Document MUST present a PTR DTS Credential by conforming to [SERVICE-PTREC-DTS].
-- [SERVICE-DTS-3] If the issuer of the PTR DTS Credential of [SERVICE-DTS-2] is the [[ref: DID]] of this service, service MUST conform to [SERVICE-PTREC-ORG] or (exclusive) to [SERVICE-PTREC-PERSON].
-- [SERVICE-DTS-4] If the issuer of the PTR DTS Credential of [SERVICE-DTS-2] is not the [[ref: DID]] of this service, issuer service MUST be a [SERVICE-DTS] [[ref: DTS]] that conforms to [DTS-DID-DOC-3].
+Example DTCredential.json:
+
+```json
+
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "id": "did:web:user-dts.gaiaid.io",
+  "type": ["VerifiableCredential", "DtsCredential"],
+  "issuer": "did:web:user-dts.gaiaid.io",
+  "credentialSubject": {
+     "id": "did:web:user-dts.gaiaid.io",
+    ...
+  },
+  ...
+  "credentialSchema": {
+    "id": "https://ecs-trust-registry/dts-credential-schema-credential.json",
+    "type": "JsonSchemaCredential"
+  }
+}
+
+```
+
+### [DT-EC] DT Essential Credentials
+
+- DT Service Essential Credential [DT-EC-SERVICE]: a [DT-CRED] linked to a CredentialSchema entry that conforms to [ECS-SERVICE].
+- DT Organization Essential Credential [DT-EC-ORG]: a [DT-CRED] linked to a CredentialSchema entry that conforms to [ECS-ORG].
+- DT Person Essential Credential [DT-EC-PERSON]: a [DT-CRED] linked to a CredentialSchema entry that conforms to [ECS-PERSON].
+
+### [DTS-REQ] Requirements for a service to be a DTS
+
+- [DTS-REQ-1] A [[ref: DTS]] MUST be identified by a [[:ref DID]]. The [[:ref DID]] of a [[ref: DTS]] MUST resolve to a [[ref: DID Document]].
+- [DTS-REQ-2] A [[ref: DTS]] DID Document MUST present a DTS Service Essential Credential that conforms to [DT-EC-SERVICE].
+- [DTS-REQ-3] If the issuer of the DTS Service Essential Credential of [DTS-REQ-2] is the [[ref: DID]] of this service, service DID Document MUST present a credential that conforms to [DT-EC-ORG] or (exclusive) a [DT-EC-PERSON].
+- [DTS-REQ-4] If the issuer of the PTR DTS Credential of [DTS-REQ-2] is not the [[ref: DID]] of this service, issuer service MUST be a [DTS-REQ] [[ref: DTS]] that conforms to [DTS-REQ-3].
+
 ::: note
-In other words, a DTS MUST identify itself directly by presenting an Organization or a Person credential, or the issuer of its DTS Credential MUST identify itself by presenting an Organization or a Person credential.
+In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.
 :::
-- [SERVICE-DTS-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional PTR Credential, by conforming to [DTS-PTRC].
-- [SERVICE-DTS-6] For establishing a DIDComm connection between 2 [[ref: DTS]], it is REQUIRED for both [[ref: DTS]] to be compliant to this spec.
-- [SERVICE-DTS-7] When a compliant [[ref: DTS]] accepts/establishes a DIDComm connection with a [[ref: DTS browser]], [[ref: DTS browser]] MUST be verified.
+
+- [DTS-REQ-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional DTS Credential that conforms to [DT-CRED].
+
+### [DTS-CONN-P2P] Requirements for two DTSs to establish a P2P connection
+
+For establishing a DIDComm connection between 2 [[ref: DTS]], it is REQUIRED for both [[ref: DTS]] to be compliant with [DTS-REQ].
+
+### [SERVICE-BROWSER] Requirements for a DTS to accept a connection from a browser
+
+When a compliant [[ref: DTS]] accepts/establishes a DIDComm connection with a [[ref: DTS browser]], [[ref: DTS browser]] MUST be verified, else connection MUST be dropped.
 
 ::: todo
 explain how to verify browser
 :::
+
+### [DTS-CI] Credential Issuance
+
+- [DTS-CI-1] A [[ref: DTS]] CAN issue [DT-CRED] DT Credentials.
+- [DTS-CI-2] A [[ref: DTS]] MUST NOT issue credentials that are not compliant with [DT-CRED].
+
+### [DTS-PR] Presentation Request
+
+- [DTS-PR-1] A [[ref: DTS]] CAN request presentation of [DT-CRED] DT Credentials
+- [DTS-PR-2] A [[ref: DTS]] MUST NOT request presentation of credentials that are not compliant with [DT-CRED].
+
+### [DTS-LVP] Linked Verifiable Presentations
+
+Linked verifiable presentations of credential CAN be present in service DID Document, if present, they MUST conform to the following:
+
+- [DTS-LVP-1] Holder of the presentation MUST be the DTS DID.
+- [DTS-LVP-2] if linked verifiable presentation id fragment start with `#ptr-schemas`, presented credential and DID Document MUST conform to [DT-CRED].
+- [DTS-LVP-3] if linked verifiable presentation id fragment is `#ptr-essential-schemas-service-credential`, presented credential MUST be a DT Service Essential Credential [DT-EC-SERVICE].
+- [DTS-LVP-4] if linked verifiable presentation id fragment is `#ptr-essential-schemas-org-credential`, presented credential MUST be a DT Organization Essential Credential [DT-EC-ORG].
+- [SERVICE-LVP-5] if linked verifiable presentation id fragment is `#ptr-essential-schemas-person-credential`, presented credential MUST be a DT Person Essential Credential [DT-EC-PERSON].
+
+### [TR-WL] PTR and Trust Registry whitelists
+
+Compliant [[ref: DTSs]] and [[ref: DTS browsers]] MUST maintain a list of trusted PTRs and trusted DT Essential Credential issuers, and ignore PTRs and DT ECS issuers that are not in these list when resolving trust:
+
+- [TR-WL-PTR]: A list of prefix URLs of trusted PTR (registry of registries).
+
+Example:
+
+```json
+
+{ 
+  ptrs: [ 
+    { 
+      "name": "ptr1",
+      "url": "https://ecs-trust-registry-mainnet",
+      "production": true
+    },
+    { 
+      "name": "ptr2",
+      "url": "https://ecs-trust-registry-testnet",
+      "production": false
+    }
+  ]
+}
+```
+
+- [TR-WL-ES-TR]: A list of DIDs of trusted Trust Registries for providing essential credential schemas.
+
+Example:
+
+```json
+
+{ 
+  estrs: [ 
+    { 
+      "tr": "did:abc:ecs-trust-registry",
+      "ptr": "ptr1"
+    },
+    { 
+      "tr": "did:efg:ecs-trust-registry",
+      "ptr": "ptr2"
+    }
+  ]
+}
+```
+
+### [BROWSER] DTS Browser compliance
+
+- [BROWSER-1] A compliant [[ref: DTS browser]] MUST connect or accept connection from DTSs that complies with [DTS-REQ].
+- [BROWSER-2] A compliant [[ref: DTS browser]] SHOULD NOT connect or accept connection from DTSs that does not comply with [DTS-REQ].
+- [BROWSER-1] A compliant [[ref: DTS browser]] MUST dereference all DTS Credentials, verify DTS Json Schema Credentials, Json Schema hashes, use the Trust Registry Query Protocol v2.0,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
 
 ### Example
 
@@ -448,10 +771,10 @@ DtsJsonSchemaCredential.json:
   "credentialSubject": {
     "id": "https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true",
     "type": "JsonSchema",
-    "jsonSchemaReference": {
-       "id": "https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a?essential=true",
-       "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
-    }    
+    "jsonSchema": {
+      "$ref": "https://example-ptr/did:web:trustregistry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
+    },
+    "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW" 
   }
 }
 
@@ -518,12 +841,12 @@ OrganizationJsonSchemaCredential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://example-ptr/did:web:trustregistry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b?essential=true",
+    "id": "https://example-ptr/did:web:trustregistry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b",
     "type": "JsonSchema",
-    "jsonSchemaReference": {
-       "id": "https://example-ptr/did:web:trustregistry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b?essential=true",
-       "digestSRI": "sha384-DEFSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
-    }    
+    "jsonSchema": {
+      "$ref": "https://example-ptr/did:web:trustregistry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b"
+    },
+    "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"  
   }
 }
 
@@ -596,10 +919,10 @@ TrademarkJsonSchemaCredential.json:
   "credentialSubject": {
     "id": "https://example-ptr/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
     "type": "JsonSchema",
-    "jsonSchemaReference": {
-       "id": "https://example-ptr/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
-       "digestSRI": "sha384-GHJSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
-    }    
+    "jsonSchema": {
+       "$ref": "https://example-ptr/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+    }
+    "digestSRI": "sha384-GHJSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   }
 }
 
@@ -636,10 +959,6 @@ user <|-- browser : show result
 
 ### Browser Compliance
 
-A compliant [[ref: DTS browser]] MUST ensure that [SERVICE-DTS] is properly enforced:
-
-- browser user SHOULD only be able to connect to compliant [[ref: DTS]]
-- if a [[ref: DTS]] issue credentials or request credential presentation, browser MUST verify [[ref: DTS]] is allowed to do so by querying the trust registry, and MUST deny the action if DTS is unauthorized.
 
 ### Browser Display of Trust Resolution
 

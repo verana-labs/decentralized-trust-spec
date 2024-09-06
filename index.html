@@ -522,7 +522,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[DTS-REQ-3] If the issuer of the DTS Service Essential Credential of [DTS-REQ-2] is the <a class="term-reference" href="#term:did">DID</a> of this service, service DID Document MUST present a credential that conforms to [DT-EC-ORG] or (exclusive) a [DT-EC-PERSON].</li>
 <li>[DTS-REQ-4] If the issuer of the PTR DTS Credential of [DTS-REQ-2] is not the <a class="term-reference" href="#term:did">DID</a> of this service, issuer service MUST be a [DTS-REQ] <a class="term-reference" href="#term:dts">DTS</a> that conforms to [DTS-REQ-3].</li>
 </ul>
-<div id="note-12" class="notice note"><a class="notice-link" href="#note-12">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
+<div id="note-14" class="notice note"><a class="notice-link" href="#note-14">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
 </div>
 <ul>
 <li>[DTS-REQ-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional DTS Credential that conforms to [DT-CRED].</li>
@@ -531,7 +531,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <p>For establishing a DIDComm connection between 2 <a class="term-reference" href="#term:dts">DTS</a>, it is REQUIRED for both <a class="term-reference" href="#term:dts">DTS</a> to be compliant with [DTS-REQ].</p>
 <h3 id="service-browser-requirements-for-a-dts-to-accept-a-connection-from-a-browser"><a class="toc-anchor" href="#service-browser-requirements-for-a-dts-to-accept-a-connection-from-a-browser" >§</a> [SERVICE-BROWSER] Requirements for a DTS to accept a connection from a browser</h3>
 <p>When a compliant <a class="term-reference" href="#term:dts">DTS</a> accepts/establishes a DIDComm connection with a <a class="term-reference" href="#term:dts-browser">DTS browser</a>, <a class="term-reference" href="#term:dts-browser">DTS browser</a> MUST be verified, else connection MUST be dropped.</p>
-<div id="todo-11" class="notice todo"><a class="notice-link" href="#todo-11">TODO</a><p>explain how to verify browser</p>
+<div id="todo-12" class="notice todo"><a class="notice-link" href="#todo-12">TODO</a><p>explain how to verify browser</p>
 </div>
 <h3 id="dts-ci-credential-issuance"><a class="toc-anchor" href="#dts-ci-credential-issuance" >§</a> [DTS-CI] Credential Issuance</h3>
 <ul>
@@ -596,7 +596,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <ul>
 <li>[BROWSER-1] A compliant <a class="term-reference" href="#term:dts-browser">DTS browser</a> MUST connect or accept connection from DTSs that complies with [DTS-REQ].</li>
 <li>[BROWSER-2] A compliant <a class="term-reference" href="#term:dts-browser">DTS browser</a> SHOULD NOT connect or accept connection from DTSs that does not comply with [DTS-REQ].</li>
-<li>[BROWSER-1] A compliant <a class="term-reference" href="#term:dts-browser">DTS browser</a> MUST dereference all DTS Credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Trust Registry Query Protocol v2.0,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
+<li>[BROWSER-3] A compliant <a class="term-reference" href="#term:dts-browser">DTS browser</a> MUST dereference all DTS Credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Trust Registry Query Protocol v2.0,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
 </ul>
 <h3 id="tr-resol-verification-of-permission-in-trust-registries"><a class="toc-anchor" href="#tr-resol-verification-of-permission-in-trust-registries" >§</a> [TR-RESOL] Verification of permission in Trust Registries</h3>
 <p>The TRQP-2.0 is used for querying trust registry.</p>
@@ -701,7 +701,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <span class="token punctuation">}</span>
 
 </code></pre>
-<div id="note-13" class="notice note"><a class="notice-link" href="#note-13">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
+<div id="note-15" class="notice note"><a class="notice-link" href="#note-15">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
 </div>
 <p>org-credential-presentation.json:</p>
 <pre class="language-json"><code class="language-json">

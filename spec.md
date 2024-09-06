@@ -673,7 +673,7 @@ Example:
 
 - [BROWSER-1] A compliant [[ref: DTS browser]] MUST connect or accept connection from DTSs that complies with [DTS-REQ].
 - [BROWSER-2] A compliant [[ref: DTS browser]] SHOULD NOT connect or accept connection from DTSs that does not comply with [DTS-REQ].
-- [BROWSER-1] A compliant [[ref: DTS browser]] MUST dereference all DTS Credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Trust Registry Query Protocol v2.0,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
+- [BROWSER-3] A compliant [[ref: DTS browser]] MUST dereference all DTS Credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Trust Registry Query Protocol v2.0,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
 
 ### [TR-RESOL] Verification of permission in Trust Registries
 

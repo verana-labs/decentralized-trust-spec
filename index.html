@@ -166,6 +166,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <ul>
 <li><code>id</code> (string) (<em>mandatory</em>): the <a class="term-reference" href="#term:did">DID</a> of the service the credential will be issued to.</li>
 <li><code>name</code> (string) (<em>mandatory</em>): service name. UTF8 charset, max length: 512 bytes.</li>
+<li><code>type</code> (string) (<em>mandatory</em>): service type. UTF8 charset, max length: 128 bytes. Service types will be defined later.</li>
 <li><code>description</code> (string) (<em>mandatory</em>): service description. UTF8 charset, max length: 4096 bytes.</li>
 <li><code>logo</code> (image) (<em>mandatory</em>): the logo of the service, as it will be shown in browsers and search engines.</li>
 <li><code>minimumAgeRequired</code> (integer) (<em>mandatory</em>): minimum required age to connect to service. Allowed value: 0 to 255. Used by browsers that provide a simple birth date based parental control.</li>
@@ -174,6 +175,8 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li><code>privacyPolicy</code> (string) (<em>mandatory</em>): URL of the terms and conditions of the service. MAY be the same URL that <code>terms_and_conditions</code> if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).</li>
 <li><code>privacyPolicyHash</code> (string) (<em>optional</em>): If privacy policy of the service are stored in a file, optional hash of the file for data integrity verification.</li>
 </ul>
+<div id="todo-16" class="notice todo"><a class="notice-link" href="#todo-16">TODO</a><p>Define DTS types</p>
+</div>
 <p>the resulting <code>json_schema</code> attribute will be the following Json Schema. Replace:</p>
 <ul>
 <li><code>{$chain-rest-api}</code> with <a class="term-reference" href="#term:ptr">PTR</a> API domain,</li>
@@ -196,8 +199,13 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
         <span class="token property">"name"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
           <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-          <span class="token property">"minLength"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+          <span class="token property">"minLength"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
           <span class="token property">"maxLength"</span><span class="token operator">:</span> <span class="token number">512</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+          <span class="token property">"minLength"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+          <span class="token property">"maxLength"</span><span class="token operator">:</span> <span class="token number">128</span>
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
         <span class="token property">"description"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
           <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
@@ -216,27 +224,30 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
         <span class="token property">"termsAndConditions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
           <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-          <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"uri"</span>
+          <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"uri"</span><span class="token punctuation">,</span>
+          <span class="token property">"maxLength"</span><span class="token operator">:</span> <span class="token number">2048</span>
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
         <span class="token property">"termsAndConditionsHash"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
           <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span>
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token property">"policyPrivacy"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"privacyPolicy"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
           <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-          <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"uri"</span>
+          <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"uri"</span><span class="token punctuation">,</span>
+          <span class="token property">"maxLength"</span><span class="token operator">:</span> <span class="token number">2048</span>
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token property">"policyPrivacyHash"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"privacyPolicyHash"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
           <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
       <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
         <span class="token string">"id"</span><span class="token punctuation">,</span>
         <span class="token string">"name"</span><span class="token punctuation">,</span>
+        <span class="token string">"type"</span><span class="token punctuation">,</span>
         <span class="token string">"description"</span><span class="token punctuation">,</span>
         <span class="token string">"logo"</span><span class="token punctuation">,</span>
         <span class="token string">"minimumAgeRequired"</span><span class="token punctuation">,</span>
         <span class="token string">"termsAndConditions"</span><span class="token punctuation">,</span>
-        <span class="token string">"policyPrivacy"</span>
+        <span class="token string">"privacyPolicy"</span>
       <span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
@@ -522,7 +533,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[DTS-REQ-3] If the issuer of the DTS Service Essential Credential of [DTS-REQ-2] is the <a class="term-reference" href="#term:did">DID</a> of this service, service DID Document MUST present a credential that conforms to [DT-EC-ORG] or (exclusive) a [DT-EC-PERSON].</li>
 <li>[DTS-REQ-4] If the issuer of the PTR DTS Credential of [DTS-REQ-2] is not the <a class="term-reference" href="#term:did">DID</a> of this service, issuer service MUST be a [DTS-REQ] <a class="term-reference" href="#term:dts">DTS</a> that conforms to [DTS-REQ-3].</li>
 </ul>
-<div id="note-14" class="notice note"><a class="notice-link" href="#note-14">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
+<div id="note-20" class="notice note"><a class="notice-link" href="#note-20">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
 </div>
 <ul>
 <li>[DTS-REQ-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional DTS Credential that conforms to [DT-CRED].</li>
@@ -531,7 +542,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <p>For establishing a DIDComm connection between 2 <a class="term-reference" href="#term:dts">DTS</a>, it is REQUIRED for both <a class="term-reference" href="#term:dts">DTS</a> to be compliant with [DTS-REQ].</p>
 <h3 id="service-browser-requirements-for-a-dts-to-accept-a-connection-from-a-browser"><a class="toc-anchor" href="#service-browser-requirements-for-a-dts-to-accept-a-connection-from-a-browser" >§</a> [SERVICE-BROWSER] Requirements for a DTS to accept a connection from a browser</h3>
 <p>When a compliant <a class="term-reference" href="#term:dts">DTS</a> accepts/establishes a DIDComm connection with a <a class="term-reference" href="#term:dts-browser">DTS browser</a>, <a class="term-reference" href="#term:dts-browser">DTS browser</a> MUST be verified, else connection MUST be dropped.</p>
-<div id="todo-12" class="notice todo"><a class="notice-link" href="#todo-12">TODO</a><p>explain how to verify browser</p>
+<div id="todo-17" class="notice todo"><a class="notice-link" href="#todo-17">TODO</a><p>explain how to verify browser</p>
 </div>
 <h3 id="dts-ci-credential-issuance"><a class="toc-anchor" href="#dts-ci-credential-issuance" >§</a> [DTS-CI] Credential Issuance</h3>
 <ul>
@@ -701,7 +712,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <span class="token punctuation">}</span>
 
 </code></pre>
-<div id="note-15" class="notice note"><a class="notice-link" href="#note-15">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
+<div id="note-21" class="notice note"><a class="notice-link" href="#note-21">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
 </div>
 <p>org-credential-presentation.json:</p>
 <pre class="language-json"><code class="language-json">

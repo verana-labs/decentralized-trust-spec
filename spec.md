@@ -168,6 +168,7 @@ Credential subject object of schema MUST contain the following attributes:
 
 - `id` (string) (*mandatory*): the [[ref: DID]] of the service the credential will be issued to.
 - `name` (string) (*mandatory*): service name. UTF8 charset, max length: 512 bytes.
+- `type` (string) (*mandatory*): service type. UTF8 charset, max length: 128 bytes. Service types will be defined later.
 - `description` (string) (*mandatory*): service description. UTF8 charset, max length: 4096 bytes.
 - `logo` (image) (*mandatory*): the logo of the service, as it will be shown in browsers and search engines.
 - `minimumAgeRequired` (integer) (*mandatory*): minimum required age to connect to service. Allowed value: 0 to 255. Used by browsers that provide a simple birth date based parental control.
@@ -175,6 +176,10 @@ Credential subject object of schema MUST contain the following attributes:
 - `termsAndConditionsHash` (string) (*optional*): If terms and conditions of the service are stored in a file, optional hash of the file for data integrity verification.
 - `privacyPolicy` (string) (*mandatory*): URL of the terms and conditions of the service. MAY be the same URL that `terms_and_conditions` if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).
 - `privacyPolicyHash` (string) (*optional*): If privacy policy of the service are stored in a file, optional hash of the file for data integrity verification.
+
+:::todo
+Define DTS types
+:::
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
@@ -199,8 +204,13 @@ the resulting `json_schema` attribute will be the following Json Schema. Replace
         },
         "name": {
           "type": "string",
-          "minLength": 0,
+          "minLength": 1,
           "maxLength": 512
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
         },
         "description": {
           "type": "string",
@@ -219,27 +229,30 @@ the resulting `json_schema` attribute will be the following Json Schema. Replace
         },
         "termsAndConditions": {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "maxLength": 2048
         },
         "termsAndConditionsHash": {
           "type": "string"
         },
-        "policyPrivacy": {
+        "privacyPolicy": {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "maxLength": 2048
         },
-        "policyPrivacyHash": {
+        "privacyPolicyHash": {
           "type": "string"
         }
       },
       "required": [
         "id",
         "name",
+        "type",
         "description",
         "logo",
         "minimumAgeRequired",
         "termsAndConditions",
-        "policyPrivacy"
+        "privacyPolicy"
       ]
     }
   }

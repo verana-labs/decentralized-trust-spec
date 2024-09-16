@@ -413,7 +413,7 @@ A DT Json Schema Credential MUST have a `credentialSchema` property that contain
 
 ```json
   "credentialSchema": {
-    "id": "https://www.w3.org/2022/credentials/v2/json-schema-credential-schema.json",
+    "id": "https://w3c.github.io/vc-json-schema/schema/json-schema-credential-schema.json",
     "type": "JsonSchema",
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   }
@@ -441,7 +441,7 @@ DtJsonSchemaCredential.json:
   "issuer": "did:abc:ecs-trust-registry",
   "issuanceDate": "2024-01-01T19:23:24Z",
   "credentialSchema": {
-    "id": "https://www.w3.org/2022/credentials/v2/json-schema-credential-schema.json",
+    "id": "https://w3c.github.io/vc-json-schema/schema/json-schema-credential-schema.json",
     "type": "JsonSchema",
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
@@ -794,7 +794,7 @@ service-credential-schema-credential.json:
   "issuer": "did:abc:ecs-trust-registry",
   "issuanceDate": "2024-01-01T19:23:24Z",
   "credentialSchema": {
-    "id": "https://www.w3.org/2022/credentials/v2/json-schema-credential-schema.json",
+    "id": "https://w3c.github.io/vc-json-schema/schema/json-schema-credential-schema.json",
     "type": "JsonSchema",
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
@@ -831,7 +831,7 @@ org-credential-presentation.json:
       ],
       "id": "did:web:user-dts.gaiaid.io",
       "type": ["VerifiableCredential", "OrganizationCredential"],
-      "issuer": "did:web:user-dts.gaiaid.io",
+      "issuer": "did:web:certivera.com",
       "credentialSubject": {
         "id": "did:web:user-dts.gaiaid.io",
         ...
@@ -868,7 +868,7 @@ org-credential-schema-credential.json:
   "issuer": "did:abc:ecs-trust-registry",
   "issuanceDate": "2024-01-01T19:23:24Z",
   "credentialSchema": {
-    "id": "https://www.w3.org/2022/credentials/v2/json-schema-credential-schema.json",
+    "id": "https://w3c.github.io/vc-json-schema/schema/json-schema-credential-schema.json",
     "type": "JsonSchema",
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
@@ -943,7 +943,7 @@ TrademarkJsonSchemaCredential.json:
   "issuer": "did:example:trademark-trust-registry",
   "issuanceDate": "2024-01-01T19:23:24Z",
   "credentialSchema": {
-    "id": "https://www.w3.org/2022/credentials/v2/json-schema-credential-schema.json",
+    "id": "https://w3c.github.io/vc-json-schema/schema/json-schema-credential-schema.json",
     "type": "JsonSchema",
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
@@ -960,7 +960,6 @@ TrademarkJsonSchemaCredential.json:
 ```
 
 DID Document of did:abc:ecs-trust-registry:
-
 
 ```json
   "service": [

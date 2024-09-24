@@ -464,7 +464,7 @@ For each `CredentialSchema` entry a Trust Registry has created in a [[ref: PTR]]
 Additionally, in MUST present the DT Json Schema Credential(s) in its DIDDocument, as well as the corresponding trust registry entry for verification. To do so, it MUST define the following entries in its DIDDocument:
 
 - for each `CredentialSchema` entry it wants to be resolvable, a "LinkedVerifiablePresentation" service entry with a fragment that MUST start with to `#ptr-schemas`, that MUST point to a self-issued DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].
-- a "TrustRegistry" service entry with fragment name equal to `#ptr-schemas-trust-registry`, that MUST point to the trqp-2.0 URL of this DID's trust registry in the PTR.
+- a "PublicTrustRegistry" service entry with fragment name equal to `#ptr-schemas-trust-registry`, that MUST point to the trqp-2.0 URL of this DID's trust registry in the PTR.
 
 Example:
 
@@ -477,8 +477,9 @@ Example:
     },
     {
       "id": "did:abc:dl-trust-registry#ptr-schemas-trust-registry",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://ptr-hostname/did:abc:dl-trust-registry/trqp-2.0/"]
+      "type": "PublicTrustRegistry",
+      "version": "1.0",
+      "serviceEndpoint": ["https://ptr-hostname/did:abc:dl-trust-registry/ptr-1.0/"]
     }
     ...
   ]
@@ -489,7 +490,7 @@ If the Trust Registry wishes to provide ECS trust resolution, it MUST present 3 
 - a "LinkedVerifiablePresentation" service entry with fragment name equal to `#ptr-essential-schemas-service-credential-schema-credential`, that MUST point to a self-issued Service DT Json Schema Credential as specified in [SERVICE-JSON-SCHEMA-CRED] of a service json schema as specified in [ECS-SERVICE].
 - a "LinkedVerifiablePresentation" service entry with fragment name equal to `#ptr-essential-schemas-org-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-ORG].
 - a "LinkedVerifiablePresentation" service entry with fragment name equal to `#ptr-essential-schemas-person-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-PERSON].
-- a "TrustRegistry" service entry with fragment name equal to `#ptr-essential-schemas-trust-registry`, that MUST point to the trqp-2.0 URL of this DID's trust registry in the PTR.
+- a "PublicTrustRegistry" service entry with fragment name equal to `#ptr-essential-schemas-trust-registry`, that MUST point to the trqp-2.0 URL of this DID's trust registry in the PTR.
 
 Example:
 
@@ -512,8 +513,9 @@ Example:
     },
     {
       "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-trust-registry",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://ptr-hostname/did:abc:ecs-trust-registry/trqp-2.0/"]
+      "type": "PublicTrustRegistry",
+      "version": "1.0",
+      "serviceEndpoint": ["https://ptr-hostname/did:abc:ecs-trust-registry/ptr-1.0/"]
     }
     
     ...
@@ -688,28 +690,34 @@ Example:
 - [BROWSER-2] A compliant [[ref: DTS browser]] SHOULD NOT connect or accept connection from DTSs that does not comply with [DTS-REQ].
 - [BROWSER-3] A compliant [[ref: DTS browser]] MUST dereference all DTS Credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Trust Registry Query Protocol v2.0,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
 
-### [TR-RESOL] Verification of permission in Trust Registries
+### [TR-RESOL] Verification of permission in Public Trust Registries
 
-The TRQP-2.0 is used for querying trust registry.
+The [MOD-CSP-QRY-3] of [[ref: PTR]] spec is used for querying trust registry.
 
 Please refer to [MOD-TRQP-2] /entities/{entityVID}/authorization in [[ref: PTR]] specs.
 
-Example check if issuer `did:web:service-credential-issuer` is granted issuance of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` owned by trust registry `did:web:service-credential-issuer` for country `fr`:
+Example #1: check if issuer `did:web:service-credential-issuer` is granted issuance of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` for country `fr`:
 
-`GET /did:web:trust-registry/trqp-2.0/entities/did:web:service-credential-issuer/authorization?authorizationVID=did:web:trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a#ISSUER-fr`
+`GET /..//csp/authorized/did:web:service-credential-issuer/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr`
 
 Response:
 
 ```json
 {
-  "entityId": "did:web:service-credential-issuer",
-  "authorizationID": "did:web:trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a#ISSUER-fr",
-  "description": "ISSUER granted permission for fr country on credential schema f4524751-8617-40de-bbe6-b2e0fef63c7a on trust registry did:web:trust-registry",
-  "authorizationUniqueString":"8611f5fc-b243-4871-8e63-d44279b57c73",
-  "authorizationStatus":"current",
-  "authorizationValidity": {
-     "validFromDT": "2024-08-24T14:15:22Z",
-     "validUntilDT": "2025-08-24T14:15:22Z",
+  "perm_id": "4e3f0969-2aa5-4ea0-9da9-66374fdddd6f",
+  "status": "AUTHORIZED"
+}
+```
+Example #2: check if verifier `did:web:verifier` is granted verification of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` for country `fr` and session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
+
+`GET /..//csp/authorized/did:web:service-credential-issuer/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr/09b6d2e1-684f-443a-94ae-f6bc3112b2e5`
+
+Response:
+
+```json
+{
+  "perm_id": "c1f7dae1-9867-4f6f-8b59-81c0c3526137",
+  "status": "AUTHORIZED"
 }
 ```
 
@@ -980,8 +988,9 @@ DID Document of did:abc:ecs-trust-registry:
     },
     {
       "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-trust-registry",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://ptr-hostname/did:abc:ecs-trust-registry/trqp-2.0/"]
+      "type": "PublicTrustRegistry",
+      "version": "1.0",
+      "serviceEndpoint": ["https://ptr-hostname/did:abc:ecs-trust-registry/ptr-1.0/"]
     }
     
     ...
@@ -1000,8 +1009,9 @@ DID Document of did:example:trademark-trust-registry:
     },
     {
       "id": "did:example:trademark-trust-registry#ptr-schemas-trust-registry",
-      "type": "TrustRegistry",
-      "serviceEndpoint": ["https://ptr-hostname/did:example:trademark-trust-registry/trqp-2.0/"]
+      "type": "PublicTrustRegistry",
+      "version": "1.0",
+      "serviceEndpoint": ["https://ptr-hostname/did:example:trademark-trust-registry/ptr-1.0/"]
     }
     
     ...

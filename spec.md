@@ -2,7 +2,7 @@
 
 **Specification Status:** [Pre-Draft](https://github.com/decentralized-identity/org/blob/master/work-item-lifecycle.md)
 
-**Latest Draft:** [2060-io/dts-specs](https://github.com/2060-io/dts-specs)
+**Latest Draft:** [2060-io/dts-specs](https://github.com/verana-labs/dts-specs)
 
 **Editors:**
 
@@ -12,11 +12,11 @@
 
 **Participate:**
 
-~ [GitHub repo](https://github.com/2060-io/dts-specs)
+~ [GitHub repo](https://github.com/verana-labs/dts-specs)
 
-~ [File a bug](https://github.com/2060-io/dts-specs/issues)
+~ [File a bug](https://github.com/verana-labs/dts-specs/issues)
 
-~ [Commit history](https://github.com/2060-io/dts-specs/commits/main)
+~ [Commit history](https://github.com/verana-labs/dts-specs/commits/main)
 
 ---
 
@@ -34,7 +34,7 @@ Not to talk about privacy, and what's done with our data.
 
 To build a new, trustable internet, we need new, trustable communication channels, where both ends can be clearly identified, and where providing a service, accessing a service, or creating a new account, should be as simple as presenting a credential.
 
-Decentralized Trust Services are services that are using a secure bidirectional persistent communication channel that, combined to trust layers such as [Public Trust Registries](https://github.com/2060-io/public-trust-registry-specs), enable establishing a trustable communication channel between peers.
+Decentralized Trust Services are services that are using a secure bidirectional persistent communication channel that, combined to trust layers such as [Public Trust Registries](https://github.com/verana-labs/public-trust-registry-specs), enable establishing a trustable communication channel between peers.
 
 ## About this Document
 
@@ -1032,7 +1032,7 @@ DID Document of did:example:trademark-trust-registry:
 
 Crawlers will query the [[ref: DID Directory]] `/did-directory/list` method of a [[ref: PTR]] to get the [[ref: DIDs]] of registered [[ref:DTSs]] and resolve them to build an index by recursively resolving all linked data.
 
-For more information, please refer to the [public-trust-registry-specs](https://github.com/2060-io/public-trust-registry-specs).
+For more information, please refer to the [public-trust-registry-specs](https://github.com/verana-labs/public-trust-registry-specs).
 
 ```plantuml
 

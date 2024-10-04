@@ -189,7 +189,7 @@ the resulting `json_schema` attribute will be the following Json Schema. Replace
 
 ```json
 {
-  "$id": "https://{$chain-rest-api}/{$tr.did}/cs/js/{$uuid}",
+  "$id": "https://{$chain-rest-api}/ptr-1.0/cs/js/{$uuid}",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "ServiceCredential",
   "description": "ServiceCredential using JsonSchema",
@@ -280,7 +280,7 @@ the resulting `json_schema` attribute will be the following Json Schema. Replace
 
 ```json
 {
-  "$id": "https://{$chain-rest-api}/{$tr.did}/cs/{$uuid}/jsonschema",
+  "$id": "https://{$chain-rest-api}/ptr-1.0/cs/{$uuid}/jsonschema",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "OrganizationCredential",
   "description": "OrganizationCredential using JsonSchema",
@@ -356,7 +356,7 @@ the resulting `json_schema` attribute will be the following Json Schema. Replace
 
 ```json
 {
-  "$id": "https://{$chain-rest-api}/{$tr.did}/cs/{$uuid}/jsonschema",
+  "$id": "https://{$chain-rest-api}/ptr-1.0/cs/{$uuid}/jsonschema",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "PersonCredential",
   "description": "PersonCredential using JsonSchema",
@@ -446,10 +446,10 @@ DtJsonSchemaCredential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
+    "id": "https://ptr-hostname/ptr-1.0/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
     "type": "JsonSchema",
     "jsonSchema": {
-      "$ref": "https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
+      "$ref": "https://ptr-hostname/ptr-1.0/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
     },
     "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCeZ" 
   }
@@ -479,7 +479,7 @@ Example:
       "id": "did:abc:dl-trust-registry#ptr-schemas-trust-registry",
       "type": "PublicTrustRegistry",
       "version": "1.0",
-      "serviceEndpoint": ["https://ptr-hostname/did:abc:dl-trust-registry/ptr-1.0/"]
+      "serviceEndpoint": ["https://ptr-hostname/ptr-1.0/"]
     }
     ...
   ]
@@ -515,7 +515,7 @@ Example:
       "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-trust-registry",
       "type": "PublicTrustRegistry",
       "version": "1.0",
-      "serviceEndpoint": ["https://ptr-hostname/did:abc:ecs-trust-registry/ptr-1.0/"]
+      "serviceEndpoint": ["https://ptr-hostname/ptr-1.0/"]
     }
     
     ...
@@ -652,14 +652,22 @@ Example:
   ptrs: [ 
     { 
       "name": "ptr-mainnet",
-      "baseurl": "https://ecs-trust-registry-mainnet",
+      "baseurl": "https://ecs-trust-registry-mainnet/ptr-1.0",
+      "version": "1.0"
       "production": true
     },
     { 
       "name": "ptr-testnet",
-      "baseurl": "https://ecs-trust-registry-testnet",
+      "baseurl": "https://ecs-trust-registry-testnet/ptr-1.0",
+      "version": "1.0"
       "production": false
-    }
+    },
+    { 
+      "name": "ptr-devnet",
+      "baseurl": "https://ecs-trust-registry-devnet/ptr-2.0",
+      "version": "2.0"
+      "production": false
+    },
   ]
 }
 ```
@@ -698,25 +706,24 @@ Please refer to [MOD-TRQP-2] /entities/{entityVID}/authorization in [[ref: PTR]]
 
 Example #1: check if issuer `did:web:service-credential-issuer` is granted issuance of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` for country `fr`:
 
-`GET /..//csp/authorized/did:web:service-credential-issuer/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr`
+`GET /ptr-1.0/csp/authorized_issuer/did:web:service-credential-issuer/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr`
 
 Response:
 
 ```json
 {
-  "perm_id": "4e3f0969-2aa5-4ea0-9da9-66374fdddd6f",
   "status": "AUTHORIZED"
 }
 ```
-Example #2: check if verifier `did:web:verifier` is granted verification of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` for country `fr` and session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
 
-`GET /..//csp/authorized/did:web:service-credential-issuer/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr/09b6d2e1-684f-443a-94ae-f6bc3112b2e5`
+Example #2: check if verifier `did:web:verifier` is granted verification of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` for country `fr`, issuer `did:web:service-credential-issuer` and session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
+
+`GET /ptr-1.0/csp/authorized_verifier/did:web:service-credential-issuer/did:web:verifier/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr/09b6d2e1-684f-443a-94ae-f6bc3112b2e5`
 
 Response:
 
 ```json
 {
-  "perm_id": "c1f7dae1-9867-4f6f-8b59-81c0c3526137",
   "status": "AUTHORIZED"
 }
 ```
@@ -807,10 +814,10 @@ service-credential-schema-credential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
+    "id": "https://ptr-hostname/ptr-1.0/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
     "type": "JsonSchema",
     "jsonSchema": {
-      "$ref": "https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
+      "$ref": "https://ptr-hostname/ptr-1.0/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
     },
     "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW" 
   }
@@ -881,10 +888,10 @@ org-credential-schema-credential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b",
+    "id": "https://ptr-hostname/ptr-1.0/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b",
     "type": "JsonSchema",
     "jsonSchema": {
-      "$ref": "https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b"
+      "$ref": "https://ptr-hostname/ptr-1.0/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b"
     },
     "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"  
   }
@@ -920,7 +927,7 @@ trademark-credential-presentation.json:
         "type": "JsonSchemaCredential"
       }
       "credentialSchema": {
-        "id": "https://ptr-hostname/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+        "id": "https://ptr-hostname/ptr-1.0/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
         "type": "JsonSchema",
         "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
       }
@@ -956,10 +963,10 @@ TrademarkJsonSchemaCredential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://example-ptr/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+    "id": "https://example-ptr/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
     "type": "JsonSchema",
     "jsonSchema": {
-       "$ref": "https://example-ptr/did:example:trademark-trust-registry/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+       "$ref": "https://example-ptr/ptr-1.0/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
     }
     "digestSRI": "sha384-GHJSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   }
@@ -990,7 +997,7 @@ DID Document of did:abc:ecs-trust-registry:
       "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-trust-registry",
       "type": "PublicTrustRegistry",
       "version": "1.0",
-      "serviceEndpoint": ["https://ptr-hostname/did:abc:ecs-trust-registry/ptr-1.0/"]
+      "serviceEndpoint": ["https://ptr-hostname/ptr-1.0/"]
     }
     
     ...
@@ -1011,7 +1018,7 @@ DID Document of did:example:trademark-trust-registry:
       "id": "did:example:trademark-trust-registry#ptr-schemas-trust-registry",
       "type": "PublicTrustRegistry",
       "version": "1.0",
-      "serviceEndpoint": ["https://ptr-hostname/did:example:trademark-trust-registry/ptr-1.0/"]
+      "serviceEndpoint": ["https://ptr-hostname/ptr-1.0/"]
     }
     
     ...

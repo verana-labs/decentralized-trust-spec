@@ -154,13 +154,14 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 
 ### [ECS] Essential Credential Schemas
 
-Essential Credential Schemas (ECS) are created in a PTR by a Trust Registry. There are 3 kind of ECS:
+Essential Credential Schemas (ECS) are created in a PTR by a Trust Registry. There are 4 kinds of ECS:
 
 - Service;
 - Organization;
-- Person.
+- Person;
+- UserAgent;
 
-A Trust Registry creates itself in a [[ref: PTR]] by creating a `TrustRegistry` entry `tr`. For this Trust Registry to qualify for being used for trust resolution in DTS and browsers, it MUST provide, associated to the `TrustRegistry` entry `tr`, all 3 `CredentialSchema` entries, with a respective `json_schema` attribute defined as follows in [ECS-SERVICE], [ECS-ORG], and [ECS-PERSON].
+A Trust Registry creates itself in a [[ref: PTR]] by creating a `TrustRegistry` entry `tr`. For this Trust Registry to qualify for being used for trust resolution in DTS and browsers, it MUST provide, associated to the `TrustRegistry` entry `tr`, all 3 `CredentialSchema` entries, with a respective `json_schema` attribute defined as follows in [ECS-SERVICE], [ECS-ORG], [ECS-PERSON], [ECS-USER-AGENT].
 
 #### [ECS-SERVICE] Service Credential Json Schema
 
@@ -176,6 +177,7 @@ Credential subject object of schema MUST contain the following attributes:
 - `termsAndConditionsHash` (string) (*optional*): If terms and conditions of the service are stored in a file, optional hash of the file for data integrity verification.
 - `privacyPolicy` (string) (*mandatory*): URL of the terms and conditions of the service. MAY be the same URL that `terms_and_conditions` if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).
 - `privacyPolicyHash` (string) (*optional*): If privacy policy of the service are stored in a file, optional hash of the file for data integrity verification.
+- `rewardsAccount` (string) (*optional*): PTR account where rewards should be transferred.
 
 :::todo
 Define DTS types
@@ -241,6 +243,9 @@ the resulting `json_schema` attribute will be the following Json Schema. Replace
           "maxLength": 2048
         },
         "privacyPolicyHash": {
+          "type": "string"
+        },
+        "rewardsAccount": {
           "type": "string"
         }
       },
@@ -399,6 +404,102 @@ the resulting `json_schema` attribute will be the following Json Schema. Replace
         "lastName",
         "birthDate",
         "countryOfResidence"
+      ]
+    }
+  }
+}
+```
+
+#### [ECS-USER-AGENT] User Agent Credential Json Schema
+
+Credential subject object of schema MUST contain the following attributes:
+
+- `id` (string) (*mandatory*): the [[ref: DID]] of the user agent the credential will be issued to.
+- `name` (string) (*mandatory*): agent name. UTF8 charset, max length: 512 bytes.
+- `description` (string) (*mandatory*): agent description. UTF8 charset, max length: 4096 bytes.
+- `category` (string) (*mandatory*): the category of the agent.
+- `logo` (image) (*mandatory*): the logo of the agent, as it will be shown in search engines.
+- `wallet` (boolean) (*mandatory*): If the agent implements the DTW (Decentralized Trust Wallet) spec, and thus provides wallet features.
+- `termsAndConditions` (string) (*mandatory*): URL of the terms and conditions of the service. It is recommended to store terms and conditions in a file, in a repository that allows file hash verification (IPFS).
+- `termsAndConditionsHash` (string) (*optional*): If terms and conditions of the service are stored in a file, optional hash of the file for data integrity verification.
+- `privacyPolicy` (string) (*mandatory*): URL of the terms and conditions of the service. MAY be the same URL that `terms_and_conditions` if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).
+- `privacyPolicyHash` (string) (*optional*): If privacy policy of the service are stored in a file, optional hash of the file for data integrity verification.
+- `rewardsAccount` (string) (*optional*): PTR account where rewards should be transferred.
+
+the resulting `json_schema` attribute will be the following Json Schema. Replace:
+
+- `{$chain-rest-api}` with [[ref: PTR]] API domain,
+- `{$tr.did}` with `tr.did`,
+- `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
+
+```json
+{
+  "$id": "https://{$chain-rest-api}/ptr-1.0/cs/js/{$uuid}",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ServiceCredential",
+  "description": "ServiceCredential using JsonSchema",
+  "type": "object",
+  "properties": {
+    "credentialSubject": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "description": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 4096
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "logo": {
+          "type": "string",
+          "contentEncoding": "base64",
+          "contentMediaType": "image/png"
+        },
+        "wallet": {
+          "type": "boolean"
+        },
+        "termsAndConditions": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "termsAndConditionsHash": {
+          "type": "string"
+        },
+        "privacyPolicy": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "privacyPolicyHash": {
+          "type": "string"
+        },
+        "rewardsAccount": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "category",
+        "logo",
+        "wallet",
+        "minimumAgeRequired",
+        "termsAndConditions",
+        "privacyPolicy"
       ]
     }
   }
@@ -1068,3 +1169,11 @@ user <|-- browser : show result
 *This section is non normative.*
 
 It is the responsibility of browsers and search engines to properly translate credential attributes, as credential schemas are always defined in a single language, that SHOULD be english.
+
+
+
+#### DTS rewards
+
+DTS providers that wish to get issued credentials and/or receive presentation requests in their DTSs, from other DTSs should register their DTS DIDs in the DID Directory, as it enables reward distribution. If a DTS is not registered in DID Directory, its potential rewards are lost.
+
+Example: DTS did:example:verifier would like to request presentation of a credential of schema ABC from issuer did:example:issuer to DTS identified by did:example:dts. Presentation of this credential requires verifier to pay fees as defined in issuer `CredentialSchemaPerm` `issuer_perm`. Verifier will pay fees, and if did:example:dts is registered 

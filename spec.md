@@ -1,8 +1,8 @@
-# Decentralized Trust Service v1.0 Specification
+# Decentralized Trust v1.0 Specification
 
 **Specification Status:** [Pre-Draft](https://github.com/decentralized-identity/org/blob/master/work-item-lifecycle.md)
 
-**Latest Draft:** [2060-io/dts-specs](https://github.com/verana-labs/dts-specs)
+**Latest Draft:** [verana-labs/decentralized-trust-specs](https://github.com/verana-labs/decentralized-trust-specs)
 
 **Editors:**
 
@@ -12,11 +12,11 @@
 
 **Participate:**
 
-~ [GitHub repo](https://github.com/verana-labs/dts-specs)
+~ [GitHub repo](https://github.com/verana-labs/decentralized-trust-specs)
 
-~ [File a bug](https://github.com/verana-labs/dts-specs/issues)
+~ [File a bug](https://github.com/verana-labs/decentralized-trust-specs/issues)
 
-~ [Commit history](https://github.com/verana-labs/dts-specs/commits/main)
+~ [Commit history](https://github.com/verana-labs/decentralized-trust-specs/commits/main)
 
 ---
 

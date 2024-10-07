@@ -2,18 +2,18 @@
   "dependencies": {
     "spec-up": "^0.10.8"
   },
-  "name": "dts-specs",
+  "name": "decentralized-trust-specs",
   "version": "1.0",
-  "description": "Decentralized Trust Service Specification",
+  "description": "Decentralized Trust Specification",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/2060-io/dts-specs.git"
+    "url": "git+https://github.com/verana-labs/decentralized-trust-specs.git"
   },
   "license": "Apache 2",
-  "homepage": "https://github.com/2060-io/dts-specs",
+  "homepage": "https://github.com/verana-labs/decentralized-trust-specs",
   
   "bugs": {
-    "url": "https://github.com/2060-io/dts-specs/issues"
+    "url": "https://github.com/verana-labs/decentralized-trust-specs/issues"
   },
   "scripts": {
     "render": "npm run build",

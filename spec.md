@@ -93,8 +93,8 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 [[def: decentralized trust service, DTS, DTSs]]:
 ~ A service, usually provided using [[ref: DIDComm]], that can be deployed anywhere by its owner, and that is using the decentralized trust layer provided by an [[ref: PTR]], and has a resolvable [[ref: proof of trust]].
 
-[[def: decentralized trust service browser, DTUA, DTUAs]]:
-~ A browser for accessing and using [[ref: DTSs]]. To be considered as a [[ref: DTUA]], a browser must implement an [[ref: PTR]] trust layer and use a trust resolution using use the [[ref: essential credential schema]] of a given trust registry for providing a [[ref: proof of trust]] to users so that user clearly identifies [[ref: DTS]] provider and decides to connect or not.
+[[def: decentralized trust user agent, DTUA, DTUAs]]:
+~ A user agent for accessing and using [[ref: DTSs]]. To be considered as a [[ref: DTUA]], a user agent must implement an [[ref: PTR]] trust layer and use a trust resolution using use the [[ref: essential credential schema]] of a given trust registry for providing a [[ref: proof of trust]] to users so that user clearly identifies [[ref: DTS]] and [[ref: DTUA]] providers and decides to connect or not.
 
 [[def: DID Directory, DID directory]]:
 ~ A repository of DIDs in an PTR.

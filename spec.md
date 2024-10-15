@@ -689,9 +689,9 @@ Example DTCredential.json:
 ### [DTS-REQ] Requirements for a service to be a DTS
 
 - [DTS-REQ-1] A [[ref: DTS]] MUST be identified by a [[:ref DID]]. The [[:ref DID]] of a [[ref: DTS]] MUST resolve to a [[ref: DID Document]].
-- [DTS-REQ-2] A [[ref: DTS]] DID Document MUST present a DTS Service Essential Credential that conforms to [DT-EC-SERVICE].
-- [DTS-REQ-3] If the issuer of the DTS Service Essential Credential of [DTS-REQ-2] is the [[ref: DID]] of this service, service DID Document MUST present a credential that conforms to [DT-EC-ORG] or (exclusive) a [DT-EC-PERSON].
-- [DTS-REQ-4] If the issuer of the DTR DTS Credential of [DTS-REQ-2] is not the [[ref: DID]] of this service, issuer service MUST be a [DTS-REQ] [[ref: DTS]] that conforms to [DTS-REQ-3].
+- [DTS-REQ-2] A [[ref: DTS]] DID Document MUST present a DT Service Essential Credential that conforms to [DT-EC-SERVICE].
+- [DTS-REQ-3] If the issuer of the DT Service Essential Credential of [DTS-REQ-2] is the [[ref: DID]] of this service, service DID Document MUST present a credential that conforms to [DT-EC-ORG] or (exclusive) a [DT-EC-PERSON].
+- [DTS-REQ-4] If the issuer of the DT Service Credential of [DTS-REQ-2] is not the [[ref: DID]] of this service, issuer service MUST be a [DTS-REQ] [[ref: DTS]] that conforms to [DTS-REQ-3].
 - [DTS-REQ-5] A compliant [[ref: DTS]] MUST dereference all service credentials, User Agent credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Decentralized Trust Registry API,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
 
 ::: note
@@ -723,9 +723,9 @@ Linked verifiable presentations of credential CAN be present in service DID Docu
 ### [DTUA-REQ] Requirements for a User Agent to be a DTUA
 
 - [DTUA-REQ-1] A [[ref: DTUA]] MUST be identified by a [[:ref DID]]. The [[:ref DID]] of a [[ref: DTUA]] MUST resolve to a [[ref: DID Document]].
-- [DTUA-REQ-2] A [[ref: DTUA]] DID Document MUST present a DTS Service Essential Credential that conforms to [DT-EC-ORGANIZATION].
-- [DTUA-REQ-3] A [[ref: DTUA]] DID Document MUST present a DTS Service Essential Credential that conforms to [DT-EC-USER-AGENT].
-- [DTUA-REQ-4] A compliant [[ref: DTUA]] MUST dereference all service credentials, User Agent credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Decentralized Trust Registry API,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
+- [DTUA-REQ-2] A [[ref: DTUA]] DID Document MUST present a DT Organization Essential Credential that conforms to [DT-EC-ORGANIZATION].
+- [DTUA-REQ-3] A [[ref: DTUA]] DID Document MUST present a DT User Agent Essential Credential that conforms to [DT-EC-USER-AGENT].
+- [DTUA-REQ-4] A compliant [[ref: DTUA]] MUST dereference all service credentials, User Agent credentials, DID Documents, verify DT Json Schema Credentials, Json Schema hashes, use the Decentralized Trust Registry API,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
 
 ::: note
 In other words, a to be a DTUA, a User Agent MUST identify itself to the other end by sharing its DID, and the other end MUST verify it complies with [DTUA-REQ]
@@ -737,7 +737,7 @@ When a [[ref: DTS]] start a DIDComm session with a service, [[ref: DTS]] MUST ve
 
 ### [DTS-CONN-DTUA] Requirements for a DTS to accept a connection from a DTUA User Agent
 
-When a User Agent start a DIDComm session with a compliant [[ref: DTS]], User Agent MUST comply with [DTUA-SPEC], else [[ref: DTS]] MUST drop the connection.
+When a User Agent start a DIDComm session with a compliant [[ref: DTS]], [[ref: DTS]] MUST verify that User Agent complies with [DTUA-SPEC], else [[ref: DTS]] MUST drop the connection.
 
 ### [DTUA-CONN-DTS] Requirements for a DTUA to accept connecting to a service
 

@@ -1,4 +1,4 @@
-# Decentralized Trust v1.0 Specification
+# Decentralized Trust v1 Specification
 
 **Specification Status:** *Draft*
 

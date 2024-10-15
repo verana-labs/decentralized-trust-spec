@@ -1171,11 +1171,3 @@ user <|-- browser : show result
 *This section is non normative.*
 
 It is the responsibility of browsers and search engines to properly translate credential attributes, as credential schemas are always defined in a single language, that SHOULD be english.
-
-
-
-#### DTS rewards
-
-DTS providers that wish to get issued credentials and/or receive presentation requests in their DTSs, from other DTSs should register their DTS DIDs in the DID Directory, as it enables reward distribution. If a DTS is not registered in DID Directory, its potential rewards are lost.
-
-Example: DTS did:example:verifier would like to request presentation of a credential of schema ABC from issuer did:example:issuer to DTS identified by did:example:dts. Presentation of this credential requires verifier to pay fees as defined in issuer `CredentialSchemaPerm` `issuer_perm`. Verifier will pay fees, and if did:example:dts is registered 

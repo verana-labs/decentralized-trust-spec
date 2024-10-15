@@ -729,7 +729,7 @@ Linked verifiable presentations of credential CAN be present in service DID Docu
 - [DTS-LVP-4] if linked verifiable presentation id fragment is `#ptr-essential-schemas-org-credential`, presented credential MUST be a DT Organization Essential Credential [DT-EC-ORG].
 - [SERVICE-LVP-5] if linked verifiable presentation id fragment is `#ptr-essential-schemas-person-credential`, presented credential MUST be a DT Person Essential Credential [DT-EC-PERSON].
 
-### [DTUA-REQ] Requirements for a User Agent to be a [[ref: DTUA]]
+### [DTUA-REQ] Requirements for a User Agent to be a DTUA
 
 - [DTUA-REQ-1] A [[ref: DTUA]] MUST be identified by a [[:ref DID]]. The [[:ref DID]] of a [[ref: DTUA]] MUST resolve to a [[ref: DID Document]].
 - [DTUA-REQ-2] A [[ref: DTUA]] DID Document MUST present a DTS Service Essential Credential that conforms to [DT-EC-ORGANIZATION].
@@ -770,20 +770,20 @@ Example:
   publicTrustRegistries: [ 
     { 
       "name": "ptr-mainnet",
-      "baseurl": "https://ecs-trust-registry-mainnet/ptr-1.2",
-      "version": "1.2"
+      "baseurl": "https://ecs-trust-registry-mainnet/dtr/v1",
+      "version": "1"
       "production": true
     },
     { 
       "name": "ptr-testnet",
-      "baseurl": "https://ecs-trust-registry-testnet/ptr-1.2",
-      "version": "1.2"
+      "baseurl": "https://ecs-trust-registry-testnet/dtr/v1",
+      "version": "1"
       "production": false
     },
     { 
       "name": "ptr-devnet",
-      "baseurl": "https://ecs-trust-registry-devnet/ptr-2.0",
-      "version": "2.0"
+      "baseurl": "https://ecs-trust-registry-devnet/dtr/v1",
+      "version": "2"
       "production": false
     },
   ]

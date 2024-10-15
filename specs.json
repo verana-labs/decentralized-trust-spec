@@ -2,10 +2,10 @@
     "specs": [
       
       {
-        "title": "Decentralized Trust v1.0 Specification",
+        "title": "Decentralized Trust v1 Specification",
         "spec_directory": "./",
-        "logo": "https://2060.io/images/header/logo-2060.svg",
-        "logo_link": "https://2060.io",
+        "logo": "https://verana.foundation/logo.svg",
+        "logo_link": "https://verana.foundation",
         "source": {
           "host": "github",
           "account": "verana-labs",

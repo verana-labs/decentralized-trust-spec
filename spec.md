@@ -1,8 +1,8 @@
 # Decentralized Trust v1.0 Specification
 
-**Specification Status:** [Pre-Draft](https://github.com/decentralized-identity/org/blob/master/work-item-lifecycle.md)
+**Specification Status:** *Draft*
 
-**Latest Draft:** [verana-labs/decentralized-trust-specs](https://github.com/verana-labs/decentralized-trust-specs)
+**Latest Draft:** [verana-labs/decentralized-trust-spec](https://github.com/verana-labs/decentralized-trust-spec)
 
 **Editors:**
 
@@ -12,11 +12,11 @@
 
 **Participate:**
 
-~ [GitHub repo](https://github.com/verana-labs/decentralized-trust-specs)
+~ [GitHub repo](https://github.com/verana-labs/decentralized-trust-spec)
 
-~ [File a bug](https://github.com/verana-labs/decentralized-trust-specs/issues)
+~ [File a bug](https://github.com/verana-labs/decentralized-trust-spec/issues)
 
-~ [Commit history](https://github.com/verana-labs/decentralized-trust-specs/commits/main)
+~ [Commit history](https://github.com/verana-labs/decentralized-trust-spec/commits/main)
 
 ---
 

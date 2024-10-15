@@ -2,18 +2,18 @@
   "dependencies": {
     "spec-up": "^0.10.8"
   },
-  "name": "decentralized-trust-specs",
+  "name": "decentralized-trust-spec",
   "version": "1.0",
-  "description": "Decentralized Trust Specification",
+  "description": "Decentralized Trust v1 Specification",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/verana-labs/decentralized-trust-specs.git"
+    "url": "git+https://github.com/verana-labs/decentralized-trust-spec.git"
   },
   "license": "Apache 2",
-  "homepage": "https://github.com/verana-labs/decentralized-trust-specs",
+  "homepage": "https://github.com/verana-labs/decentralized-trust-spec",
   
   "bugs": {
-    "url": "https://github.com/verana-labs/decentralized-trust-specs/issues"
+    "url": "https://github.com/verana-labs/decentralized-trust-spec/issues"
   },
   "scripts": {
     "render": "npm run build",

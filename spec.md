@@ -91,7 +91,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 ~ A DID Document, as specified in [[spec-norm:DID-CORE]].
 
 [[def: decentralized trust registry, DTR]]:
-~ a decentralized, ledger-based network, which provides: trust registry features that can be used by all its [[ref: participants]], including credential schema management, issuer and verifier management; and a tokenized business model for  charging/rewarding [[ref: participants]].
+~ a decentralized, ledger-based network, which provides: trust registry features that can be used by all its [[ref: participants]], including credential schema management, issuer and verifier management; and a tokenized business model for charging/rewarding [[ref: participants]]. For more information, please refer to [DTR Spec](https://verana-labs.github.io/decentralized-trust-registry-spec/).
 
 [[def: decentralized trust service, DTS, DTSs]]:
 ~ A service, usually provided using [[ref: DIDComm]], that can be deployed anywhere by its owner, and that is using the decentralized trust layer provided by an [[ref: DTR]], and has a resolvable [[ref: proof of trust]].

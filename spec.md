@@ -179,13 +179,11 @@ Define DTS types
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$chain-rest-api}` with [[ref: DTR]] API domain,
-- `{$tr.did}` with `tr.did`,
 - `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
 
 ```json
 {
-  "$id": "https://{$chain-rest-api}/ptr-X.Y/cs/js/{$uuid}",
+  "$id": "https://dtr-hostname/dtr/v1/cs/js/{$uuid}",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "ServiceCredential",
   "description": "ServiceCredential using JsonSchema",
@@ -272,14 +270,12 @@ Credential subject object of schema MUST contain the following attributes:
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$chain-rest-api}` with [[ref: DTR]] API domain,
-- `{$tr.did}` with `tr.did`,
 - `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
 
 
 ```json
 {
-  "$id": "https://{$chain-rest-api}/ptr-X.Y/cs/{$uuid}/jsonschema",
+  "$id": "https://dtr-hostname/dtr/v1/cs/{$uuid}/jsonschema",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "OrganizationCredential",
   "description": "OrganizationCredential using JsonSchema",
@@ -349,13 +345,11 @@ Credential subject object of schema MUST contain the following attributes:
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$chain-rest-api}` with [[ref: DTR]] API domain,
-- `{$tr.did}` with `tr.did`,
 - `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
 
 ```json
 {
-  "$id": "https://{$chain-rest-api}/ptr-X.Y/cs/{$uuid}/jsonschema",
+  "$id": "https://dtr-hostname/dtr/v1/cs/{$uuid}/jsonschema",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "PersonCredential",
   "description": "PersonCredential using JsonSchema",
@@ -422,13 +416,11 @@ Credential subject object of schema MUST contain the following attributes:
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$chain-rest-api}` with [[ref: DTR]] API domain,
-- `{$tr.did}` with `tr.did`,
 - `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
 
 ```json
 {
-  "$id": "https://{$chain-rest-api}/ptr-X.Y/cs/js/{$uuid}",
+  "$id": "https://dtr-hostname/dtr/v1/cs/js/{$uuid}",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "ServiceCredential",
   "description": "ServiceCredential using JsonSchema",
@@ -491,7 +483,6 @@ the resulting `json_schema` attribute will be the following Json Schema. Replace
         "category",
         "logo",
         "wallet",
-        "minimumAgeRequired",
         "termsAndConditions",
         "privacyPolicy"
       ]
@@ -541,10 +532,10 @@ DtJsonSchemaCredential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://ptr-hostname/ptr-X.Y/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
+    "id": "https://dtr-hostname/dtr/v1/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
     "type": "JsonSchema",
     "jsonSchema": {
-      "$ref": "https://ptr-hostname/ptr-X.Y/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
+      "$ref": "https://dtr-hostname/dtr/v1/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
     },
     "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCeZ" 
   }
@@ -558,23 +549,23 @@ For each `CredentialSchema` entry a Trust Registry has created in a [[ref: DTR]]
 
 Additionally, in MUST present the DT Json Schema Credential(s) in its DIDDocument, as well as the corresponding trust registry entry for verification. To do so, it MUST define the following entries in its DIDDocument:
 
-- for each `CredentialSchema` entry it wants to be resolvable, a "LinkedVerifiablePresentation" service entry with a fragment that MUST start with to `#ptr-schemas`, that MUST point to a self-issued DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].
-- a "PublicTrustRegistry" service entry with fragment name equal to `#ptr-schemas-public-registry`, that MUST point to the API of the DID's trust registry in the DTR.
+- for each `CredentialSchema` entry it wants to be resolvable, a "LinkedVerifiablePresentation" service entry with a fragment that MUST start with to `#dtr-schemas`, that MUST point to a self-issued DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].
+- a "PublicTrustRegistry" service entry with fragment name equal to `#dtr-schemas-public-registry`, that MUST point to the API of the DID's trust registry in the DTR.
 
 Example:
 
 ```json
   "service": [
     {
-      "id": "did:abc:dl-trust-registry#ptr-schemas-driving-license-credential-schema-credential",
+      "id": "did:abc:dl-trust-registry#dtr-schemas-driving-license-credential-schema-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://dl-trust-registry/driving-license-credential-schema-presentation.json"]
     },
     {
-      "id": "did:abc:dl-trust-registry#ptr-schemas-trust-registry",
+      "id": "did:abc:dl-trust-registry#dtr-schemas-trust-registry",
       "type": "PublicTrustRegistry",
       "version": "1.0",
-      "serviceEndpoint": ["https://ptr-hostname/ptr-X.Y/"]
+      "serviceEndpoint": ["https://dtr-hostname/dtr/v1/"]
     }
     ...
   ]
@@ -582,41 +573,41 @@ Example:
 
 If the Trust Registry wishes to provide ECS trust resolution, it MUST present 4 DT Json Credential Schemas of the 4 ECSs required for trust resolution, as well as the corresponding trust registry entry for verification. To do that, it MUST define the following entries in its DIDDocument:
 
-- a "LinkedVerifiablePresentation" service entry with fragment name equal to `#ptr-essential-schemas-service-credential-schema-credential`, that MUST point to a self-issued Service DT Json Schema Credential as specified in [SERVICE-JSON-SCHEMA-CRED] of a service json schema as specified in [ECS-SERVICE].
-- a "LinkedVerifiablePresentation" service entry with fragment name equal to `#ptr-essential-schemas-org-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-ORG].
-- a "LinkedVerifiablePresentation" service entry with fragment name equal to `#ptr-essential-schemas-person-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-PERSON].
-- a "LinkedVerifiablePresentation" service entry with fragment name equal to `#ptr-essential-schemas-user-agent-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-USER-AGENT].
-- a "PublicTrustRegistry" service entry with fragment name equal to `#ptr-essential-schemas-trust-registry`, that MUST point to the API URL of this DID's trust registry in the DTR.
+- a "LinkedVerifiablePresentation" service entry with fragment name equal to `#dtr-essential-schemas-service-credential-schema-credential`, that MUST point to a self-issued Service DT Json Schema Credential as specified in [SERVICE-JSON-SCHEMA-CRED] of a service json schema as specified in [ECS-SERVICE].
+- a "LinkedVerifiablePresentation" service entry with fragment name equal to `#dtr-essential-schemas-org-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-ORG].
+- a "LinkedVerifiablePresentation" service entry with fragment name equal to `#dtr-essential-schemas-person-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-PERSON].
+- a "LinkedVerifiablePresentation" service entry with fragment name equal to `#dtr-essential-schemas-user-agent-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-USER-AGENT].
+- a "PublicTrustRegistry" service entry with fragment name equal to `#dtr-essential-schemas-trust-registry`, that MUST point to the API URL of this DID's trust registry in the DTR.
 
 Example:
 
 ```json
   "service": [
     {
-      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-service-credential-schema-credential",
+      "id": "did:abc:ecs-trust-registry#dtr-essential-schemas-service-credential-schema-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://ecs-trust-registry/service-credential-schema-presentation.json"]
     },
     {
-      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-organization-credential-schema-credential",
+      "id": "did:abc:ecs-trust-registry#dtr-essential-schemas-organization-credential-schema-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://ecs-trust-registry/org-credential-schema-presentation.json"]
     },
     {
-      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-person-credential-schema-credential",
+      "id": "did:abc:ecs-trust-registry#dtr-essential-schemas-person-credential-schema-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://ecs-trust-registry/person-credential-schema-presentation.json"]
     },
     {
-      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-user-agent-credential-schema-credential",
+      "id": "did:abc:ecs-trust-registry#dtr-essential-schemas-user-agent-credential-schema-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://ecs-trust-registry/user-agent-credential-schema-presentation.json"]
     },
     {
-      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-trust-registry",
+      "id": "did:abc:ecs-trust-registry#dtr-essential-schemas-trust-registry",
       "type": "PublicTrustRegistry",
       "version": "1.0",
-      "serviceEndpoint": ["https://ptr-hostname/ptr-X.Y/"]
+      "serviceEndpoint": ["https://dtr-hostname/dtr/v1/"]
     }
     
     ...
@@ -641,7 +632,7 @@ object "CredentialSchema (in DTR)" as cs {
 object "DT Json Schema Credential" as jsc #3fbdb6 {
   id: https://ecs-trust-registry/dts-credential-schema-credential.json
   issuer: did:abc:ecs-trust-registry
-  jsonSchema: https://ptr-hostname/did:abc:ecs-trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a
+  jsonSchema: https://dtr-hostname/did:abc:ecs-trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a
 }
 
 object "DT Credential" as dtscred #3fbdb6 {
@@ -724,10 +715,10 @@ In other words, a to be a DTS, a service MUST identify itself directly by presen
 Linked verifiable presentations of credential CAN be present in service DID Document, if present, they MUST conform to the following:
 
 - [DTS-LVP-1] Holder of the presentation MUST be the DTS DID.
-- [DTS-LVP-2] if linked verifiable presentation id fragment start with `#ptr-schemas`, presented credential and DID Document MUST conform to [DT-CRED].
-- [DTS-LVP-3] if linked verifiable presentation id fragment is `#ptr-essential-schemas-service-credential`, presented credential MUST be a DT Service Essential Credential [DT-EC-SERVICE].
-- [DTS-LVP-4] if linked verifiable presentation id fragment is `#ptr-essential-schemas-org-credential`, presented credential MUST be a DT Organization Essential Credential [DT-EC-ORG].
-- [SERVICE-LVP-5] if linked verifiable presentation id fragment is `#ptr-essential-schemas-person-credential`, presented credential MUST be a DT Person Essential Credential [DT-EC-PERSON].
+- [DTS-LVP-2] if linked verifiable presentation id fragment start with `#dtr-schemas`, presented credential and DID Document MUST conform to [DT-CRED].
+- [DTS-LVP-3] if linked verifiable presentation id fragment is `#dtr-essential-schemas-service-credential`, presented credential MUST be a DT Service Essential Credential [DT-EC-SERVICE].
+- [DTS-LVP-4] if linked verifiable presentation id fragment is `#dtr-essential-schemas-org-credential`, presented credential MUST be a DT Organization Essential Credential [DT-EC-ORG].
+- [SERVICE-LVP-5] if linked verifiable presentation id fragment is `#dtr-essential-schemas-person-credential`, presented credential MUST be a DT Person Essential Credential [DT-EC-PERSON].
 
 ### [DTUA-REQ] Requirements for a User Agent to be a DTUA
 
@@ -769,19 +760,19 @@ Example:
 { 
   publicTrustRegistries: [ 
     { 
-      "name": "ptr-mainnet",
+      "name": "dtr-mainnet",
       "baseurl": "https://ecs-trust-registry-mainnet/dtr/v1",
       "version": "1"
       "production": true
     },
     { 
-      "name": "ptr-testnet",
+      "name": "dtr-testnet",
       "baseurl": "https://ecs-trust-registry-testnet/dtr/v1",
       "version": "1"
       "production": false
     },
     { 
-      "name": "ptr-devnet",
+      "name": "dtr-devnet",
       "baseurl": "https://ecs-trust-registry-devnet/dtr/v1",
       "version": "2"
       "production": false
@@ -800,11 +791,11 @@ Example:
   essentialSchemaPublicTrustRegistries: [ 
     { 
       "tr": "did:abc:ecs-trust-registry",
-      "ptr": "ptr-mainnet"
+      "dtr": "dtr-mainnet"
     },
     { 
       "tr": "did:efg:ecs-trust-registry",
-      "ptr": "ptr-testnet"
+      "dtr": "dtr-testnet"
     }
   ]
 }
@@ -818,7 +809,7 @@ Please refer to [MOD-TRQP-2] /entities/{entityVID}/authorization in [[ref: DTR]]
 
 Example #1: check if issuer `did:web:service-credential-issuer` is granted issuance of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` for country `fr`:
 
-`GET /ptr-X.Y/csp/authorized_issuer/did:web:service-credential-issuer/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr`
+`GET /dtr/v1/csp/authorized_issuer/did:web:service-credential-issuer/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr`
 
 Response:
 
@@ -830,7 +821,7 @@ Response:
 
 Example #2: check if verifier `did:web:verifier` is granted verification of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` for country `fr`, issuer `did:web:service-credential-issuer` and session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
 
-`GET /ptr-X.Y/csp/authorized_verifier/did:web:service-credential-issuer/did:web:verifier/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr/09b6d2e1-684f-443a-94ae-f6bc3112b2e5`
+`GET /dtr/v1/csp/authorized_verifier/did:web:service-credential-issuer/did:web:verifier/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr/09b6d2e1-684f-443a-94ae-f6bc3112b2e5`
 
 Response:
 
@@ -847,17 +838,17 @@ Let's see a full example in action. Here is a DID Document of a compliant DTS:
 ```json
   "service": [
     {
-      "id": "did:web:user-dts.gaiaid.io#ptr-essential-schemas-service-credential",
+      "id": "did:web:user-dts.gaiaid.io#dtr-essential-schemas-service-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://user-dts.gaiaid.io/service-credential-presentation.json"]
     },
     {
-      "id": "did:web:user-dts.gaiaid.io#ptr-essential-schemas-org-credential",
+      "id": "did:web:user-dts.gaiaid.io#dtr-essential-schemas-org-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://user-dts.gaiaid.io/org-credential-presentation.json"]
     },
     {
-      "id": "did:web:user-dts.gaiaid.io#ptr-schemas-trademark-credential",
+      "id": "did:web:user-dts.gaiaid.io#dtr-schemas-trademark-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://user-dts.gaiaid.io/trademark-credential-presentation.json"]
     }
@@ -926,10 +917,10 @@ service-credential-schema-credential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://ptr-hostname/ptr-X.Y/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
+    "id": "https://dtr-hostname/dtr/v1/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
     "type": "JsonSchema",
     "jsonSchema": {
-      "$ref": "https://ptr-hostname/ptr-X.Y/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
+      "$ref": "https://dtr-hostname/dtr/v1/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
     },
     "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW" 
   }
@@ -1000,10 +991,10 @@ org-credential-schema-credential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://ptr-hostname/ptr-X.Y/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b",
+    "id": "https://dtr-hostname/dtr/v1/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b",
     "type": "JsonSchema",
     "jsonSchema": {
-      "$ref": "https://ptr-hostname/ptr-X.Y/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b"
+      "$ref": "https://dtr-hostname/dtr/v1/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b"
     },
     "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"  
   }
@@ -1039,7 +1030,7 @@ trademark-credential-presentation.json:
         "type": "JsonSchemaCredential"
       }
       "credentialSchema": {
-        "id": "https://ptr-hostname/ptr-X.Y/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+        "id": "https://dtr-hostname/dtr/v1/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
         "type": "JsonSchema",
         "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
       }
@@ -1075,10 +1066,10 @@ TrademarkJsonSchemaCredential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://example-ptr/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+    "id": "https://example-dtr/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
     "type": "JsonSchema",
     "jsonSchema": {
-       "$ref": "https://example-ptr/ptr-X.Y/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+       "$ref": "https://example-dtr/dtr/v1/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
     }
     "digestSRI": "sha384-GHJSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   }
@@ -1091,25 +1082,25 @@ DID Document of did:abc:ecs-trust-registry:
 ```json
   "service": [
     {
-      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-service-credential-schema-credential",
+      "id": "did:abc:ecs-trust-registry#dtr-essential-schemas-service-credential-schema-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://ecs-trust-registry/service-credential-schema-presentation.json"]
     },
     {
-      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-organization-credential-schema-credential",
+      "id": "did:abc:ecs-trust-registry#dtr-essential-schemas-organization-credential-schema-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://ecs-trust-registry/org-credential-schema-presentation.json"]
     },
     {
-      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-person-credential-schema-credential",
+      "id": "did:abc:ecs-trust-registry#dtr-essential-schemas-person-credential-schema-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://ecs-trust-registry/person-credential-schema-presentation.json"]
     },
     {
-      "id": "did:abc:ecs-trust-registry#ptr-essential-schemas-trust-registry",
+      "id": "did:abc:ecs-trust-registry#dtr-essential-schemas-trust-registry",
       "type": "PublicTrustRegistry",
       "version": "1.0",
-      "serviceEndpoint": ["https://ptr-hostname/ptr-X.Y/"]
+      "serviceEndpoint": ["https://dtr-hostname/dtr/v1/"]
     }
     
     ...
@@ -1122,15 +1113,15 @@ DID Document of did:example:trademark-trust-registry:
   ...
   "service": [
     {
-      "id": "did:example:trademark-trust-registry#ptr-schemas-trademark-credential-schema-credential",
+      "id": "did:example:trademark-trust-registry#dtr-schemas-trademark-credential-schema-credential",
       "type": "LinkedVerifiablePresentation",
       "serviceEndpoint": ["https://trademark.abc/credentials/TrademarkJsonSchemaCredential"]
     },
     {
-      "id": "did:example:trademark-trust-registry#ptr-schemas-trust-registry",
+      "id": "did:example:trademark-trust-registry#dtr-schemas-trust-registry",
       "type": "PublicTrustRegistry",
       "version": "1.0",
-      "serviceEndpoint": ["https://ptr-hostname/ptr-X.Y/"]
+      "serviceEndpoint": ["https://dtr-hostname/dtr/v1/"]
     }
     
     ...

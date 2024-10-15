@@ -148,14 +148,14 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 
 ### [ECS] Essential Credential Schemas
 
-Essential Credential Schemas (ECS) are created in a DTR by a Trust Registry. There are 4 kinds of ECS:
+Essential Credential Schemas (ECS) are created and managed by a Trust Registry in a [[ref: DTR]]. There are 4 kinds of ECS:
 
 - Service;
 - Organization;
 - Person;
-- UserAgent;
+- UserAgent.
 
-A Trust Registry creates itself in a [[ref: DTR]] by creating a `TrustRegistry` entry `tr`. For this Trust Registry to qualify for being used for trust resolution in DTS and browsers, it MUST provide, associated to the `TrustRegistry` entry `tr`, all 3 `CredentialSchema` entries, with a respective `json_schema` attribute defined as follows in [ECS-SERVICE], [ECS-ORG], [ECS-PERSON], [ECS-USER-AGENT].
+A Trust Registry creates itself in a [[ref: DTR]] by creating a `TrustRegistry` entry `tr`. For this Trust Registry to qualify for being used for trust resolution in [[ref: DTS]] and [[ref: DTUA]], it MUST provide, associated to the `TrustRegistry` entry `tr`, all 4 `CredentialSchema` entries, with a respective `json_schema` attribute defined as follows in [ECS-SERVICE], [ECS-ORG], [ECS-PERSON], [ECS-USER-AGENT].
 
 #### [ECS-SERVICE] Service Credential Json Schema
 

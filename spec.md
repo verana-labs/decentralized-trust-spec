@@ -34,7 +34,7 @@ Not to talk about privacy, and what's done with our data.
 
 To build a new, trustable internet, we need new, trustable communication channels, where both ends can be clearly identified, and where providing a service, accessing a service, or creating a new account, should be as simple as presenting a credential.
 
-Decentralized Trust Services are services that are using a secure bidirectional persistent communication channel that, combined to trust layers such as [Public Trust Registries](https://github.com/verana-labs/public-trust-registry-specs), enable establishing a trustable communication channel between peers.
+Decentralized Trust Services are services that are using a secure bidirectional persistent communication channel that, combined to trust layers such as [Decentralized Trust Registries](https://github.com/verana-labs/public-trust-registry-specs), enable establishing a trustable communication channel between peers.
 
 ## About this Document
 
@@ -70,16 +70,16 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 ## Terminology
 
 [[def: account, accounts]]:
-~ A [[ref: public trust registry]] account.
+~ A [[ref: decentralized trust registry]] account.
 
 [[def: applicant, applicants]]:
 ~ A [[ref: controller]] that starts a [[ref: validation process]].
 
 [[def: controller, controllers]]:
-~ An [[ref: account]] which is the controller of a specific resource in an [[ref: PTR]].
+~ An [[ref: account]] which is the controller of a specific resource in an [[ref: DTR]].
 
 [[def: credential schema, credential schemas]]:
-~ An [[ref: PTR]] resource which represents a verifiable credential definition and the associated permissions and business rules for issuing, verifying or holding a credential linked to this credential schema.
+~ An [[ref: DTR]] resource which represents a verifiable credential definition and the associated permissions and business rules for issuing, verifying or holding a credential linked to this credential schema.
 
 [[def: decentralized identifier, DID, DIDs]]:
 ~ A decentralized identifier, as specified in [[spec-norm:DID-CORE]].
@@ -91,13 +91,13 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 ~ A DID Document, as specified in [[spec-norm:DID-CORE]].
 
 [[def: decentralized trust service, DTS, DTSs]]:
-~ A service, usually provided using [[ref: DIDComm]], that can be deployed anywhere by its owner, and that is using the decentralized trust layer provided by an [[ref: PTR]], and has a resolvable [[ref: proof of trust]].
+~ A service, usually provided using [[ref: DIDComm]], that can be deployed anywhere by its owner, and that is using the decentralized trust layer provided by an [[ref: DTR]], and has a resolvable [[ref: proof of trust]].
 
 [[def: decentralized trust user agent, DTUA, DTUAs]]:
-~ A user agent for accessing and using [[ref: DTSs]]. To be considered as a [[ref: DTUA]], a user agent must implement an [[ref: PTR]] trust layer and use a trust resolution using use the [[ref: essential credential schema]] of a given trust registry for providing a [[ref: proof of trust]] to users so that user clearly identifies [[ref: DTS]] and [[ref: DTUA]] providers and decides to connect or not.
+~ A user agent for accessing and using [[ref: DTSs]]. To be considered as a [[ref: DTUA]], a user agent must implement an [[ref: DTR]] trust layer and use a trust resolution using use the [[ref: essential credential schema]] of a given trust registry for providing a [[ref: proof of trust]] to users so that user clearly identifies [[ref: DTS]] and [[ref: DTUA]] providers and decides to connect or not.
 
 [[def: DID Directory, DID directory]]:
-~ A repository of DIDs in an PTR.
+~ A repository of DIDs in an DTR.
 
 [[def: essential credential schema, essential credential schemas]]:
 ~ Default [[ref: credential schema]], owned by a [[ref: trust registry]], that provide the basis for a trust layer to exist in the ecosystem so that [[ref: DTUA]] can generate a [[ref: proof of trust]].
@@ -118,12 +118,12 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 ~ A presentation of a [[ref: verifiable credential]] as specified in [LINKED-VP](https://identity.foundation/linked-vp/).
 
 [[def: participant, participants]]:
-~ An entity that uses an [[ref: PTR]] and its trust layer to provide or use services.
+~ An entity that uses an [[ref: DTR]] and its trust layer to provide or use services.
 
 [[def: proof of trust]]:
 ~ Visual representation using [[ref: essential credential schemas]] of a [[ref: trust resolution]] process of a [[ref: DTS]], for identifying the [[ref: DTS]], its owner, and the [[ref: issuer]] of the verifiable credential of its owner.
 
-[[def: public trust registry, PTR]]:
+[[def: decentralized trust registry, DTR]]:
 ~ a decentralized, ledger-based network, which provides: trust registry features that can be used by all its [[ref: participants]]; and a tokenized business model allows charging [[ref: participants]] for trust fees that are transferred to other [[ref: participants]], or locked into [[ref: trust deposits]].
 
 [[def: subject, subjects]]:
@@ -154,14 +154,14 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 
 ### [ECS] Essential Credential Schemas
 
-Essential Credential Schemas (ECS) are created in a PTR by a Trust Registry. There are 4 kinds of ECS:
+Essential Credential Schemas (ECS) are created in a DTR by a Trust Registry. There are 4 kinds of ECS:
 
 - Service;
 - Organization;
 - Person;
 - UserAgent;
 
-A Trust Registry creates itself in a [[ref: PTR]] by creating a `TrustRegistry` entry `tr`. For this Trust Registry to qualify for being used for trust resolution in DTS and browsers, it MUST provide, associated to the `TrustRegistry` entry `tr`, all 3 `CredentialSchema` entries, with a respective `json_schema` attribute defined as follows in [ECS-SERVICE], [ECS-ORG], [ECS-PERSON], [ECS-USER-AGENT].
+A Trust Registry creates itself in a [[ref: DTR]] by creating a `TrustRegistry` entry `tr`. For this Trust Registry to qualify for being used for trust resolution in DTS and browsers, it MUST provide, associated to the `TrustRegistry` entry `tr`, all 3 `CredentialSchema` entries, with a respective `json_schema` attribute defined as follows in [ECS-SERVICE], [ECS-ORG], [ECS-PERSON], [ECS-USER-AGENT].
 
 #### [ECS-SERVICE] Service Credential Json Schema
 
@@ -177,7 +177,7 @@ Credential subject object of schema MUST contain the following attributes:
 - `termsAndConditionsHash` (string) (*optional*): If terms and conditions of the service are stored in a file, optional hash of the file for data integrity verification.
 - `privacyPolicy` (string) (*mandatory*): URL of the terms and conditions of the service. MAY be the same URL that `terms_and_conditions` if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).
 - `privacyPolicyHash` (string) (*optional*): If privacy policy of the service are stored in a file, optional hash of the file for data integrity verification.
-- `rewardsAccount` (string) (*optional*): PTR account where rewards should be transferred.
+- `rewardsAccount` (string) (*optional*): DTR account where rewards should be transferred.
 
 :::todo
 Define DTS types
@@ -185,7 +185,7 @@ Define DTS types
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$chain-rest-api}` with [[ref: PTR]] API domain,
+- `{$chain-rest-api}` with [[ref: DTR]] API domain,
 - `{$tr.did}` with `tr.did`,
 - `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
 
@@ -278,7 +278,7 @@ Credential subject object of schema MUST contain the following attributes:
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$chain-rest-api}` with [[ref: PTR]] API domain,
+- `{$chain-rest-api}` with [[ref: DTR]] API domain,
 - `{$tr.did}` with `tr.did`,
 - `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
 
@@ -355,7 +355,7 @@ Credential subject object of schema MUST contain the following attributes:
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$chain-rest-api}` with [[ref: PTR]] API domain,
+- `{$chain-rest-api}` with [[ref: DTR]] API domain,
 - `{$tr.did}` with `tr.did`,
 - `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
 
@@ -424,11 +424,11 @@ Credential subject object of schema MUST contain the following attributes:
 - `termsAndConditionsHash` (string) (*optional*): If terms and conditions of the service are stored in a file, optional hash of the file for data integrity verification.
 - `privacyPolicy` (string) (*mandatory*): URL of the terms and conditions of the service. MAY be the same URL that `terms_and_conditions` if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).
 - `privacyPolicyHash` (string) (*optional*): If privacy policy of the service are stored in a file, optional hash of the file for data integrity verification.
-- `rewardsAccount` (string) (*optional*): PTR account where rewards should be transferred.
+- `rewardsAccount` (string) (*optional*): DTR account where rewards should be transferred.
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$chain-rest-api}` with [[ref: PTR]] API domain,
+- `{$chain-rest-api}` with [[ref: DTR]] API domain,
 - `{$tr.did}` with `tr.did`,
 - `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
 
@@ -508,7 +508,7 @@ the resulting `json_schema` attribute will be the following Json Schema. Replace
 
 ### [DT-JSON-SCHEMA-CRED] Decentralized Trust Json Schema Credential
 
-A DT Json Schema Credential is a [[ref: json schema credential]] self-issued by a Trust Registry DID, that MUST refer to the json schema of a `CredentialSchema` entry created in a `PTR`. Issuer of the DT Json Schema Credential MUST be the same DID that the DID of the `TrustRegistry` entry created in the [[ref: PTR]] than owns the `CredentialSchema` entry in the [[ref: PTR]].
+A DT Json Schema Credential is a [[ref: json schema credential]] self-issued by a Trust Registry DID, that MUST refer to the json schema of a `CredentialSchema` entry created in a `DTR`. Issuer of the DT Json Schema Credential MUST be the same DID that the DID of the `TrustRegistry` entry created in the [[ref: DTR]] than owns the `CredentialSchema` entry in the [[ref: DTR]].
 
 A DT Json Schema Credential MUST have a `credentialSchema` property that contains exactly the following:
 
@@ -522,9 +522,9 @@ A DT Json Schema Credential MUST have a `credentialSchema` property that contain
 
 Additionally, it MUST have a `credentialSubject` object with:
 
-- a `id` properties that is the URL to access the [[ref: json schema]] in the PTR,
+- a `id` properties that is the URL to access the [[ref: json schema]] in the DTR,
 - `type` MUST be set to "JsonSchema",
-- an object `jsonSchema` MUST be present with an `$ref` properties that is the URL to access the [[ref: json schema]] in the PTR
+- an object `jsonSchema` MUST be present with an `$ref` properties that is the URL to access the [[ref: json schema]] in the DTR
 - a digestSRI property that MUST match the [[ref: json schema]] file content hash.
 
 Example of a DT Json Schema Credential:
@@ -560,12 +560,12 @@ DtJsonSchemaCredential.json:
 
 ### [DT-TR-DIDDOC] Trust Registry DID Document
 
-For each `CredentialSchema` entry a Trust Registry has created in a [[ref: PTR]], the Trust Registry MUST self-issue the corresponding DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].
+For each `CredentialSchema` entry a Trust Registry has created in a [[ref: DTR]], the Trust Registry MUST self-issue the corresponding DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].
 
 Additionally, in MUST present the DT Json Schema Credential(s) in its DIDDocument, as well as the corresponding trust registry entry for verification. To do so, it MUST define the following entries in its DIDDocument:
 
 - for each `CredentialSchema` entry it wants to be resolvable, a "LinkedVerifiablePresentation" service entry with a fragment that MUST start with to `#ptr-schemas`, that MUST point to a self-issued DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].
-- a "PublicTrustRegistry" service entry with fragment name equal to `#ptr-schemas-public-registry`, that MUST point to the API of the DID's trust registry in the PTR.
+- a "PublicTrustRegistry" service entry with fragment name equal to `#ptr-schemas-public-registry`, that MUST point to the API of the DID's trust registry in the DTR.
 
 Example:
 
@@ -592,7 +592,7 @@ If the Trust Registry wishes to provide ECS trust resolution, it MUST present 4 
 - a "LinkedVerifiablePresentation" service entry with fragment name equal to `#ptr-essential-schemas-org-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-ORG].
 - a "LinkedVerifiablePresentation" service entry with fragment name equal to `#ptr-essential-schemas-person-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-PERSON].
 - a "LinkedVerifiablePresentation" service entry with fragment name equal to `#ptr-essential-schemas-user-agent-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-USER-AGENT].
-- a "PublicTrustRegistry" service entry with fragment name equal to `#ptr-essential-schemas-trust-registry`, that MUST point to the API URL of this DID's trust registry in the PTR.
+- a "PublicTrustRegistry" service entry with fragment name equal to `#ptr-essential-schemas-trust-registry`, that MUST point to the API URL of this DID's trust registry in the DTR.
 
 Example:
 
@@ -637,10 +637,10 @@ A simple diagram for a clear understanding:
 
 @startuml
 scale max 800 width
-object "TrustRegistry (in PTR)" as tr {
+object "TrustRegistry (in DTR)" as tr {
   did: did:abc:ecs-trust-registry
 }
-object "CredentialSchema (in PTR)" as cs {
+object "CredentialSchema (in DTR)" as cs {
   id: f4524751-8617-40de-bbe6-b2e0fef63c7a
   json_schema: { "$id": ... "title": "ServiceCredential"}
 }
@@ -655,8 +655,8 @@ object "DT Credential" as dtscred #3fbdb6 {
   jsonSchemaCredential: https://ecs-trust-registry/dts-credential-schema-credential.json
 }
 
-cs <-- tr : create a CredentialSchema (in PTR)
-jsc <-- cs : trust registry did issue a JsonSchemaCredential based on json_schema located in CredentialSchema in the PTR
+cs <-- tr : create a CredentialSchema (in DTR)
+jsc <-- cs : trust registry did issue a JsonSchemaCredential based on json_schema located in CredentialSchema in the DTR
 dtscred <-- jsc: DTS owner issue its DT credential based on JsonSchemaCredential issued by trust registry did
 
 @enduml
@@ -665,7 +665,7 @@ dtscred <-- jsc: DTS owner issue its DT credential based on JsonSchemaCredential
 
 A DT Credential MUST have a `credentialSchema` property:
 
-- `id` must point to a [[ref: json schema credential]] issued by the trust registry [[ref: DID]] owner of the schema in the PTR;
+- `id` must point to a [[ref: json schema credential]] issued by the trust registry [[ref: DID]] owner of the schema in the DTR;
 - `type` MUST be `JsonSchemaCredential`.
 
 As a matter of fact, a DT Credential MUST conform to the dereferenced [[ref: json schema]] of the `JsonSchemaCredential`.
@@ -706,8 +706,8 @@ Example DTCredential.json:
 - [DTS-REQ-1] A [[ref: DTS]] MUST be identified by a [[:ref DID]]. The [[:ref DID]] of a [[ref: DTS]] MUST resolve to a [[ref: DID Document]].
 - [DTS-REQ-2] A [[ref: DTS]] DID Document MUST present a DTS Service Essential Credential that conforms to [DT-EC-SERVICE].
 - [DTS-REQ-3] If the issuer of the DTS Service Essential Credential of [DTS-REQ-2] is the [[ref: DID]] of this service, service DID Document MUST present a credential that conforms to [DT-EC-ORG] or (exclusive) a [DT-EC-PERSON].
-- [DTS-REQ-4] If the issuer of the PTR DTS Credential of [DTS-REQ-2] is not the [[ref: DID]] of this service, issuer service MUST be a [DTS-REQ] [[ref: DTS]] that conforms to [DTS-REQ-3].
-- [DTS-REQ-5] A compliant [[ref: DTS]] MUST dereference all service credentials, User Agent credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Public Trust Registry API,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
+- [DTS-REQ-4] If the issuer of the DTR DTS Credential of [DTS-REQ-2] is not the [[ref: DID]] of this service, issuer service MUST be a [DTS-REQ] [[ref: DTS]] that conforms to [DTS-REQ-3].
+- [DTS-REQ-5] A compliant [[ref: DTS]] MUST dereference all service credentials, User Agent credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Decentralized Trust Registry API,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
 
 ::: note
 In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.
@@ -740,7 +740,7 @@ Linked verifiable presentations of credential CAN be present in service DID Docu
 - [DTUA-REQ-1] A [[ref: DTUA]] MUST be identified by a [[:ref DID]]. The [[:ref DID]] of a [[ref: DTUA]] MUST resolve to a [[ref: DID Document]].
 - [DTUA-REQ-2] A [[ref: DTUA]] DID Document MUST present a DTS Service Essential Credential that conforms to [DT-EC-ORGANIZATION].
 - [DTUA-REQ-3] A [[ref: DTUA]] DID Document MUST present a DTS Service Essential Credential that conforms to [DT-EC-USER-AGENT].
-- [DTUA-REQ-4] A compliant [[ref: DTUA]] MUST dereference all service credentials, User Agent credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Public Trust Registry API,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
+- [DTUA-REQ-4] A compliant [[ref: DTUA]] MUST dereference all service credentials, User Agent credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Decentralized Trust Registry API,... comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.
 
 ::: note
 In other words, a to be a DTUA, a User Agent MUST identify itself to the other end by sharing its DID, and the other end MUST verify it complies with [DTUA-REQ]
@@ -762,11 +762,11 @@ When a [[ref: DTUA]] start a DIDComm session with a service, [[ref: DTUA]] MUST 
 
 When a [[ref: DTUA]] start a DIDComm session with another User Agent, [[ref: DTUA]] MUST verify that the peer User Agent complies with [DTUA-SPEC], else [[ref: DTUA]] MUST drop the connection.
 
-### [TR-WL] PTR and Trust Registry whitelists
+### [TR-WL] DTR and Trust Registry whitelists
 
-Compliant [[ref: DTSs]] and [[ref: DTUAs]] MUST maintain a list of trusted PTRs and trusted DT Essential Credential issuers, and ignore PTRs and DT ECS issuers that are not in these lists when resolving trust:
+Compliant [[ref: DTSs]] and [[ref: DTUAs]] MUST maintain a list of trusted DTRs and trusted DT Essential Credential issuers, and ignore DTRs and DT ECS issuers that are not in these lists when resolving trust:
 
-- [TR-WL-PTR]: A list of prefix URLs of trusted PTRs (registry of registries).
+- [TR-WL-DTR]: A list of prefix URLs of trusted DTRs (registry of registries).
 
 Example:
 
@@ -816,11 +816,11 @@ Example:
 }
 ```
 
-### [TR-RESOL] Verification of permission in Public Trust Registries
+### [TR-RESOL] Verification of permission in Decentralized Trust Registries
 
-The [MOD-CSP-QRY-3] of [[ref: PTR]] spec is used for querying trust registry.
+The [MOD-CSP-QRY-3] of [[ref: DTR]] spec is used for querying trust registry.
 
-Please refer to [MOD-TRQP-2] /entities/{entityVID}/authorization in [[ref: PTR]] specs.
+Please refer to [MOD-TRQP-2] /entities/{entityVID}/authorization in [[ref: DTR]] specs.
 
 Example #1: check if issuer `did:web:service-credential-issuer` is granted issuance of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` for country `fr`:
 
@@ -1148,7 +1148,7 @@ DID Document of did:example:trademark-trust-registry:
 
 *This section is non normative.*
 
-Crawlers will query the [[ref: DID Directory]] `/did-directory/list` method of a [[ref: PTR]] to get the [[ref: DIDs]] of registered [[ref:DTSs]] and resolve them to build an index by recursively resolving all linked data.
+Crawlers will query the [[ref: DID Directory]] `/did-directory/list` method of a [[ref: DTR]] to get the [[ref: DIDs]] of registered [[ref:DTSs]] and resolve them to build an index by recursively resolving all linked data.
 
 For more information, please refer to the [public-trust-registry-specs](https://github.com/verana-labs/public-trust-registry-specs).
 

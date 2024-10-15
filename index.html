@@ -75,7 +75,7 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <p>If the World Wide Web was initially designed for interoperability, major companies have managed to transform it to a closed, centralized internet, that we all depend on.</p>
 <p>Not to talk about privacy, and what’s done with our data.</p>
 <p>To build a new, trustable internet, we need new, trustable communication channels, where both ends can be clearly identified, and where providing a service, accessing a service, or creating a new account, should be as simple as presenting a credential.</p>
-<p>Decentralized Trust Services are services that are using a secure bidirectional persistent communication channel that, combined to trust layers such as <a path-0="github.com"path-1="verana-labs"path-2="public-trust-registry-specs"href="https://github.com/verana-labs/public-trust-registry-specs" >Public Trust Registries</a>, enable establishing a trustable communication channel between peers.</p>
+<p>Decentralized Trust Services are services that are using a secure bidirectional persistent communication channel that, combined to trust layers such as <a path-0="github.com"path-1="verana-labs"path-2="public-trust-registry-specs"href="https://github.com/verana-labs/public-trust-registry-specs" >Decentralized Trust Registries</a>, enable establishing a trustable communication channel between peers.</p>
 <h2 id="about-this-document"><a class="toc-anchor" href="#about-this-document" >§</a> About this Document</h2>
 <p>In order to fully understand the concepts developed in this document, you should have some basic knowledge of <a class="term-reference" href="#term:did">DID</a>, <a class="term-reference" href="#term:didcomm">DIDComm</a>, <a class="term-reference" href="#term:dts">DTS</a>, <a class="term-reference" href="#term:trust-registry">trust registry</a>, ledger-based applications, and more generally, all terms present in the <a href="#terminology" >Terminology</a> section.</p>
 <h2 id="introduction"><a class="toc-anchor" href="#introduction" >§</a> Introduction</h2>
@@ -98,13 +98,13 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <h2 id="terminology"><a class="toc-anchor" href="#terminology" >§</a> Terminology</h2>
 <dl>
 <dt><span id="term:accounts"><span id="term:account">account</span></span>:</dt>
-<dd>A <a class="term-reference" href="#term:public-trust-registry">public trust registry</a> account.</dd>
+<dd>A <a class="term-reference" href="#term:decentralized-trust-registry">decentralized trust registry</a> account.</dd>
 <dt><span id="term:applicants"><span id="term:applicant">applicant</span></span>:</dt>
 <dd>A <a class="term-reference" href="#term:controller">controller</a> that starts a <a class="term-reference" href="#term:validation-process">validation process</a>.</dd>
 <dt><span id="term:controllers"><span id="term:controller">controller</span></span>:</dt>
-<dd>An <a class="term-reference" href="#term:account">account</a> which is the controller of a specific resource in an <a class="term-reference" href="#term:ptr">PTR</a>.</dd>
+<dd>An <a class="term-reference" href="#term:account">account</a> which is the controller of a specific resource in an <a class="term-reference" href="#term:dtr">DTR</a>.</dd>
 <dt><span id="term:credential-schemas"><span id="term:credential-schema">credential schema</span></span>:</dt>
-<dd>An <a class="term-reference" href="#term:ptr">PTR</a> resource which represents a verifiable credential definition and the associated permissions and business rules for issuing, verifying or holding a credential linked to this credential schema.</dd>
+<dd>An <a class="term-reference" href="#term:dtr">DTR</a> resource which represents a verifiable credential definition and the associated permissions and business rules for issuing, verifying or holding a credential linked to this credential schema.</dd>
 <dt><span id="term:dids"><span id="term:did"><span id="term:decentralized-identifier">decentralized identifier</span></span></span>:</dt>
 <dd>A decentralized identifier, as specified in [<a class="spec-reference" href="#ref:DID-CORE">DID-CORE</a>].</dd>
 <dt><span id="term:didcomm"><span id="term:decentralized-identifier-communication">decentralized identifier communication</span></span>:</dt>
@@ -112,11 +112,11 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <dt><span id="term:did-documents"><span id="term:did-document"><span id="term:decentralized-identifier-document">decentralized identifier document</span></span></span>:</dt>
 <dd>A DID Document, as specified in [<a class="spec-reference" href="#ref:DID-CORE">DID-CORE</a>].</dd>
 <dt><span id="term:dtss"><span id="term:dts"><span id="term:decentralized-trust-service">decentralized trust service</span></span></span>:</dt>
-<dd>A service, usually provided using <a class="term-reference" href="#term:didcomm">DIDComm</a>, that can be deployed anywhere by its owner, and that is using the decentralized trust layer provided by an <a class="term-reference" href="#term:ptr">PTR</a>, and has a resolvable <a class="term-reference" href="#term:proof-of-trust">proof of trust</a>.</dd>
+<dd>A service, usually provided using <a class="term-reference" href="#term:didcomm">DIDComm</a>, that can be deployed anywhere by its owner, and that is using the decentralized trust layer provided by an <a class="term-reference" href="#term:dtr">DTR</a>, and has a resolvable <a class="term-reference" href="#term:proof-of-trust">proof of trust</a>.</dd>
 <dt><span id="term:dtuas"><span id="term:dtua"><span id="term:decentralized-trust-user-agent">decentralized trust user agent</span></span></span>:</dt>
-<dd>A user agent for accessing and using <a class="term-reference" href="#term:dtss">DTSs</a>. To be considered as a <a class="term-reference" href="#term:dtua">DTUA</a>, a user agent must implement an <a class="term-reference" href="#term:ptr">PTR</a> trust layer and use a trust resolution using use the <a class="term-reference" href="#term:essential-credential-schema">essential credential schema</a> of a given trust registry for providing a <a class="term-reference" href="#term:proof-of-trust">proof of trust</a> to users so that user clearly identifies <a class="term-reference" href="#term:dts">DTS</a> and <a class="term-reference" href="#term:dtua">DTUA</a> providers and decides to connect or not.</dd>
+<dd>A user agent for accessing and using <a class="term-reference" href="#term:dtss">DTSs</a>. To be considered as a <a class="term-reference" href="#term:dtua">DTUA</a>, a user agent must implement an <a class="term-reference" href="#term:dtr">DTR</a> trust layer and use a trust resolution using use the <a class="term-reference" href="#term:essential-credential-schema">essential credential schema</a> of a given trust registry for providing a <a class="term-reference" href="#term:proof-of-trust">proof of trust</a> to users so that user clearly identifies <a class="term-reference" href="#term:dts">DTS</a> and <a class="term-reference" href="#term:dtua">DTUA</a> providers and decides to connect or not.</dd>
 <dt><span id="term:did-directory"><span id="term:did-directory">DID Directory</span></span>:</dt>
-<dd>A repository of DIDs in an PTR.</dd>
+<dd>A repository of DIDs in an DTR.</dd>
 <dt><span id="term:essential-credential-schemas"><span id="term:essential-credential-schema">essential credential schema</span></span>:</dt>
 <dd>Default <a class="term-reference" href="#term:credential-schema">credential schema</a>, owned by a <a class="term-reference" href="#term:trust-registry">trust registry</a>, that provide the basis for a trust layer to exist in the ecosystem so that <a class="term-reference" href="#term:dtua">DTUA</a> can generate a <a class="term-reference" href="#term:proof-of-trust">proof of trust</a>.</dd>
 <dt><span id="term:holders"><span id="term:holder">holder</span></span>:</dt>
@@ -130,10 +130,10 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <dt><span id="term:linked-vp">linked-vp</span>:</dt>
 <dd>A presentation of a <a class="term-reference" href="#term:verifiable-credential">verifiable credential</a> as specified in <a path-0="identity.foundation"path-1="linked-vp"path-2=""href="https://identity.foundation/linked-vp/" >LINKED-VP</a>.</dd>
 <dt><span id="term:participants"><span id="term:participant">participant</span></span>:</dt>
-<dd>An entity that uses an <a class="term-reference" href="#term:ptr">PTR</a> and its trust layer to provide or use services.</dd>
+<dd>An entity that uses an <a class="term-reference" href="#term:dtr">DTR</a> and its trust layer to provide or use services.</dd>
 <dt><span id="term:proof-of-trust">proof of trust</span>:</dt>
 <dd>Visual representation using <a class="term-reference" href="#term:essential-credential-schemas">essential credential schemas</a> of a <a class="term-reference" href="#term:trust-resolution">trust resolution</a> process of a <a class="term-reference" href="#term:dts">DTS</a>, for identifying the <a class="term-reference" href="#term:dts">DTS</a>, its owner, and the <a class="term-reference" href="#term:issuer">issuer</a> of the verifiable credential of its owner.</dd>
-<dt><span id="term:ptr"><span id="term:public-trust-registry">public trust registry</span></span>:</dt>
+<dt><span id="term:dtr"><span id="term:decentralized-trust-registry">decentralized trust registry</span></span>:</dt>
 <dd>a decentralized, ledger-based network, which provides: trust registry features that can be used by all its <a class="term-reference" href="#term:participants">participants</a>; and a tokenized business model allows charging <a class="term-reference" href="#term:participants">participants</a> for trust fees that are transferred to other <a class="term-reference" href="#term:participants">participants</a>, or locked into <a class="term-reference" href="#term:trust-deposits">trust deposits</a>.</dd>
 <dt><span id="term:subjects"><span id="term:subject">subject</span></span>:</dt>
 <dd>A thing about which claims are made. Example subjects include human beings, animals, things, and organization, a <a class="term-reference" href="#term:did">DID</a>…</dd>
@@ -154,14 +154,14 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 </dl>
 <h2 id="specification"><a class="toc-anchor" href="#specification" >§</a> Specification</h2>
 <h3 id="ecs-essential-credential-schemas"><a class="toc-anchor" href="#ecs-essential-credential-schemas" >§</a> [ECS] Essential Credential Schemas</h3>
-<p>Essential Credential Schemas (ECS) are created in a PTR by a Trust Registry. There are 4 kinds of ECS:</p>
+<p>Essential Credential Schemas (ECS) are created in a DTR by a Trust Registry. There are 4 kinds of ECS:</p>
 <ul>
 <li>Service;</li>
 <li>Organization;</li>
 <li>Person;</li>
 <li>UserAgent;</li>
 </ul>
-<p>A Trust Registry creates itself in a <a class="term-reference" href="#term:ptr">PTR</a> by creating a <code>TrustRegistry</code> entry <code>tr</code>. For this Trust Registry to qualify for being used for trust resolution in DTS and browsers, it MUST provide, associated to the <code>TrustRegistry</code> entry <code>tr</code>, all 3 <code>CredentialSchema</code> entries, with a respective <code>json_schema</code> attribute defined as follows in [ECS-SERVICE], [ECS-ORG], [ECS-PERSON], [ECS-USER-AGENT].</p>
+<p>A Trust Registry creates itself in a <a class="term-reference" href="#term:dtr">DTR</a> by creating a <code>TrustRegistry</code> entry <code>tr</code>. For this Trust Registry to qualify for being used for trust resolution in DTS and browsers, it MUST provide, associated to the <code>TrustRegistry</code> entry <code>tr</code>, all 3 <code>CredentialSchema</code> entries, with a respective <code>json_schema</code> attribute defined as follows in [ECS-SERVICE], [ECS-ORG], [ECS-PERSON], [ECS-USER-AGENT].</p>
 <h4 id="ecs-service-service-credential-json-schema"><a class="toc-anchor" href="#ecs-service-service-credential-json-schema" >§</a> [ECS-SERVICE] Service Credential Json Schema</h4>
 <p>Credential subject object of schema MUST contain the following attributes:</p>
 <ul>
@@ -175,13 +175,13 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li><code>termsAndConditionsHash</code> (string) (<em>optional</em>): If terms and conditions of the service are stored in a file, optional hash of the file for data integrity verification.</li>
 <li><code>privacyPolicy</code> (string) (<em>mandatory</em>): URL of the terms and conditions of the service. MAY be the same URL that <code>terms_and_conditions</code> if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).</li>
 <li><code>privacyPolicyHash</code> (string) (<em>optional</em>): If privacy policy of the service are stored in a file, optional hash of the file for data integrity verification.</li>
-<li><code>rewardsAccount</code> (string) (<em>optional</em>): PTR account where rewards should be transferred.</li>
+<li><code>rewardsAccount</code> (string) (<em>optional</em>): DTR account where rewards should be transferred.</li>
 </ul>
-<div id="todo-7" class="notice todo"><a class="notice-link" href="#todo-7">TODO</a><p>Define DTS types</p>
+<div id="todo-8" class="notice todo"><a class="notice-link" href="#todo-8">TODO</a><p>Define DTS types</p>
 </div>
 <p>the resulting <code>json_schema</code> attribute will be the following Json Schema. Replace:</p>
 <ul>
-<li><code>{$chain-rest-api}</code> with <a class="term-reference" href="#term:ptr">PTR</a> API domain,</li>
+<li><code>{$chain-rest-api}</code> with <a class="term-reference" href="#term:dtr">DTR</a> API domain,</li>
 <li><code>{$tr.did}</code> with <code>tr.did</code>,</li>
 <li><code>{$uuid}</code> with the <code>uuid</code> of the created <code>CredentialSchema</code> entry.</li>
 </ul>
@@ -271,7 +271,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 </ul>
 <p>the resulting <code>json_schema</code> attribute will be the following Json Schema. Replace:</p>
 <ul>
-<li><code>{$chain-rest-api}</code> with <a class="term-reference" href="#term:ptr">PTR</a> API domain,</li>
+<li><code>{$chain-rest-api}</code> with <a class="term-reference" href="#term:dtr">DTR</a> API domain,</li>
 <li><code>{$tr.did}</code> with <code>tr.did</code>,</li>
 <li><code>{$uuid}</code> with the <code>uuid</code> of the created <code>CredentialSchema</code> entry.</li>
 </ul>
@@ -344,7 +344,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 </ul>
 <p>the resulting <code>json_schema</code> attribute will be the following Json Schema. Replace:</p>
 <ul>
-<li><code>{$chain-rest-api}</code> with <a class="term-reference" href="#term:ptr">PTR</a> API domain,</li>
+<li><code>{$chain-rest-api}</code> with <a class="term-reference" href="#term:dtr">DTR</a> API domain,</li>
 <li><code>{$tr.did}</code> with <code>tr.did</code>,</li>
 <li><code>{$uuid}</code> with the <code>uuid</code> of the created <code>CredentialSchema</code> entry.</li>
 </ul>
@@ -410,11 +410,11 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li><code>termsAndConditionsHash</code> (string) (<em>optional</em>): If terms and conditions of the service are stored in a file, optional hash of the file for data integrity verification.</li>
 <li><code>privacyPolicy</code> (string) (<em>mandatory</em>): URL of the terms and conditions of the service. MAY be the same URL that <code>terms_and_conditions</code> if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).</li>
 <li><code>privacyPolicyHash</code> (string) (<em>optional</em>): If privacy policy of the service are stored in a file, optional hash of the file for data integrity verification.</li>
-<li><code>rewardsAccount</code> (string) (<em>optional</em>): PTR account where rewards should be transferred.</li>
+<li><code>rewardsAccount</code> (string) (<em>optional</em>): DTR account where rewards should be transferred.</li>
 </ul>
 <p>the resulting <code>json_schema</code> attribute will be the following Json Schema. Replace:</p>
 <ul>
-<li><code>{$chain-rest-api}</code> with <a class="term-reference" href="#term:ptr">PTR</a> API domain,</li>
+<li><code>{$chain-rest-api}</code> with <a class="term-reference" href="#term:dtr">DTR</a> API domain,</li>
 <li><code>{$tr.did}</code> with <code>tr.did</code>,</li>
 <li><code>{$uuid}</code> with the <code>uuid</code> of the created <code>CredentialSchema</code> entry.</li>
 </ul>
@@ -491,7 +491,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <span class="token punctuation">}</span>
 </code></pre>
 <h3 id="dt-json-schema-cred-decentralized-trust-json-schema-credential"><a class="toc-anchor" href="#dt-json-schema-cred-decentralized-trust-json-schema-credential" >§</a> [DT-JSON-SCHEMA-CRED] Decentralized Trust Json Schema Credential</h3>
-<p>A DT Json Schema Credential is a <a class="term-reference" href="#term:json-schema-credential">json schema credential</a> self-issued by a Trust Registry DID, that MUST refer to the json schema of a <code>CredentialSchema</code> entry created in a <code>PTR</code>. Issuer of the DT Json Schema Credential MUST be the same DID that the DID of the <code>TrustRegistry</code> entry created in the <a class="term-reference" href="#term:ptr">PTR</a> than owns the <code>CredentialSchema</code> entry in the <a class="term-reference" href="#term:ptr">PTR</a>.</p>
+<p>A DT Json Schema Credential is a <a class="term-reference" href="#term:json-schema-credential">json schema credential</a> self-issued by a Trust Registry DID, that MUST refer to the json schema of a <code>CredentialSchema</code> entry created in a <code>DTR</code>. Issuer of the DT Json Schema Credential MUST be the same DID that the DID of the <code>TrustRegistry</code> entry created in the <a class="term-reference" href="#term:dtr">DTR</a> than owns the <code>CredentialSchema</code> entry in the <a class="term-reference" href="#term:dtr">DTR</a>.</p>
 <p>A DT Json Schema Credential MUST have a <code>credentialSchema</code> property that contains exactly the following:</p>
 <pre class="language-json"><code class="language-json">  <span class="token property">"credentialSchema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://w3c.github.io/vc-json-schema/schema/json-schema-credential-schema.json"</span><span class="token punctuation">,</span>
@@ -501,9 +501,9 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 </code></pre>
 <p>Additionally, it MUST have a <code>credentialSubject</code> object with:</p>
 <ul>
-<li>a <code>id</code> properties that is the URL to access the <a class="term-reference" href="#term:json-schema">json schema</a> in the PTR,</li>
+<li>a <code>id</code> properties that is the URL to access the <a class="term-reference" href="#term:json-schema">json schema</a> in the DTR,</li>
 <li><code>type</code> MUST be set to “JsonSchema”,</li>
-<li>an object <code>jsonSchema</code> MUST be present with an <code>$ref</code> properties that is the URL to access the <a class="term-reference" href="#term:json-schema">json schema</a> in the PTR</li>
+<li>an object <code>jsonSchema</code> MUST be present with an <code>$ref</code> properties that is the URL to access the <a class="term-reference" href="#term:json-schema">json schema</a> in the DTR</li>
 <li>a digestSRI property that MUST match the <a class="term-reference" href="#term:json-schema">json schema</a> file content hash.</li>
 </ul>
 <p>Example of a DT Json Schema Credential:</p>
@@ -534,11 +534,11 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 
 </code></pre>
 <h3 id="dt-tr-diddoc-trust-registry-did-document"><a class="toc-anchor" href="#dt-tr-diddoc-trust-registry-did-document" >§</a> [DT-TR-DIDDOC] Trust Registry DID Document</h3>
-<p>For each <code>CredentialSchema</code> entry a Trust Registry has created in a <a class="term-reference" href="#term:ptr">PTR</a>, the Trust Registry MUST self-issue the corresponding DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].</p>
+<p>For each <code>CredentialSchema</code> entry a Trust Registry has created in a <a class="term-reference" href="#term:dtr">DTR</a>, the Trust Registry MUST self-issue the corresponding DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].</p>
 <p>Additionally, in MUST present the DT Json Schema Credential(s) in its DIDDocument, as well as the corresponding trust registry entry for verification. To do so, it MUST define the following entries in its DIDDocument:</p>
 <ul>
 <li>for each <code>CredentialSchema</code> entry it wants to be resolvable, a “LinkedVerifiablePresentation” service entry with a fragment that MUST start with to <code>#ptr-schemas</code>, that MUST point to a self-issued DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].</li>
-<li>a “PublicTrustRegistry” service entry with fragment name equal to <code>#ptr-schemas-public-registry</code>, that MUST point to the API of the DID’s trust registry in the PTR.</li>
+<li>a “PublicTrustRegistry” service entry with fragment name equal to <code>#ptr-schemas-public-registry</code>, that MUST point to the API of the DID’s trust registry in the DTR.</li>
 </ul>
 <p>Example:</p>
 <pre class="language-json"><code class="language-json">  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -562,7 +562,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>a “LinkedVerifiablePresentation” service entry with fragment name equal to <code>#ptr-essential-schemas-org-credential-schema-credential</code>, that MUST point to a self-issued <a class="term-reference" href="#term:json-schema-credential">json schema credential</a> of a DT json schema as specified in [ECS-ORG].</li>
 <li>a “LinkedVerifiablePresentation” service entry with fragment name equal to <code>#ptr-essential-schemas-person-credential-schema-credential</code>, that MUST point to a self-issued <a class="term-reference" href="#term:json-schema-credential">json schema credential</a> of a DT json schema as specified in [ECS-PERSON].</li>
 <li>a “LinkedVerifiablePresentation” service entry with fragment name equal to <code>#ptr-essential-schemas-user-agent-credential-schema-credential</code>, that MUST point to a self-issued <a class="term-reference" href="#term:json-schema-credential">json schema credential</a> of a DT json schema as specified in [ECS-USER-AGENT].</li>
-<li>a “PublicTrustRegistry” service entry with fragment name equal to <code>#ptr-essential-schemas-trust-registry</code>, that MUST point to the API URL of this DID’s trust registry in the PTR.</li>
+<li>a “PublicTrustRegistry” service entry with fragment name equal to <code>#ptr-essential-schemas-trust-registry</code>, that MUST point to the API URL of this DID’s trust registry in the DTR.</li>
 </ul>
 <p>Example:</p>
 <pre class="language-json"><code class="language-json">  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -598,10 +598,10 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 </code></pre>
 <h3 id="dt-cred-decentralized-trust-dt-credential"><a class="toc-anchor" href="#dt-cred-decentralized-trust-dt-credential" >§</a> [DT-CRED] Decentralized Trust (DT) Credential</h3>
 <p>A simple diagram for a clear understanding:</p>
-<img src="https://www.plantuml.com/plantuml/svg/hPCvJmCn48Lx_uhHGW65im52WYoAI51H8P8U-PYmZlQ8F1CEeVntxCt11WAYeDd3wtdlU-FPCR4ElAnACTuzaTKbGgLVuQhVXnVlk12DcQDboAPXIVo0JvuulC69h-5--d2QWIRW0Ey2m7cdseisLg4boQb4XasDMEsqRW8whDdhSc8BhFI-dALMBgdD1fVdWz7bcRmQdetaeEzG6eD3QSwnFyFPyCAETDmwfwP-f5PAmJjanzvb2dgz7cJikSJuaaqmF7kBdzRPgaDqEuMxA08RdiwkH3Gd2qSNC-FCS8TMC2z8vVdteBbZadQd8DTWdPLUuaqoH4iCl_PidMsoYRRrN72GHKDSwmhpdwjpI_cSyZyrSIMwlVYIFmPAzFizwC3ZgwuM9QeKl7cfCUnnVuhzGzSYPvoFQodJr2c8dpKZT4_ioqY9T7XfVonJq7h2rZF1huD4XRi3m60qnTnnC3eZ1cLZescihB_RnZKkC3cBRTUIUOHGS3kTGDkUZQTdYcjW3zWTX6ch79Yt0p6466FjsjzvVVy0" alt="uml diagram">
+<img src="https://www.plantuml.com/plantuml/svg/hLCxRzj03DxlLn1gXtOuoqaSEpXqCD1C6MFlnJtewWmzZ2FT90ZytykJ7v4Jj-ZGHG-A_5v7pObjucrJg_dfYRoj4Hhx37VZCJp5m9Ngt1ezGx5CM-97_1c9qmjyYItSBn-_5c09EC6h0WWncFvYdJVeINCUqUametOdhEy90xOSRRtm5JRs7CvJ3vVHLfFRwydizahVJQzcUZ8Eg9t3gNRNE5xXQdhZPrPQrzIrFwY7Cl0AnUSO2WEZqGWAZboZl1GBJB-YnpVgOZTGTB-41m61Wvv1LrQq9W-VRbOkkEb9MiMy8LEM7usMWKdx4uBU2njKHbblXY7QOlfhPdjlYuEr8-U6awuwujOsMFvvklHKhgdyfn1tQfZ5E_zYAAi_ps0W7fzjiwdHPEFTKulfJFSRs7z8JNJAVdpJEc-T0Vbi6M5uOkzMIkN3o_qoPg3dX2Dd5hyt8WWF5mI3ioI-PJ46AmPrvuLK9jkFj5BZ2ZEpEgQMoKM4aU82-dWEd959Qk0lq5qKqqy5S2yNR2WrnpRql_F-_Xi0" alt="uml diagram">
 <p>A DT Credential MUST have a <code>credentialSchema</code> property:</p>
 <ul>
-<li><code>id</code> must point to a <a class="term-reference" href="#term:json-schema-credential">json schema credential</a> issued by the trust registry <a class="term-reference" href="#term:did">DID</a> owner of the schema in the PTR;</li>
+<li><code>id</code> must point to a <a class="term-reference" href="#term:json-schema-credential">json schema credential</a> issued by the trust registry <a class="term-reference" href="#term:did">DID</a> owner of the schema in the DTR;</li>
 <li><code>type</code> MUST be <code>JsonSchemaCredential</code>.</li>
 </ul>
 <p>As a matter of fact, a DT Credential MUST conform to the dereferenced <a class="term-reference" href="#term:json-schema">json schema</a> of the <code>JsonSchemaCredential</code>.</p>
@@ -638,10 +638,10 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[DTS-REQ-1] A <a class="term-reference" href="#term:dts">DTS</a> MUST be identified by a <a class="term-reference" href="#term:did">DID</a>. The <a class="term-reference" href="#term:did">DID</a> of a <a class="term-reference" href="#term:dts">DTS</a> MUST resolve to a <a class="term-reference" href="#term:did-document">DID Document</a>.</li>
 <li>[DTS-REQ-2] A <a class="term-reference" href="#term:dts">DTS</a> DID Document MUST present a DTS Service Essential Credential that conforms to [DT-EC-SERVICE].</li>
 <li>[DTS-REQ-3] If the issuer of the DTS Service Essential Credential of [DTS-REQ-2] is the <a class="term-reference" href="#term:did">DID</a> of this service, service DID Document MUST present a credential that conforms to [DT-EC-ORG] or (exclusive) a [DT-EC-PERSON].</li>
-<li>[DTS-REQ-4] If the issuer of the PTR DTS Credential of [DTS-REQ-2] is not the <a class="term-reference" href="#term:did">DID</a> of this service, issuer service MUST be a [DTS-REQ] <a class="term-reference" href="#term:dts">DTS</a> that conforms to [DTS-REQ-3].</li>
-<li>[DTS-REQ-5] A compliant <a class="term-reference" href="#term:dts">DTS</a> MUST dereference all service credentials, User Agent credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Public Trust Registry API,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
+<li>[DTS-REQ-4] If the issuer of the DTR DTS Credential of [DTS-REQ-2] is not the <a class="term-reference" href="#term:did">DID</a> of this service, issuer service MUST be a [DTS-REQ] <a class="term-reference" href="#term:dts">DTS</a> that conforms to [DTS-REQ-3].</li>
+<li>[DTS-REQ-5] A compliant <a class="term-reference" href="#term:dts">DTS</a> MUST dereference all service credentials, User Agent credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Decentralized Trust Registry API,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
 </ul>
-<div id="note-19" class="notice note"><a class="notice-link" href="#note-19">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
+<div id="note-22" class="notice note"><a class="notice-link" href="#note-22">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
 </div>
 <ul>
 <li>[DTS-REQ-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional DTS Credential that conforms to [DT-CRED].</li>
@@ -670,9 +670,9 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[DTUA-REQ-1] A <a class="term-reference" href="#term:dtua">DTUA</a> MUST be identified by a <a class="term-reference" href="#term:did">DID</a>. The <a class="term-reference" href="#term:did">DID</a> of a <a class="term-reference" href="#term:dtua">DTUA</a> MUST resolve to a <a class="term-reference" href="#term:did-document">DID Document</a>.</li>
 <li>[DTUA-REQ-2] A <a class="term-reference" href="#term:dtua">DTUA</a> DID Document MUST present a DTS Service Essential Credential that conforms to [DT-EC-ORGANIZATION].</li>
 <li>[DTUA-REQ-3] A <a class="term-reference" href="#term:dtua">DTUA</a> DID Document MUST present a DTS Service Essential Credential that conforms to [DT-EC-USER-AGENT].</li>
-<li>[DTUA-REQ-4] A compliant <a class="term-reference" href="#term:dtua">DTUA</a> MUST dereference all service credentials, User Agent credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Public Trust Registry API,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
+<li>[DTUA-REQ-4] A compliant <a class="term-reference" href="#term:dtua">DTUA</a> MUST dereference all service credentials, User Agent credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Decentralized Trust Registry API,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
 </ul>
-<div id="note-20" class="notice note"><a class="notice-link" href="#note-20">NOTE</a><p>In other words, a to be a DTUA, a User Agent MUST identify itself to the other end by sharing its DID, and the other end MUST verify it complies with [DTUA-REQ]</p>
+<div id="note-23" class="notice note"><a class="notice-link" href="#note-23">NOTE</a><p>In other words, a to be a DTUA, a User Agent MUST identify itself to the other end by sharing its DID, and the other end MUST verify it complies with [DTUA-REQ]</p>
 </div>
 <h3 id="dts-conn-dts-requirements-for-a-dts-to-accept-a-connection-from-another-service"><a class="toc-anchor" href="#dts-conn-dts-requirements-for-a-dts-to-accept-a-connection-from-another-service" >§</a> [DTS-CONN-DTS] Requirements for a DTS to accept a connection from another service</h3>
 <p>When a <a class="term-reference" href="#term:dts">DTS</a> start a DIDComm session with a service, <a class="term-reference" href="#term:dts">DTS</a> MUST verify service complies with [DTS-SPEC], else DTS MUST NOT connect to service.</p>
@@ -682,10 +682,10 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <p>When a <a class="term-reference" href="#term:dtua">DTUA</a> start a DIDComm session with a service, <a class="term-reference" href="#term:dtua">DTUA</a> MUST verify DTS complies with [DTS-SPEC], else DTUA MUST NOT connect to DTS.</p>
 <h3 id="dtua-conn-dtua-requirements-for-a-dtua-to-accept-connecting-to-a-another-user-agent"><a class="toc-anchor" href="#dtua-conn-dtua-requirements-for-a-dtua-to-accept-connecting-to-a-another-user-agent" >§</a> [DTUA-CONN-DTUA] Requirements for a DTUA to accept connecting to a another User Agent</h3>
 <p>When a <a class="term-reference" href="#term:dtua">DTUA</a> start a DIDComm session with another User Agent, <a class="term-reference" href="#term:dtua">DTUA</a> MUST verify that the peer User Agent complies with [DTUA-SPEC], else <a class="term-reference" href="#term:dtua">DTUA</a> MUST drop the connection.</p>
-<h3 id="tr-wl-ptr-and-trust-registry-whitelists"><a class="toc-anchor" href="#tr-wl-ptr-and-trust-registry-whitelists" >§</a> [TR-WL] PTR and Trust Registry whitelists</h3>
-<p>Compliant <a class="term-reference" href="#term:dtss">DTSs</a> and <a class="term-reference" href="#term:dtuas">DTUAs</a> MUST maintain a list of trusted PTRs and trusted DT Essential Credential issuers, and ignore PTRs and DT ECS issuers that are not in these lists when resolving trust:</p>
+<h3 id="tr-wl-dtr-and-trust-registry-whitelists"><a class="toc-anchor" href="#tr-wl-dtr-and-trust-registry-whitelists" >§</a> [TR-WL] DTR and Trust Registry whitelists</h3>
+<p>Compliant <a class="term-reference" href="#term:dtss">DTSs</a> and <a class="term-reference" href="#term:dtuas">DTUAs</a> MUST maintain a list of trusted DTRs and trusted DT Essential Credential issuers, and ignore DTRs and DT ECS issuers that are not in these lists when resolving trust:</p>
 <ul>
-<li>[TR-WL-PTR]: A list of prefix URLs of trusted PTRs (registry of registries).</li>
+<li>[TR-WL-DTR]: A list of prefix URLs of trusted DTRs (registry of registries).</li>
 </ul>
 <p>Example:</p>
 <pre class="language-json"><code class="language-json">
@@ -730,9 +730,9 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
   <span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="tr-resol-verification-of-permission-in-public-trust-registries"><a class="toc-anchor" href="#tr-resol-verification-of-permission-in-public-trust-registries" >§</a> [TR-RESOL] Verification of permission in Public Trust Registries</h3>
-<p>The [MOD-CSP-QRY-3] of <a class="term-reference" href="#term:ptr">PTR</a> spec is used for querying trust registry.</p>
-<p>Please refer to [MOD-TRQP-2] /entities/{entityVID}/authorization in <a class="term-reference" href="#term:ptr">PTR</a> specs.</p>
+<h3 id="tr-resol-verification-of-permission-in-decentralized-trust-registries"><a class="toc-anchor" href="#tr-resol-verification-of-permission-in-decentralized-trust-registries" >§</a> [TR-RESOL] Verification of permission in Decentralized Trust Registries</h3>
+<p>The [MOD-CSP-QRY-3] of <a class="term-reference" href="#term:dtr">DTR</a> spec is used for querying trust registry.</p>
+<p>Please refer to [MOD-TRQP-2] /entities/{entityVID}/authorization in <a class="term-reference" href="#term:dtr">DTR</a> specs.</p>
 <p>Example #1: check if issuer <code>did:web:service-credential-issuer</code> is granted issuance of credential schema <code>f4524751-8617-40de-bbe6-b2e0fef63c7a</code> for country <code>fr</code>:</p>
 <p><code>GET /ptr-X.Y/csp/authorized_issuer/did:web:service-credential-issuer/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr</code></p>
 <p>Response:</p>
@@ -833,7 +833,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <span class="token punctuation">}</span>
 
 </code></pre>
-<div id="note-21" class="notice note"><a class="notice-link" href="#note-21">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
+<div id="note-24" class="notice note"><a class="notice-link" href="#note-24">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
 </div>
 <p>org-credential-presentation.json:</p>
 <pre class="language-json"><code class="language-json">
@@ -1016,7 +1016,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 </code></pre>
 <h3 id="crawlers"><a class="toc-anchor" href="#crawlers" >§</a> Crawlers</h3>
 <p><em>This section is non normative.</em></p>
-<p>Crawlers will query the <a class="term-reference" href="#term:did-directory">DID Directory</a> <code>/did-directory/list</code> method of a <a class="term-reference" href="#term:ptr">PTR</a> to get the <a class="term-reference" href="#term:dids">DIDs</a> of registered <a class="term-reference" href="#term:dtss">DTSs</a> and resolve them to build an index by recursively resolving all linked data.</p>
+<p>Crawlers will query the <a class="term-reference" href="#term:did-directory">DID Directory</a> <code>/did-directory/list</code> method of a <a class="term-reference" href="#term:dtr">DTR</a> to get the <a class="term-reference" href="#term:dids">DIDs</a> of registered <a class="term-reference" href="#term:dtss">DTSs</a> and resolve them to build an index by recursively resolving all linked data.</p>
 <p>For more information, please refer to the <a path-0="github.com"path-1="verana-labs"path-2="public-trust-registry-specs"href="https://github.com/verana-labs/public-trust-registry-specs" >public-trust-registry-specs</a>.</p>
 <img src="https://www.plantuml.com/plantuml/svg/bPB1QiCm44Jl-eebliPKSI4kfXJJ-f9psm-GlPj6hMAbacmda8-lPKM6u5DF6cbcXtsWqZfXN7TKh9oLROGYE8epF74EWqHtOBh-fiR1gjfLK4apQcqkAn0MK2BEzfiHWo8p6KtGa3pkQwotSsRN8fsdXFHguLSVxv1iGhUp6qZoRPuJtljPzBE5_shqO6yxr453mddDztpEVCP0Dmhc4U3vcgRppWL8HqOu0jsFLq-DaPh5K9fUNyAA1HYoMlNaaslu8WTAjZ-4QN-ownid2YSMiza_PYFCD3kz5_3RaRc4otttpMyCZHGFtGazJ2XZ7Zhmnie2x44FVfDEELPIYzEN2ESV" alt="uml diagram">
 <h3 id="browser-display-of-trust-resolution"><a class="toc-anchor" href="#browser-display-of-trust-resolution" >§</a> Browser Display of Trust Resolution</h3>
@@ -1086,8 +1086,8 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li><a href="#dts-conn-dtua-requirements-for-a-dts-to-accept-a-connection-from-a-dtua-user-agent" >[DTS-CONN-DTUA] Requirements for a DTS to accept a connection from a DTUA User Agent</a></li>
 <li><a href="#dtua-conn-dts-requirements-for-a-dtua-to-accept-connecting-to-a-service" >[DTUA-CONN-DTS] Requirements for a DTUA to accept connecting to a service</a></li>
 <li><a href="#dtua-conn-dtua-requirements-for-a-dtua-to-accept-connecting-to-a-another-user-agent" >[DTUA-CONN-DTUA] Requirements for a DTUA to accept connecting to a another User Agent</a></li>
-<li><a href="#tr-wl-ptr-and-trust-registry-whitelists" >[TR-WL] PTR and Trust Registry whitelists</a></li>
-<li><a href="#tr-resol-verification-of-permission-in-public-trust-registries" >[TR-RESOL] Verification of permission in Public Trust Registries</a></li>
+<li><a href="#tr-wl-dtr-and-trust-registry-whitelists" >[TR-WL] DTR and Trust Registry whitelists</a></li>
+<li><a href="#tr-resol-verification-of-permission-in-decentralized-trust-registries" >[TR-RESOL] Verification of permission in Decentralized Trust Registries</a></li>
 <li><a href="#example" >Example</a></li>
 <li><a href="#crawlers" >Crawlers</a></li>
 <li><a href="#browser-display-of-trust-resolution" >Browser Display of Trust Resolution</a>

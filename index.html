@@ -173,7 +173,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li><code>privacyPolicyHash</code> (string) (<em>optional</em>): If privacy policy of the service are stored in a file, optional hash of the file for data integrity verification.</li>
 <li><code>rewardsAccount</code> (string) (<em>optional</em>): DTR account where rewards should be transferred.</li>
 </ul>
-<div id="todo-12" class="notice todo"><a class="notice-link" href="#todo-12">TODO</a><p>Define DTS types</p>
+<div id="todo-14" class="notice todo"><a class="notice-link" href="#todo-14">TODO</a><p>Define DTS types</p>
 </div>
 <p>the resulting <code>json_schema</code> attribute will be the following Json Schema. Replace:</p>
 <ul>
@@ -628,7 +628,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[DTS-REQ-4] If the issuer of the DT Service Credential of [DTS-REQ-2] is not the <a class="term-reference" href="#term:did">DID</a> of this service, issuer service MUST be a [DTS-REQ] <a class="term-reference" href="#term:dts">DTS</a> that conforms to [DTS-REQ-3].</li>
 <li>[DTS-REQ-5] A compliant <a class="term-reference" href="#term:dts">DTS</a> MUST dereference all service credentials, User Agent credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Decentralized Trust Registry API,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
 </ul>
-<div id="note-34" class="notice note"><a class="notice-link" href="#note-34">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
+<div id="note-40" class="notice note"><a class="notice-link" href="#note-40">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
 </div>
 <ul>
 <li>[DTS-REQ-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional DTS Credential that conforms to [DT-CRED].</li>
@@ -659,7 +659,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[DTUA-REQ-3] A <a class="term-reference" href="#term:dtua">DTUA</a> DID Document MUST present a DT User Agent Essential Credential that conforms to [DT-EC-USER-AGENT].</li>
 <li>[DTUA-REQ-4] A compliant <a class="term-reference" href="#term:dtua">DTUA</a> MUST dereference all service credentials, User Agent credentials, DID Documents, verify DT Json Schema Credentials, Json Schema hashes, use the Decentralized Trust Registry API,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
 </ul>
-<div id="note-35" class="notice note"><a class="notice-link" href="#note-35">NOTE</a><p>In other words, a to be a DTUA, a User Agent MUST identify itself to the other end by sharing its DID, and the other end MUST verify it complies with [DTUA-REQ]</p>
+<div id="note-41" class="notice note"><a class="notice-link" href="#note-41">NOTE</a><p>In other words, a to be a DTUA, a User Agent MUST identify itself to the other end by sharing its DID, and the other end MUST verify it complies with [DTUA-REQ]</p>
 </div>
 <h3 id="dts-conn-dts-requirements-for-a-dts-to-accept-a-connection-from-another-service"><a class="toc-anchor" href="#dts-conn-dts-requirements-for-a-dts-to-accept-a-connection-from-another-service" >§</a> [DTS-CONN-DTS] Requirements for a DTS to accept a connection from another service</h3>
 <p>When a <a class="term-reference" href="#term:dts">DTS</a> start a DIDComm session with a service, <a class="term-reference" href="#term:dts">DTS</a> MUST verify service complies with [DTS-SPEC], else DTS MUST NOT connect to service.</p>
@@ -820,7 +820,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <span class="token punctuation">}</span>
 
 </code></pre>
-<div id="note-36" class="notice note"><a class="notice-link" href="#note-36">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
+<div id="note-42" class="notice note"><a class="notice-link" href="#note-42">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
 </div>
 <p>org-credential-presentation.json:</p>
 <pre class="language-json"><code class="language-json">

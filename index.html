@@ -173,7 +173,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li><code>privacyPolicyHash</code> (string) (<em>optional</em>): If privacy policy of the service are stored in a file, optional hash of the file for data integrity verification.</li>
 <li><code>rewardsAccount</code> (string) (<em>optional</em>): DTR account where rewards should be transferred.</li>
 </ul>
-<div id="todo-19" class="notice todo"><a class="notice-link" href="#todo-19">TODO</a><p>Define DTS types</p>
+<div id="todo-21" class="notice todo"><a class="notice-link" href="#todo-21">TODO</a><p>Define DTS types</p>
 </div>
 <p>the resulting <code>json_schema</code> attribute will be the following Json Schema. Replace:</p>
 <ul>
@@ -628,7 +628,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[DTS-REQ-4] If the issuer of the DT Service Credential of [DTS-REQ-2] is not the <a class="term-reference" href="#term:did">DID</a> of this service, issuer service MUST be a [DTS-REQ] <a class="term-reference" href="#term:dts">DTS</a> that conforms to [DTS-REQ-3].</li>
 <li>[DTS-REQ-5] A compliant <a class="term-reference" href="#term:dts">DTS</a> MUST dereference all service credentials, User Agent credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Decentralized Trust Registry API,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
 </ul>
-<div id="note-49" class="notice note"><a class="notice-link" href="#note-49">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
+<div id="note-52" class="notice note"><a class="notice-link" href="#note-52">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
 </div>
 <ul>
 <li>[DTS-REQ-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional DTS Credential that conforms to [DT-CRED].</li>
@@ -659,7 +659,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[DTUA-REQ-3] A <a class="term-reference" href="#term:dtua">DTUA</a> DID Document MUST present a DT User Agent Essential Credential that conforms to [DT-EC-USER-AGENT].</li>
 <li>[DTUA-REQ-4] A compliant <a class="term-reference" href="#term:dtua">DTUA</a> MUST dereference all service credentials, User Agent credentials, DID Documents, verify DT Json Schema Credentials, Json Schema hashes, use the Decentralized Trust Registry API,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
 </ul>
-<div id="note-50" class="notice note"><a class="notice-link" href="#note-50">NOTE</a><p>In other words, a to be a DTUA, a User Agent MUST identify itself to the other end by sharing its DID, and the other end MUST verify it complies with [DTUA-REQ]</p>
+<div id="note-53" class="notice note"><a class="notice-link" href="#note-53">NOTE</a><p>In other words, a to be a DTUA, a User Agent MUST identify itself to the other end by sharing its DID, and the other end MUST verify it complies with [DTUA-REQ]</p>
 </div>
 <h3 id="dts-conn-dts-requirements-for-a-dts-to-accept-a-connection-from-another-service"><a class="toc-anchor" href="#dts-conn-dts-requirements-for-a-dts-to-accept-a-connection-from-another-service" >§</a> [DTS-CONN-DTS] Requirements for a DTS to accept a connection from another service</h3>
 <p>When a <a class="term-reference" href="#term:dts">DTS</a> start a DIDComm session with a service, <a class="term-reference" href="#term:dts">DTS</a> MUST verify service complies with [DTS-SPEC], else DTS MUST NOT connect to service.</p>
@@ -718,7 +718,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <span class="token punctuation">}</span>
 </code></pre>
 <h3 id="tr-resol-verification-of-permission-in-decentralized-trust-registries"><a class="toc-anchor" href="#tr-resol-verification-of-permission-in-decentralized-trust-registries" >§</a> [TR-RESOL] Verification of permission in Decentralized Trust Registries</h3>
-<div id="todo-20" class="notice todo"><a class="notice-link" href="#todo-20">TODO</a><p>Use TRQP instead of native <a class="term-reference" href="#term:dtr">DTR</a> queries when TRQP stabilizes</p>
+<div id="todo-22" class="notice todo"><a class="notice-link" href="#todo-22">TODO</a><p>Use TRQP instead of native <a class="term-reference" href="#term:dtr">DTR</a> queries when TRQP stabilizes</p>
 </div>
 <p>Please refer to [MOD-CSP-QRY-3] and [MOD-CSP-QRY-4] in <a class="term-reference" href="#term:dtr">DTR</a> specs.</p>
 <p>Example #1: check if issuer <code>did:example:service-credential-issuer</code> is (was) granted issuance of credential schema <code>f4524751-8617-40de-bbe6-b2e0fef63c7a</code> to wallet_user_agent_did <code>did:example:wallet_user_agent</code> through <code>did:example:wallet_user_agent</code> for country <code>fr</code> at datetime <code>2024-10-31T01:48:52Z</code> for session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code>:</p>
@@ -738,7 +738,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
   <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"AUTHORIZED"</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>Example #2: check if verifier <code>did:example:verifier</code> is (was) granted presentation request of a credential from credential schema <code>f4524751-8617-40de-bbe6-b2e0fef63c7a</code> issued by issuer <code>did:example:service-credential-issuer</code> from wallet_user_agent_did <code>did:example:wallet_user_agent</code> through <code>did:example:wallet_user_agent</code> at datetime <code>2024-10-31T01:48:52Z</code> for session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code> and session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code>:</p>
+<p>Example #2: check if verifier <code>did:example:verifier</code> is (was) granted presentation request of a credential from credential schema <code>f4524751-8617-40de-bbe6-b2e0fef63c7a</code> issued by issuer <code>did:example:service-credential-issuer</code> from wallet_user_agent_did <code>did:example:wallet_user_agent</code> through <code>did:example:wallet_user_agent</code> for country <code>fr</code> at datetime <code>2024-10-31T01:48:52Z</code> for session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code> and session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code>:</p>
 <p><code>POST /dtr/v1/csp/authorized_issuer</code></p>
 <pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"verifier_did"</span><span class="token operator">:</span> <span class="token string">"did:example:verifier"</span><span class="token punctuation">,</span>
@@ -746,6 +746,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
   <span class="token property">"user_agent_did"</span><span class="token operator">:</span> <span class="token string">"did:example:wallet_user_agent"</span><span class="token punctuation">,</span>
   <span class="token property">"wallet_user_agent_did"</span><span class="token operator">:</span> <span class="token string">"did:example:wallet_user_agent"</span><span class="token punctuation">,</span>
   <span class="token property">"schema_id"</span><span class="token operator">:</span> <span class="token string">"f4524751-8617-40de-bbe6-b2e0fef63c7a"</span><span class="token punctuation">,</span>
+  <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"fr"</span><span class="token punctuation">,</span>
   <span class="token property">"when"</span><span class="token operator">:</span> <span class="token string">"2024-10-31T01:48:52Z"</span><span class="token punctuation">,</span>
   <span class="token property">"session_id"</span><span class="token operator">:</span> <span class="token string">"09b6d2e1-684f-443a-94ae-f6bc3112b2e5"</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span>
@@ -841,7 +842,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <span class="token punctuation">}</span>
 
 </code></pre>
-<div id="note-51" class="notice note"><a class="notice-link" href="#note-51">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
+<div id="note-54" class="notice note"><a class="notice-link" href="#note-54">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
 </div>
 <p>org-credential-presentation.json:</p>
 <pre class="language-json"><code class="language-json">

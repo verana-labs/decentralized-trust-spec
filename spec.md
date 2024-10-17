@@ -550,7 +550,7 @@ For each `CredentialSchema` entry a Trust Registry has created in a [[ref: DTR]]
 Additionally, in MUST present the DT Json Schema Credential(s) in its DIDDocument, as well as the corresponding trust registry entry for verification. To do so, it MUST define the following entries in its DIDDocument:
 
 - for each `CredentialSchema` entry it wants to be resolvable, a "LinkedVerifiablePresentation" service entry with a fragment that MUST start with to `#dtr-schemas`, that MUST point to a self-issued DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].
-- a "PublicTrustRegistry" service entry with fragment name equal to `#dtr-schemas-public-registry`, that MUST point to the API of the DID's trust registry in the DTR.
+- a "DecentralizedTrustRegistry" service entry with fragment name equal to `#dtr-schemas-public-registry`, that MUST point to the API of the DID's trust registry in the DTR.
 
 Example:
 
@@ -563,7 +563,7 @@ Example:
     },
     {
       "id": "did:abc:dl-trust-registry#dtr-schemas-trust-registry",
-      "type": "PublicTrustRegistry",
+      "type": "DecentralizedTrustRegistry",
       "version": "1.0",
       "serviceEndpoint": ["https://dtr-hostname/dtr/v1/"]
     }
@@ -577,7 +577,7 @@ If the Trust Registry wishes to provide ECS trust resolution, it MUST present 4 
 - a "LinkedVerifiablePresentation" service entry with fragment name equal to `#dtr-essential-schemas-org-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-ORG].
 - a "LinkedVerifiablePresentation" service entry with fragment name equal to `#dtr-essential-schemas-person-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-PERSON].
 - a "LinkedVerifiablePresentation" service entry with fragment name equal to `#dtr-essential-schemas-user-agent-credential-schema-credential`, that MUST point to a self-issued [[ref: json schema credential]] of a DT json schema as specified in [ECS-USER-AGENT].
-- a "PublicTrustRegistry" service entry with fragment name equal to `#dtr-essential-schemas-trust-registry`, that MUST point to the API URL of this DID's trust registry in the DTR.
+- a "DecentralizedTrustRegistry" service entry with fragment name equal to `#dtr-essential-schemas-trust-registry`, that MUST point to the API URL of this DID's trust registry in the DTR.
 
 Example:
 
@@ -605,7 +605,7 @@ Example:
     },
     {
       "id": "did:abc:ecs-trust-registry#dtr-essential-schemas-trust-registry",
-      "type": "PublicTrustRegistry",
+      "type": "DecentralizedTrustRegistry",
       "version": "1.0",
       "serviceEndpoint": ["https://dtr-hostname/dtr/v1/"]
     }
@@ -803,13 +803,27 @@ Example:
 
 ### [TR-RESOL] Verification of permission in Decentralized Trust Registries
 
-The [MOD-CSP-QRY-3] of [[ref: DTR]] spec is used for querying trust registry.
+:::todo
+Use TRQP instead of native [[ref: DTR]] queries when TRQP stabilizes
+:::
 
-Please refer to [MOD-TRQP-2] /entities/{entityVID}/authorization in [[ref: DTR]] specs.
+Please refer to [MOD-CSP-QRY-3] and [MOD-CSP-QRY-4] in [[ref: DTR]] specs.
 
-Example #1: check if issuer `did:web:service-credential-issuer` is granted issuance of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` for country `fr`:
+Example #1: check if issuer `did:example:service-credential-issuer` is (was) granted issuance of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` to wallet_user_agent_did `did:example:wallet_user_agent` through `did:example:wallet_user_agent` for country `fr` at datetime `2024-10-31T01:48:52Z` for session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
 
-`GET /dtr/v1/csp/authorized_issuer/did:web:service-credential-issuer/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr`
+`POST /dtr/v1/csp/authorized_issuer`
+
+```json
+{
+  "issuer_did": "did:example:service-credential-issuer",
+  "user_agent_did": "did:example:wallet_user_agent",
+  "wallet_user_agent_did": "did:example:wallet_user_agent",
+  "schema_id": "f4524751-8617-40de-bbe6-b2e0fef63c7a",
+  "country": "fr",
+  "when": "2024-10-31T01:48:52Z",
+  "session_id": "",
+}
+```
 
 Response:
 
@@ -819,9 +833,22 @@ Response:
 }
 ```
 
-Example #2: check if verifier `did:web:verifier` is granted verification of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` for country `fr`, issuer `did:web:service-credential-issuer` and session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
+Example #2: check if verifier `did:example:verifier` is (was) granted presentation request of a credential from credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` issued by issuer `did:example:service-credential-issuer` from wallet_user_agent_did `did:example:wallet_user_agent` through `did:example:wallet_user_agent` for country `fr` at datetime `2024-10-31T01:48:52Z` for session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5` and session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
 
-`GET /dtr/v1/csp/authorized_verifier/did:web:service-credential-issuer/did:web:verifier/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr/09b6d2e1-684f-443a-94ae-f6bc3112b2e5`
+`POST /dtr/v1/csp/authorized_issuer`
+
+```json
+{
+  "verifier_did": "did:example:verifier",
+  "issuer_did": "did:example:service-credential-issuer",
+  "user_agent_did": "did:example:wallet_user_agent",
+  "wallet_user_agent_did": "did:example:wallet_user_agent",
+  "schema_id": "f4524751-8617-40de-bbe6-b2e0fef63c7a",
+  "country": "fr",
+  "when": "2024-10-31T01:48:52Z",
+  "session_id": "",
+}
+```
 
 Response:
 
@@ -1098,7 +1125,7 @@ DID Document of did:abc:ecs-trust-registry:
     },
     {
       "id": "did:abc:ecs-trust-registry#dtr-essential-schemas-trust-registry",
-      "type": "PublicTrustRegistry",
+      "type": "DecentralizedTrustRegistry",
       "version": "1.0",
       "serviceEndpoint": ["https://dtr-hostname/dtr/v1/"]
     }
@@ -1119,7 +1146,7 @@ DID Document of did:example:trademark-trust-registry:
     },
     {
       "id": "did:example:trademark-trust-registry#dtr-schemas-trust-registry",
-      "type": "PublicTrustRegistry",
+      "type": "DecentralizedTrustRegistry",
       "version": "1.0",
       "serviceEndpoint": ["https://dtr-hostname/dtr/v1/"]
     }

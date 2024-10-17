@@ -173,7 +173,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li><code>privacyPolicyHash</code> (string) (<em>optional</em>): If privacy policy of the service are stored in a file, optional hash of the file for data integrity verification.</li>
 <li><code>rewardsAccount</code> (string) (<em>optional</em>): DTR account where rewards should be transferred.</li>
 </ul>
-<div id="todo-14" class="notice todo"><a class="notice-link" href="#todo-14">TODO</a><p>Define DTS types</p>
+<div id="todo-15" class="notice todo"><a class="notice-link" href="#todo-15">TODO</a><p>Define DTS types</p>
 </div>
 <p>the resulting <code>json_schema</code> attribute will be the following Json Schema. Replace:</p>
 <ul>
@@ -525,7 +525,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <p>Additionally, in MUST present the DT Json Schema Credential(s) in its DIDDocument, as well as the corresponding trust registry entry for verification. To do so, it MUST define the following entries in its DIDDocument:</p>
 <ul>
 <li>for each <code>CredentialSchema</code> entry it wants to be resolvable, a “LinkedVerifiablePresentation” service entry with a fragment that MUST start with to <code>#dtr-schemas</code>, that MUST point to a self-issued DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].</li>
-<li>a “PublicTrustRegistry” service entry with fragment name equal to <code>#dtr-schemas-public-registry</code>, that MUST point to the API of the DID’s trust registry in the DTR.</li>
+<li>a “DecentralizedTrustRegistry” service entry with fragment name equal to <code>#dtr-schemas-public-registry</code>, that MUST point to the API of the DID’s trust registry in the DTR.</li>
 </ul>
 <p>Example:</p>
 <pre class="language-json"><code class="language-json">  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -536,7 +536,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token punctuation">{</span>
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:abc:dl-trust-registry#dtr-schemas-trust-registry"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"PublicTrustRegistry"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"DecentralizedTrustRegistry"</span><span class="token punctuation">,</span>
       <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0"</span><span class="token punctuation">,</span>
       <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://dtr-hostname/dtr/v1/"</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
@@ -549,7 +549,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>a “LinkedVerifiablePresentation” service entry with fragment name equal to <code>#dtr-essential-schemas-org-credential-schema-credential</code>, that MUST point to a self-issued <a class="term-reference" href="#term:json-schema-credential">json schema credential</a> of a DT json schema as specified in [ECS-ORG].</li>
 <li>a “LinkedVerifiablePresentation” service entry with fragment name equal to <code>#dtr-essential-schemas-person-credential-schema-credential</code>, that MUST point to a self-issued <a class="term-reference" href="#term:json-schema-credential">json schema credential</a> of a DT json schema as specified in [ECS-PERSON].</li>
 <li>a “LinkedVerifiablePresentation” service entry with fragment name equal to <code>#dtr-essential-schemas-user-agent-credential-schema-credential</code>, that MUST point to a self-issued <a class="term-reference" href="#term:json-schema-credential">json schema credential</a> of a DT json schema as specified in [ECS-USER-AGENT].</li>
-<li>a “PublicTrustRegistry” service entry with fragment name equal to <code>#dtr-essential-schemas-trust-registry</code>, that MUST point to the API URL of this DID’s trust registry in the DTR.</li>
+<li>a “DecentralizedTrustRegistry” service entry with fragment name equal to <code>#dtr-essential-schemas-trust-registry</code>, that MUST point to the API URL of this DID’s trust registry in the DTR.</li>
 </ul>
 <p>Example:</p>
 <pre class="language-json"><code class="language-json">  <span class="token property">"service"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -575,7 +575,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token punctuation">{</span>
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:abc:ecs-trust-registry#dtr-essential-schemas-trust-registry"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"PublicTrustRegistry"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"DecentralizedTrustRegistry"</span><span class="token punctuation">,</span>
       <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0"</span><span class="token punctuation">,</span>
       <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://dtr-hostname/dtr/v1/"</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
@@ -628,7 +628,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[DTS-REQ-4] If the issuer of the DT Service Credential of [DTS-REQ-2] is not the <a class="term-reference" href="#term:did">DID</a> of this service, issuer service MUST be a [DTS-REQ] <a class="term-reference" href="#term:dts">DTS</a> that conforms to [DTS-REQ-3].</li>
 <li>[DTS-REQ-5] A compliant <a class="term-reference" href="#term:dts">DTS</a> MUST dereference all service credentials, User Agent credentials, DID Documents, verify DTS Json Schema Credentials, Json Schema hashes, use the Decentralized Trust Registry API,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
 </ul>
-<div id="note-40" class="notice note"><a class="notice-link" href="#note-40">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
+<div id="note-43" class="notice note"><a class="notice-link" href="#note-43">NOTE</a><p>In other words, a to be a DTS, a service MUST identify itself directly by presenting an Organization or a Person Essential Credential, or the issuer of its Service Essential Credential MUST identify itself by presenting an Organization or a Person Essential Credential.</p>
 </div>
 <ul>
 <li>[DTS-REQ-5] The service MAY issue, present through linked verifiable presentation entries, or request presentation of any additional DTS Credential that conforms to [DT-CRED].</li>
@@ -659,7 +659,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <li>[DTUA-REQ-3] A <a class="term-reference" href="#term:dtua">DTUA</a> DID Document MUST present a DT User Agent Essential Credential that conforms to [DT-EC-USER-AGENT].</li>
 <li>[DTUA-REQ-4] A compliant <a class="term-reference" href="#term:dtua">DTUA</a> MUST dereference all service credentials, User Agent credentials, DID Documents, verify DT Json Schema Credentials, Json Schema hashes, use the Decentralized Trust Registry API,… comply with [TR-WL] to resolve trust and ensure compliance by denying unauthorized actions.</li>
 </ul>
-<div id="note-41" class="notice note"><a class="notice-link" href="#note-41">NOTE</a><p>In other words, a to be a DTUA, a User Agent MUST identify itself to the other end by sharing its DID, and the other end MUST verify it complies with [DTUA-REQ]</p>
+<div id="note-44" class="notice note"><a class="notice-link" href="#note-44">NOTE</a><p>In other words, a to be a DTUA, a User Agent MUST identify itself to the other end by sharing its DID, and the other end MUST verify it complies with [DTUA-REQ]</p>
 </div>
 <h3 id="dts-conn-dts-requirements-for-a-dts-to-accept-a-connection-from-another-service"><a class="toc-anchor" href="#dts-conn-dts-requirements-for-a-dts-to-accept-a-connection-from-another-service" >§</a> [DTS-CONN-DTS] Requirements for a DTS to accept a connection from another service</h3>
 <p>When a <a class="term-reference" href="#term:dts">DTS</a> start a DIDComm session with a service, <a class="term-reference" href="#term:dts">DTS</a> MUST verify service complies with [DTS-SPEC], else DTS MUST NOT connect to service.</p>
@@ -718,17 +718,39 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <span class="token punctuation">}</span>
 </code></pre>
 <h3 id="tr-resol-verification-of-permission-in-decentralized-trust-registries"><a class="toc-anchor" href="#tr-resol-verification-of-permission-in-decentralized-trust-registries" >§</a> [TR-RESOL] Verification of permission in Decentralized Trust Registries</h3>
-<p>The [MOD-CSP-QRY-3] of <a class="term-reference" href="#term:dtr">DTR</a> spec is used for querying trust registry.</p>
-<p>Please refer to [MOD-TRQP-2] /entities/{entityVID}/authorization in <a class="term-reference" href="#term:dtr">DTR</a> specs.</p>
-<p>Example #1: check if issuer <code>did:web:service-credential-issuer</code> is granted issuance of credential schema <code>f4524751-8617-40de-bbe6-b2e0fef63c7a</code> for country <code>fr</code>:</p>
-<p><code>GET /dtr/v1/csp/authorized_issuer/did:web:service-credential-issuer/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr</code></p>
+<div id="todo-16" class="notice todo"><a class="notice-link" href="#todo-16">TODO</a><p>Use TRQP instead of native <a class="term-reference" href="#term:dtr">DTR</a> queries when TRQP stabilizes</p>
+</div>
+<p>Please refer to [MOD-CSP-QRY-3] and [MOD-CSP-QRY-4] in <a class="term-reference" href="#term:dtr">DTR</a> specs.</p>
+<p>Example #1: check if issuer <code>did:example:service-credential-issuer</code> is (was) granted issuance of credential schema <code>f4524751-8617-40de-bbe6-b2e0fef63c7a</code> to wallet_user_agent_did <code>did:example:wallet_user_agent</code> through <code>did:example:wallet_user_agent</code> for country <code>fr</code> at datetime <code>2024-10-31T01:48:52Z</code> for session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code>:</p>
+<p><code>POST /dtr/v1/csp/authorized_issuer</code></p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"issuer_did"</span><span class="token operator">:</span> <span class="token string">"did:example:service-credential-issuer"</span><span class="token punctuation">,</span>
+  <span class="token property">"user_agent_did"</span><span class="token operator">:</span> <span class="token string">"did:example:wallet_user_agent"</span><span class="token punctuation">,</span>
+  <span class="token property">"wallet_user_agent_did"</span><span class="token operator">:</span> <span class="token string">"did:example:wallet_user_agent"</span><span class="token punctuation">,</span>
+  <span class="token property">"schema_id"</span><span class="token operator">:</span> <span class="token string">"f4524751-8617-40de-bbe6-b2e0fef63c7a"</span><span class="token punctuation">,</span>
+  <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"fr"</span><span class="token punctuation">,</span>
+  <span class="token property">"when"</span><span class="token operator">:</span> <span class="token string">"2024-10-31T01:48:52Z"</span><span class="token punctuation">,</span>
+  <span class="token property">"session_id"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <p>Response:</p>
 <pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"AUTHORIZED"</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>Example #2: check if verifier <code>did:web:verifier</code> is granted verification of credential schema <code>f4524751-8617-40de-bbe6-b2e0fef63c7a</code> for country <code>fr</code>, issuer <code>did:web:service-credential-issuer</code> and session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code>:</p>
-<p><code>GET /dtr/v1/csp/authorized_verifier/did:web:service-credential-issuer/did:web:verifier/f4524751-8617-40de-bbe6-b2e0fef63c7a/ISSUER/fr/09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code></p>
+<p>Example #2: check if verifier <code>did:example:verifier</code> is (was) granted presentation request of a credential from credential schema <code>f4524751-8617-40de-bbe6-b2e0fef63c7a</code> issued by issuer <code>did:example:service-credential-issuer</code> from wallet_user_agent_did <code>did:example:wallet_user_agent</code> through <code>did:example:wallet_user_agent</code> for country <code>fr</code> at datetime <code>2024-10-31T01:48:52Z</code> for session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code> and session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code>:</p>
+<p><code>POST /dtr/v1/csp/authorized_issuer</code></p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"verifier_did"</span><span class="token operator">:</span> <span class="token string">"did:example:verifier"</span><span class="token punctuation">,</span>
+  <span class="token property">"issuer_did"</span><span class="token operator">:</span> <span class="token string">"did:example:service-credential-issuer"</span><span class="token punctuation">,</span>
+  <span class="token property">"user_agent_did"</span><span class="token operator">:</span> <span class="token string">"did:example:wallet_user_agent"</span><span class="token punctuation">,</span>
+  <span class="token property">"wallet_user_agent_did"</span><span class="token operator">:</span> <span class="token string">"did:example:wallet_user_agent"</span><span class="token punctuation">,</span>
+  <span class="token property">"schema_id"</span><span class="token operator">:</span> <span class="token string">"f4524751-8617-40de-bbe6-b2e0fef63c7a"</span><span class="token punctuation">,</span>
+  <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"fr"</span><span class="token punctuation">,</span>
+  <span class="token property">"when"</span><span class="token operator">:</span> <span class="token string">"2024-10-31T01:48:52Z"</span><span class="token punctuation">,</span>
+  <span class="token property">"session_id"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <p>Response:</p>
 <pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"AUTHORIZED"</span>
@@ -820,7 +842,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <span class="token punctuation">}</span>
 
 </code></pre>
-<div id="note-42" class="notice note"><a class="notice-link" href="#note-42">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
+<div id="note-45" class="notice note"><a class="notice-link" href="#note-45">NOTE</a><p>Here for trust resolution we need to get did:abc:ecs-trust-registry DIDDocument and verify its TrustRegistry entry (see DID Doc below)</p>
 </div>
 <p>org-credential-presentation.json:</p>
 <pre class="language-json"><code class="language-json">
@@ -974,7 +996,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token punctuation">{</span>
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:abc:ecs-trust-registry#dtr-essential-schemas-trust-registry"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"PublicTrustRegistry"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"DecentralizedTrustRegistry"</span><span class="token punctuation">,</span>
       <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0"</span><span class="token punctuation">,</span>
       <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://dtr-hostname/dtr/v1/"</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
@@ -992,7 +1014,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token punctuation">{</span>
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:trademark-trust-registry#dtr-schemas-trust-registry"</span><span class="token punctuation">,</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"PublicTrustRegistry"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"DecentralizedTrustRegistry"</span><span class="token punctuation">,</span>
       <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0"</span><span class="token punctuation">,</span>
       <span class="token property">"serviceEndpoint"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://dtr-hostname/dtr/v1/"</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span>

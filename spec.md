@@ -835,7 +835,7 @@ Response:
 
 Example #2: check if verifier `did:example:verifier` is (was) granted presentation request of a credential from credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` issued by issuer `did:example:service-credential-issuer` from wallet_user_agent_did `did:example:wallet_user_agent` through `did:example:wallet_user_agent` for country `fr` at datetime `2024-10-31T01:48:52Z` for session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5` and session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
 
-`POST /dtr/v1/csp/authorized_issuer`
+`POST /dtr/v1/csp/authorized_verifier`
 
 ```json
 {

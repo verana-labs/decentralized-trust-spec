@@ -809,7 +809,7 @@ Use TRQP instead of native [[ref: DTR]] queries when TRQP stabilizes
 
 Please refer to [MOD-CSP-QRY-3] and [MOD-CSP-QRY-4] in [[ref: DTR]] specs.
 
-Example #1: check if issuer `did:example:service-credential-issuer` is (was) granted issuance of credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` to wallet_user_agent_did `did:example:wallet_user_agent` through `did:example:wallet_user_agent` for country `fr` at datetime `2024-10-31T01:48:52Z` for session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
+Example #1: check if issuer `did:example:service-credential-issuer` is (was) granted issuance of credentials from credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` to wallet_user_agent_did `did:example:wallet_user_agent` through `did:example:wallet_user_agent` for country `fr` at datetime `2024-10-31T01:48:52Z` for session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
 
 `POST /dtr/v1/csp/authorized_issuer`
 

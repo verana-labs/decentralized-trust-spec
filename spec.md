@@ -543,6 +543,10 @@ DtJsonSchemaCredential.json:
 
 ```
 
+:::note
+This is subject to a slight update of [vc-json-schema](https://w3c.github.io/vc-json-schema/) as specified in this [issue](https://github.com/w3c/vc-json-schema/issues/235)
+:::
+
 ### [DT-TR-DIDDOC] Trust Registry DID Document
 
 For each `CredentialSchema` entry a Trust Registry has created in a [[ref: DTR]], the Trust Registry MUST self-issue the corresponding DT Json Schema Credential as specified in [DT-JSON-SCHEMA-CRED].

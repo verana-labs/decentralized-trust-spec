@@ -264,6 +264,7 @@ Credential subject object of schema MUST contain the following attributes:
 - `name` (string) (*mandatory*): name of the organization.
 - `logo` (image) (*mandatory*): the logo of the organization, as it will be shown in browsers and search engines.
 - `registryId` (string) (*mandatory*): registry id of the organization.
+- `registryUrl` (string) (*mandatory*): link to registry.
 - `address` (string) (*mandatory*): address of the organization.
 - `type` (enum) (*mandatory*): type of organization. PUBLIC, PRIVATE, FOUNDATION.
 - `countryCode` (string) (*mandatory*): country where the company is registered.
@@ -303,6 +304,11 @@ the resulting `json_schema` attribute will be the following Json Schema. Replace
           "minLength": 0,
           "maxLength": 256
         },
+        "registryUrl": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        },
         "address": {
           "type": "string",
           "minLength": 0,
@@ -323,6 +329,7 @@ the resulting `json_schema` attribute will be the following Json Schema. Replace
         "name",
         "logo",
         "registryId",
+        "registryUrl",
         "address",
         "type",
         "countryCode"
@@ -813,14 +820,14 @@ Use TRQP instead of native [[ref: DTR]] queries when TRQP stabilizes
 
 Please refer to [MOD-CSP-QRY-3] and [MOD-CSP-QRY-4] in [[ref: DTR]] specs.
 
-Example #1: check if issuer `did:example:service-credential-issuer` is (was) granted issuance of credentials from credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` to wallet_user_agent_did `did:example:wallet_user_agent` through `did:example:wallet_user_agent` for country `fr` at datetime `2024-10-31T01:48:52Z` for session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
+Example #1: check if issuer `did:example:service-credential-issuer` is (was) granted issuance of credentials from credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` to wallet_user_agent_did `did:example:wallet_user_agent` through user agent `did:example:user_agent` for country `fr` at datetime `2024-10-31T01:48:52Z` for session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
 
 `POST /dtr/v1/csp/authorized_issuer`
 
 ```json
 {
   "issuer_did": "did:example:service-credential-issuer",
-  "user_agent_did": "did:example:wallet_user_agent",
+  "user_agent_did": "did:example:user_agent",
   "wallet_user_agent_did": "did:example:wallet_user_agent",
   "schema_id": "f4524751-8617-40de-bbe6-b2e0fef63c7a",
   "country": "fr",
@@ -837,7 +844,7 @@ Response:
 }
 ```
 
-Example #2: check if verifier `did:example:verifier` is (was) granted presentation request of a credential from credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` issued by issuer `did:example:service-credential-issuer` from wallet_user_agent_did `did:example:wallet_user_agent` through `did:example:wallet_user_agent` for country `fr` at datetime `2024-10-31T01:48:52Z` for session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5` and session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
+Example #2: check if verifier `did:example:verifier` is (was) granted presentation request of a credential from credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` issued by issuer `did:example:service-credential-issuer` from wallet_user_agent_did `did:example:wallet_user_agent` through user agent `did:example:user_agent` for country `fr` at datetime `2024-10-31T01:48:52Z` for session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5` and session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
 
 `POST /dtr/v1/csp/authorized_verifier`
 
@@ -845,7 +852,7 @@ Example #2: check if verifier `did:example:verifier` is (was) granted presentati
 {
   "verifier_did": "did:example:verifier",
   "issuer_did": "did:example:service-credential-issuer",
-  "user_agent_did": "did:example:wallet_user_agent",
+  "user_agent_did": "did:example:user_agent",
   "wallet_user_agent_did": "did:example:wallet_user_agent",
   "schema_id": "f4524751-8617-40de-bbe6-b2e0fef63c7a",
   "country": "fr",

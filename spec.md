@@ -179,11 +179,11 @@ Define DTS types
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
+- `{$schema_id}` with the `schema_id` of the created `CredentialSchema` entry.
 
 ```json
 {
-  "$id": "https://dtr-hostname/dtr/v1/cs/js/{$uuid}",
+  "$id": "https://dtr-hostname/dtr/v1/cs/js/{$schema_id}",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "ServiceCredential",
   "description": "ServiceCredential using JsonSchema",
@@ -271,12 +271,12 @@ Credential subject object of schema MUST contain the following attributes:
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
+- `{$schema_id}` with the `schema_id` of the created `CredentialSchema` entry.
 
 
 ```json
 {
-  "$id": "https://dtr-hostname/dtr/v1/cs/{$uuid}/jsonschema",
+  "$id": "https://dtr-hostname/dtr/v1/cs/{$schema_id}/jsonschema",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "OrganizationCredential",
   "description": "OrganizationCredential using JsonSchema",
@@ -352,11 +352,11 @@ Credential subject object of schema MUST contain the following attributes:
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
+- `{$schema_id}` with the `schema_id` of the created `CredentialSchema` entry.
 
 ```json
 {
-  "$id": "https://dtr-hostname/dtr/v1/cs/{$uuid}/jsonschema",
+  "$id": "https://dtr-hostname/dtr/v1/cs/{$schema_id}/jsonschema",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "PersonCredential",
   "description": "PersonCredential using JsonSchema",
@@ -423,11 +423,11 @@ Credential subject object of schema MUST contain the following attributes:
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
+- `{$schema_id}` with the `schema_id` of the created `CredentialSchema` entry.
 
 ```json
 {
-  "$id": "https://dtr-hostname/dtr/v1/cs/js/{$uuid}",
+  "$id": "https://dtr-hostname/dtr/v1/cs/js/{$schema_id}",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "ServiceCredential",
   "description": "ServiceCredential using JsonSchema",
@@ -539,10 +539,10 @@ DtJsonSchemaCredential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://dtr-hostname/dtr/v1/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
+    "id": "https://dtr-hostname/dtr/v1/cs/js/12345678",
     "type": "JsonSchema",
     "jsonSchema": {
-      "$ref": "https://dtr-hostname/dtr/v1/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
+      "$ref": "https://dtr-hostname/dtr/v1/cs/js/12345678"
     },
     "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCeZ" 
   }
@@ -637,13 +637,13 @@ object "TrustRegistry (in DTR)" as tr {
   did: did:abc:ecs-trust-registry
 }
 object "CredentialSchema (in DTR)" as cs {
-  id: f4524751-8617-40de-bbe6-b2e0fef63c7a
+  id: 12345678
   json_schema: { "$id": ... "title": "ServiceCredential"}
 }
 object "DT Json Schema Credential" as jsc #3fbdb6 {
   id: https://ecs-trust-registry/dts-credential-schema-credential.json
   issuer: did:abc:ecs-trust-registry
-  jsonSchema: https://dtr-hostname/did:abc:ecs-trust-registry/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a
+  jsonSchema: https://dtr-hostname/did:abc:ecs-trust-registry/cs/js/12345678
 }
 
 object "DT Credential" as dtscred #3fbdb6 {
@@ -784,7 +784,7 @@ Example:
     },
     { 
       "name": "dtr-devnet",
-      "baseurl": "https://ecs-trust-registry-devnet/dtr/v1",
+      "baseurl": "https://ecs-trust-registry-devnet/dtr/v2",
       "version": "2"
       "production": false
     },
@@ -820,7 +820,7 @@ Use TRQP instead of native [[ref: DTR]] queries when TRQP stabilizes
 
 Please refer to [MOD-CSP-QRY-3] and [MOD-CSP-QRY-4] in [[ref: DTR]] specs.
 
-Example #1: check if issuer `did:example:service-credential-issuer` is (was) granted issuance of credentials from credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` to wallet_user_agent_did `did:example:wallet_user_agent` through user agent `did:example:user_agent` for country `fr` at datetime `2024-10-31T01:48:52Z` for session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
+Example #1: check if issuer `did:example:service-credential-issuer` is (was) granted issuance of credentials from credential schema `12345678` to wallet_user_agent_did `did:example:wallet_user_agent` through user agent `did:example:user_agent` for country `fr` at datetime `2024-10-31T01:48:52Z` for session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
 
 `POST /dtr/v1/csp/authorized_issuer`
 
@@ -829,7 +829,7 @@ Example #1: check if issuer `did:example:service-credential-issuer` is (was) gra
   "issuer_did": "did:example:service-credential-issuer",
   "user_agent_did": "did:example:user_agent",
   "wallet_user_agent_did": "did:example:wallet_user_agent",
-  "schema_id": "f4524751-8617-40de-bbe6-b2e0fef63c7a",
+  "schema_id": "12345678",
   "country": "fr",
   "when": "2024-10-31T01:48:52Z",
   "session_id": "09b6d2e1-684f-443a-94ae-f6bc3112b2e5"
@@ -844,7 +844,7 @@ Response:
 }
 ```
 
-Example #2: check if verifier `did:example:verifier` is (was) granted presentation request of a credential from credential schema `f4524751-8617-40de-bbe6-b2e0fef63c7a` issued by issuer `did:example:service-credential-issuer` from wallet_user_agent_did `did:example:wallet_user_agent` through user agent `did:example:user_agent` for country `fr` at datetime `2024-10-31T01:48:52Z` for session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5` and session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
+Example #2: check if verifier `did:example:verifier` is (was) granted presentation request of a credential from credential schema `12345678` issued by issuer `did:example:service-credential-issuer` from wallet_user_agent_did `did:example:wallet_user_agent` through user agent `did:example:user_agent` for country `fr` at datetime `2024-10-31T01:48:52Z` for session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5` and session_id `09b6d2e1-684f-443a-94ae-f6bc3112b2e5`:
 
 `POST /dtr/v1/csp/authorized_verifier`
 
@@ -854,7 +854,7 @@ Example #2: check if verifier `did:example:verifier` is (was) granted presentati
   "issuer_did": "did:example:service-credential-issuer",
   "user_agent_did": "did:example:user_agent",
   "wallet_user_agent_did": "did:example:wallet_user_agent",
-  "schema_id": "f4524751-8617-40de-bbe6-b2e0fef63c7a",
+  "schema_id": "12345678",
   "country": "fr",
   "when": "2024-10-31T01:48:52Z",
   "session_id": "09b6d2e1-684f-443a-94ae-f6bc3112b2e5"
@@ -955,10 +955,10 @@ service-credential-schema-credential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://dtr-hostname/dtr/v1/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a",
+    "id": "https://dtr-hostname/dtr/v1/cs/js/12345678",
     "type": "JsonSchema",
     "jsonSchema": {
-      "$ref": "https://dtr-hostname/dtr/v1/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"
+      "$ref": "https://dtr-hostname/dtr/v1/cs/js/12345678"
     },
     "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW" 
   }
@@ -1029,10 +1029,10 @@ org-credential-schema-credential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://dtr-hostname/dtr/v1/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b",
+    "id": "https://dtr-hostname/dtr/v1/cs/js/78901234",
     "type": "JsonSchema",
     "jsonSchema": {
-      "$ref": "https://dtr-hostname/dtr/v1/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b"
+      "$ref": "https://dtr-hostname/dtr/v1/cs/js/78901234"
     },
     "digestSRI": "sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"  
   }
@@ -1068,7 +1068,7 @@ trademark-credential-presentation.json:
         "type": "JsonSchemaCredential"
       }
       "credentialSchema": {
-        "id": "https://dtr-hostname/dtr/v1/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+        "id": "https://dtr-hostname/dtr/v1/cs/js/7358717246",
         "type": "JsonSchema",
         "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
       }
@@ -1104,10 +1104,10 @@ TrademarkJsonSchemaCredential.json:
     "digestSRI": "sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   },
   "credentialSubject": {
-    "id": "https://example-dtr/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+    "id": "https://example-dtr/cs/js/7358717246",
     "type": "JsonSchema",
     "jsonSchema": {
-       "$ref": "https://example-dtr/dtr/v1/cs/js/44219aeb-6094-40ca-9021-fda834d01487",
+       "$ref": "https://example-dtr/dtr/v1/cs/js/7358717246",
     }
     "digestSRI": "sha384-GHJSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"
   }

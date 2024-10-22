@@ -517,10 +517,10 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
     <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"</span><span class="token punctuation">,</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/12345678"</span><span class="token punctuation">,</span>
     <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span><span class="token punctuation">,</span>
     <span class="token property">"jsonSchema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"</span>
+      <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/12345678"</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCeZ"</span> 
   <span class="token punctuation">}</span>
@@ -594,7 +594,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 </code></pre>
 <h3 id="dt-cred-decentralized-trust-dt-credential"><a class="toc-anchor" href="#dt-cred-decentralized-trust-dt-credential" >§</a> [DT-CRED] Decentralized Trust (DT) Credential</h3>
 <p>A simple diagram for a clear understanding:</p>
-<img src="https://www.plantuml.com/plantuml/svg/hLCxRzj03DxlLn1AXtOuoqaSEpXqCD1C6MFlnJtew0mzWYFT90ZytykJ7v4Jj-ZGHG-A_5v7pObjuarJg_dnYRoj4Hhx0hVZCJp7m9Ngt1ezGx5C6-87V8p4wHM-nXRkbW_V2h04dE1D0OGOJ7-npXlqf3cFwBIVKTiZre-40LkEjbxu2Xjx2kUfXyjegydDrMHsSwblfvSpFHa7rCxXLBih7AzmDRtsCokjQ-hQdzH36NY3uaiCXO7HQ0G5HwvHNee5fb_HupjriHqekbl2lO30Ni-WAojQauUBwvKBRdgKLZ4_aIdBpqRBmAJz4K7lX0qgewmtmn1jCFqrivstnTxQWJDmqbL7tDe6opzFbvxADPN_5E9M3RFuu5yCPVMd6Gp4uujjdceqsNZtt68wqVqEzXzI4vso7z-rpbjdG3vRHXYUs8ULKldmSh-C6UWvuS2PnU-C2CBz6S7WB8blMOp1Ya7TUI6LoVOphTIumioi3gbbSX5XfBY0FfuzPsII6lWpT6V5z5C1tEiP6qhDiGtzxxox_mO0" alt="uml diagram">
+<img src="https://www.plantuml.com/plantuml/svg/hLDBJyCm3BxdLrY50nowZlSKSPZ4JXpPxYXD3CtK1uezDeJstt6whNHiSEBIDgxzFMndJ6m2BwfIZRiligP4gCmAHiCXBBtZGZNv72r3CWiBuYTyzSJX0yvy3PFPqta2Xe03V2e0vvrk7oQt6Ysb74lIiArHwmxh8Q33chqffxR0okp3MMhX8jh5vTNrpUtTI8vpQkfdQjCrV49owbsYOJ0OGCAUIvH3CiNmxYr-moVh7kja1ey20blENbPadPE5awkNtEMt7Nt1_4OwomxDP8ufjHr2kX7MYmoYtWX3jC3mPrystgPRQpjEno4j6kBQL9ZzNfrPokQKTOrQgxxV7nv5T5IuxxCd45UcUYjHHtFDiiQmf-qRx1yw8pfbplTf6hT7W_msZD2Voe_LK750CL_ADBISiEECuZT61E7nY6383Obl6NvlZQ1ih91APNr8Ap4kC3AhNTSYkOZG4fn2svujfsUI6DWZT4V5j5KEyeyZDfGQO-tQQxbvVm40" alt="uml diagram">
 <p>A DT Credential MUST have a <code>credentialSchema</code> property:</p>
 <ul>
 <li><code>id</code> must point to a <a class="term-reference" href="#term:json-schema-credential">json schema credential</a> issued by the trust registry <a class="term-reference" href="#term:did">DID</a> owner of the schema in the DTR;</li>
@@ -701,7 +701,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token punctuation">{</span> 
       <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"dtr-devnet"</span><span class="token punctuation">,</span>
-      <span class="token property">"baseurl"</span><span class="token operator">:</span> <span class="token string">"https://ecs-trust-registry-devnet/dtr/v1"</span><span class="token punctuation">,</span>
+      <span class="token property">"baseurl"</span><span class="token operator">:</span> <span class="token string">"https://ecs-trust-registry-devnet/dtr/v2"</span><span class="token punctuation">,</span>
       <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"2"</span>
       <span class="token property">"production"</span><span class="token operator">:</span> <span class="token boolean">false</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -730,13 +730,13 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
 <div id="todo-2" class="notice todo"><a class="notice-link" href="#todo-2">TODO</a><p>Use TRQP instead of native <a class="term-reference" href="#term:dtr">DTR</a> queries when TRQP stabilizes</p>
 </div>
 <p>Please refer to [MOD-CSP-QRY-3] and [MOD-CSP-QRY-4] in <a class="term-reference" href="#term:dtr">DTR</a> specs.</p>
-<p>Example #1: check if issuer <code>did:example:service-credential-issuer</code> is (was) granted issuance of credentials from credential schema <code>f4524751-8617-40de-bbe6-b2e0fef63c7a</code> to wallet_user_agent_did <code>did:example:wallet_user_agent</code> through user agent <code>did:example:user_agent</code> for country <code>fr</code> at datetime <code>2024-10-31T01:48:52Z</code> for session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code>:</p>
+<p>Example #1: check if issuer <code>did:example:service-credential-issuer</code> is (was) granted issuance of credentials from credential schema <code>12345678</code> to wallet_user_agent_did <code>did:example:wallet_user_agent</code> through user agent <code>did:example:user_agent</code> for country <code>fr</code> at datetime <code>2024-10-31T01:48:52Z</code> for session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code>:</p>
 <p><code>POST /dtr/v1/csp/authorized_issuer</code></p>
 <pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"issuer_did"</span><span class="token operator">:</span> <span class="token string">"did:example:service-credential-issuer"</span><span class="token punctuation">,</span>
   <span class="token property">"user_agent_did"</span><span class="token operator">:</span> <span class="token string">"did:example:user_agent"</span><span class="token punctuation">,</span>
   <span class="token property">"wallet_user_agent_did"</span><span class="token operator">:</span> <span class="token string">"did:example:wallet_user_agent"</span><span class="token punctuation">,</span>
-  <span class="token property">"schema_id"</span><span class="token operator">:</span> <span class="token string">"f4524751-8617-40de-bbe6-b2e0fef63c7a"</span><span class="token punctuation">,</span>
+  <span class="token property">"schema_id"</span><span class="token operator">:</span> <span class="token string">"12345678"</span><span class="token punctuation">,</span>
   <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"fr"</span><span class="token punctuation">,</span>
   <span class="token property">"when"</span><span class="token operator">:</span> <span class="token string">"2024-10-31T01:48:52Z"</span><span class="token punctuation">,</span>
   <span class="token property">"session_id"</span><span class="token operator">:</span> <span class="token string">"09b6d2e1-684f-443a-94ae-f6bc3112b2e5"</span>
@@ -747,14 +747,14 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
   <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"AUTHORIZED"</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>Example #2: check if verifier <code>did:example:verifier</code> is (was) granted presentation request of a credential from credential schema <code>f4524751-8617-40de-bbe6-b2e0fef63c7a</code> issued by issuer <code>did:example:service-credential-issuer</code> from wallet_user_agent_did <code>did:example:wallet_user_agent</code> through user agent <code>did:example:user_agent</code> for country <code>fr</code> at datetime <code>2024-10-31T01:48:52Z</code> for session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code> and session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code>:</p>
+<p>Example #2: check if verifier <code>did:example:verifier</code> is (was) granted presentation request of a credential from credential schema <code>12345678</code> issued by issuer <code>did:example:service-credential-issuer</code> from wallet_user_agent_did <code>did:example:wallet_user_agent</code> through user agent <code>did:example:user_agent</code> for country <code>fr</code> at datetime <code>2024-10-31T01:48:52Z</code> for session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code> and session_id <code>09b6d2e1-684f-443a-94ae-f6bc3112b2e5</code>:</p>
 <p><code>POST /dtr/v1/csp/authorized_verifier</code></p>
 <pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"verifier_did"</span><span class="token operator">:</span> <span class="token string">"did:example:verifier"</span><span class="token punctuation">,</span>
   <span class="token property">"issuer_did"</span><span class="token operator">:</span> <span class="token string">"did:example:service-credential-issuer"</span><span class="token punctuation">,</span>
   <span class="token property">"user_agent_did"</span><span class="token operator">:</span> <span class="token string">"did:example:user_agent"</span><span class="token punctuation">,</span>
   <span class="token property">"wallet_user_agent_did"</span><span class="token operator">:</span> <span class="token string">"did:example:wallet_user_agent"</span><span class="token punctuation">,</span>
-  <span class="token property">"schema_id"</span><span class="token operator">:</span> <span class="token string">"f4524751-8617-40de-bbe6-b2e0fef63c7a"</span><span class="token punctuation">,</span>
+  <span class="token property">"schema_id"</span><span class="token operator">:</span> <span class="token string">"12345678"</span><span class="token punctuation">,</span>
   <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"fr"</span><span class="token punctuation">,</span>
   <span class="token property">"when"</span><span class="token operator">:</span> <span class="token string">"2024-10-31T01:48:52Z"</span><span class="token punctuation">,</span>
   <span class="token property">"session_id"</span><span class="token operator">:</span> <span class="token string">"09b6d2e1-684f-443a-94ae-f6bc3112b2e5"</span>
@@ -841,10 +841,10 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
     <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"</span><span class="token punctuation">,</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/12345678"</span><span class="token punctuation">,</span>
     <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span><span class="token punctuation">,</span>
     <span class="token property">"jsonSchema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/f4524751-8617-40de-bbe6-b2e0fef63c7a"</span>
+      <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/12345678"</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span> 
   <span class="token punctuation">}</span>
@@ -907,10 +907,10 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
     <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b"</span><span class="token punctuation">,</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/78901234"</span><span class="token punctuation">,</span>
     <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span><span class="token punctuation">,</span>
     <span class="token property">"jsonSchema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/79c37ba1-370f-4008-a857-a7de6649c34b"</span>
+      <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/78901234"</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-ABCSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>  
   <span class="token punctuation">}</span>
@@ -943,7 +943,7 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
         <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchemaCredential"</span>
       <span class="token punctuation">}</span>
       <span class="token property">"credentialSchema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/44219aeb-6094-40ca-9021-fda834d01487"</span><span class="token punctuation">,</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://dtr-hostname/dtr/v1/cs/js/7358717246"</span><span class="token punctuation">,</span>
         <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span><span class="token punctuation">,</span>
         <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>
       <span class="token punctuation">}</span>
@@ -976,10 +976,10 @@ The key words MAY, MUST, MUST NOT, OPTIONAL, RECOMMENDED, REQUIRED, SHOULD, and 
     <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-S57yQDg1MTzF56Oi9DbSQ14u7jBy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example-dtr/cs/js/44219aeb-6094-40ca-9021-fda834d01487"</span><span class="token punctuation">,</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example-dtr/cs/js/7358717246"</span><span class="token punctuation">,</span>
     <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"JsonSchema"</span><span class="token punctuation">,</span>
     <span class="token property">"jsonSchema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-       <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"https://example-dtr/dtr/v1/cs/js/44219aeb-6094-40ca-9021-fda834d01487"</span><span class="token punctuation">,</span>
+       <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"https://example-dtr/dtr/v1/cs/js/7358717246"</span><span class="token punctuation">,</span>
     <span class="token punctuation">}</span>
     <span class="token property">"digestSRI"</span><span class="token operator">:</span> <span class="token string">"sha384-GHJSGyugst67rs67rdbugsy0RDdx0YbeV7shwhCS88G8SCXeFq82PafhCrW"</span>
   <span class="token punctuation">}</span>

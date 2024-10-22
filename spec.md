@@ -179,11 +179,11 @@ Define DTS types
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
+- `{$schema_id}` with the `schema_id` of the created `CredentialSchema` entry.
 
 ```json
 {
-  "$id": "https://dtr-hostname/dtr/v1/cs/js/{$uuid}",
+  "$id": "https://dtr-hostname/dtr/v1/cs/js/{$schema_id}",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "ServiceCredential",
   "description": "ServiceCredential using JsonSchema",
@@ -271,12 +271,12 @@ Credential subject object of schema MUST contain the following attributes:
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
+- `{$schema_id}` with the `schema_id` of the created `CredentialSchema` entry.
 
 
 ```json
 {
-  "$id": "https://dtr-hostname/dtr/v1/cs/{$uuid}/jsonschema",
+  "$id": "https://dtr-hostname/dtr/v1/cs/{$schema_id}/jsonschema",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "OrganizationCredential",
   "description": "OrganizationCredential using JsonSchema",
@@ -352,11 +352,11 @@ Credential subject object of schema MUST contain the following attributes:
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
+- `{$schema_id}` with the `schema_id` of the created `CredentialSchema` entry.
 
 ```json
 {
-  "$id": "https://dtr-hostname/dtr/v1/cs/{$uuid}/jsonschema",
+  "$id": "https://dtr-hostname/dtr/v1/cs/{$schema_id}/jsonschema",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "PersonCredential",
   "description": "PersonCredential using JsonSchema",
@@ -423,11 +423,11 @@ Credential subject object of schema MUST contain the following attributes:
 
 the resulting `json_schema` attribute will be the following Json Schema. Replace:
 
-- `{$uuid}` with the `uuid` of the created `CredentialSchema` entry.
+- `{$schema_id}` with the `schema_id` of the created `CredentialSchema` entry.
 
 ```json
 {
-  "$id": "https://dtr-hostname/dtr/v1/cs/js/{$uuid}",
+  "$id": "https://dtr-hostname/dtr/v1/cs/js/{$schema_id}",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "ServiceCredential",
   "description": "ServiceCredential using JsonSchema",

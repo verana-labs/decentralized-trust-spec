@@ -171,7 +171,6 @@ Credential subject object of schema MUST contain the following attributes:
 - `termsAndConditionsHash` (string) (*optional*): If terms and conditions of the service are stored in a file, optional hash of the file for data integrity verification.
 - `privacyPolicy` (string) (*mandatory*): URL of the terms and conditions of the service. MAY be the same URL that `terms_and_conditions` if file are combined. It is recommended to store privacy policy in a file repository that allows file hash verification (IPFS).
 - `privacyPolicyHash` (string) (*optional*): If privacy policy of the service are stored in a file, optional hash of the file for data integrity verification.
-- `rewardsAccount` (string) (*optional*): DTR account where rewards should be transferred.
 
 :::todo
 Define DTS types
@@ -235,9 +234,6 @@ the resulting `json_schema` attribute will be the following Json Schema. Replace
           "maxLength": 2048
         },
         "privacyPolicyHash": {
-          "type": "string"
-        },
-        "rewardsAccount": {
           "type": "string"
         }
       },
